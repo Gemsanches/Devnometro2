@@ -1,0 +1,119 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider
+    DefaultScrollbar="false" 
+    @bind-IsDarkMode="@_isDarkMode" 
+    Theme="_theme" />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar 
+        Dense="true"
+        Gutters="true"
+        Fixed="true"
+        Color="Color.Warning"
+        Elevation="2"
+        Class="ma-0">
+        <MudButtonGroup Variant="Variant.Filled" Color="Color.Dark">
+            <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info" Class="ml-20">
+                <ChildContent>
+                    <MudIconButton Icon="@Icons.Material.Filled.Save" Size="Size.Small"
+                        @onmouseover="MouseSobreSalvar"
+                        @onmouseleave="ResetarMensagem"/>
+                </ChildContent>
+                <TooltipContent>
+                    <MudText Typo="Typo.h5"><MudIcon Icon="@Icons.Material.Outlined.Save" /> Salvar <MudIcon Icon="@Icons.Material.Outlined.Save" /></MudText>
+                    <MudText Typo="Typo.body2">O Devnômetro, por padrão, salva</MudText>
+                    <MudText Typo="Typo.body2">automáticamente. Mas você pode</MudText>
+                    <MudText Typo="Typo.body2">salvar manualmente apertando</MudText>
+                    <MudText Typo="Typo.body2">esse botão.</MudText>
+                </TooltipContent>
+            </MudTooltip>
+            <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info" Class="ml-11">
+                <ChildContent>
+                    <MudIconButton Icon="@Icons.Material.Filled.HourglassDisabled" Size="Size.Small"
+                        @onmouseover="MouseSobrePararTudo"
+                        @onmouseleave="ResetarMensagem" />
+                </ChildContent>
+                <TooltipContent>
+                    <MudText Typo="Typo.h5"><MudIcon Icon="@Icons.Material.Outlined.HourglassDisabled" /> Parar Tudo <MudIcon Icon="@Icons.Material.Outlined.HourglassDisabled" /></MudText>
+                    <MudText Typo="Typo.body2">Interrompe todos os contadores</MudText>
+                    <MudText Typo="Typo.body2">ativos, sem ativar interrupções</MudText>
+                    <MudText Typo="Typo.body2">ou iniciar rotina de finalização</MudText>
+                    <MudText Typo="Typo.body2">(tempo deixará de ser contado).</MudText>
+                </TooltipContent>
+            </MudTooltip>
+            <MudButton Class="cursor-default"
+                       Style="width:108px"
+                       Disabled="true">
+                <MudText Color="Color.Warning" Typo="Typo.subtitle2">@mensagem</MudText>
+            </MudButton>
+            <MudTooltip Delay="1500" Duration="2500" Placement="Placement.Bottom" Color="Color.Info" Class="ml-n20">
+                <ChildContent>
+                    <MudMenu Icon="@Icons.Material.Filled.Menu"
+                             AnchorOrigin="Origin.BottomRight"
+                             TransformOrigin="Origin.BottomLeft"
+                             AriaLabel="Menu de opções"
+                             @onmouseover="MouseSobreMenu"
+                             @onmouseleave="ResetarMensagem">
+                        <MudMenuItem>Configurações</MudMenuItem>
+                        <MudMenuItem>Exportações</MudMenuItem>
+                        <MudMenuItem>Tema</MudMenuItem>
+                        <MudMenuItem>Sobre</MudMenuItem>
+                    </MudMenu>
+                </ChildContent>
+                <TooltipContent>
+                    <MudText Typo="Typo.h5"><MudIcon Icon="@Icons.Material.Outlined.Menu" /> Menu <MudIcon Icon="@Icons.Material.Outlined.Menu" /></MudText>
+                    <MudText Typo="Typo.body2">Abre o menu de opções:</MudText>
+                    <MudText Typo="Typo.body2" Align="Align.Start">Configurações - Opções gerais</MudText>
+                    <MudText Typo="Typo.body2" Align="Align.Start">Exportações - Exporte os dados</MudText>
+                    <MudText Typo="Typo.body2" Align="Align.Start">Sobre - Informações do APP</MudText>
+                </TooltipContent>
+            </MudTooltip>
+        </MudButtonGroup>
+    </MudAppBar>
+    <MudMainContent>
+        <MudSwitch @bind-Value="_isDarkMode" Color="Color.Primary" Class="ma-4" T="bool"/> 
+        @Body
+    </MudMainContent>
+</MudLayout>
+
+@code
+{
+    public MudTheme _theme = new ();
+    private bool _isDarkMode;
+    private string diaDeHoje = string.Empty;
+    private string mensagem = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        diaDeHoje = DateTime.Now.ToShortDateString();
+        mensagem = diaDeHoje;
+    }
+
+    private void ResetarMensagem()
+    {
+        mensagem = diaDeHoje;
+        StateHasChanged();
+    }
+
+    private void MouseSobreSalvar()
+    {
+        mensagem = "Salvar";
+        StateHasChanged();
+    }
+
+    private void MouseSobrePararTudo()
+    {
+        mensagem = "Parar tudo";
+        StateHasChanged();
+    }
+
+    private void MouseSobreMenu()
+    {
+        mensagem = "Menu";
+        StateHasChanged();
+    }
+}

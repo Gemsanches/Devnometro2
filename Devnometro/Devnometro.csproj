@@ -7,11 +7,21 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
 	<RootNamespace>Devnometro</RootNamespace>
+	<StartupObject>Devnometro.App</StartupObject>
+	<ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="icon.ico" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Wpf" Version="8.0.80" />
     <PackageReference Include="MudBlazor" Version="7.6.0" />
     <PackageReference Include="System.Text.Json" Version="8.0.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Janelas\" />
+    <Folder Include="Paginas\" />
   </ItemGroup>
 
 </Project>
