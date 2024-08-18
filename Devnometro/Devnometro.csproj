@@ -19,9 +19,5 @@
     <PackageReference Include="MudBlazor" Version="7.6.0" />
     <PackageReference Include="System.Text.Json" Version="8.0.4" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Janelas\" />
-    <Folder Include="Paginas\" />
-  </ItemGroup>
 
 </Project>

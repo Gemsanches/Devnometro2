@@ -1,13 +1,27 @@
-﻿﻿<h1>Counter</h1>
+﻿<MudThemeProvider DefaultScrollbar="false"/>
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />﻿
+
+<h1>Counter</h1>
 
 <p>Current count: @currentCount</p>
 
-<button class="btn-link btn-primary" @onclick="IncrementCount">Click me</button>
+<MudButton OnClick="IncrementCount">Click me</MudButton> 
+<MudButton OnClick="Teste">Teste</MudButton> 
 
 @code{
+    [Parameter]
+    public Configuracao? janela { get; set; }
+
     private int currentCount = 0;
     private void IncrementCount()
     {
         currentCount++;
+    }
+
+    private void Teste()
+    {
+        janela?.Alterar();
     }
 }

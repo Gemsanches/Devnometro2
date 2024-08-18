@@ -9,18 +9,12 @@
 <MudSnackbarProvider />
 
 <MudLayout>
-    <MudAppBar 
-        Dense="true"
-        Gutters="true"
-        Fixed="true"
-        Color="Color.Warning"
-        Elevation="2"
-        Class="ma-0">
+    <MudAppBar  Dense="true" Color="Color.Warning" Elevation="2" Class="ma-0">
         <MudButtonGroup Variant="Variant.Filled" Color="Color.Dark">
             <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info" Class="ml-20">
                 <ChildContent>
                     <MudIconButton Icon="@Icons.Material.Filled.Save" Size="Size.Small"
-                        @onmouseover="MouseSobreSalvar"
+                        @onmouseover='() => AplicarMensagem("Salvar")'
                         @onmouseleave="ResetarMensagem"/>
                 </ChildContent>
                 <TooltipContent>
@@ -34,7 +28,7 @@
             <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info" Class="ml-11">
                 <ChildContent>
                     <MudIconButton Icon="@Icons.Material.Filled.HourglassDisabled" Size="Size.Small"
-                        @onmouseover="MouseSobrePararTudo"
+                        @onmouseover='() => AplicarMensagem("Parar Tudo")'
                         @onmouseleave="ResetarMensagem" />
                 </ChildContent>
                 <TooltipContent>
@@ -45,9 +39,7 @@
                     <MudText Typo="Typo.body2">(tempo deixará de ser contado).</MudText>
                 </TooltipContent>
             </MudTooltip>
-            <MudButton Class="cursor-default"
-                       Style="width:108px"
-                       Disabled="true">
+            <MudButton Class="cursor-default" Style="width:108px" Disabled="true">
                 <MudText Color="Color.Warning" Typo="Typo.subtitle2">@mensagem</MudText>
             </MudButton>
             <MudTooltip Delay="1500" Duration="2500" Placement="Placement.Bottom" Color="Color.Info" Class="ml-n20">
@@ -56,9 +48,9 @@
                              AnchorOrigin="Origin.BottomRight"
                              TransformOrigin="Origin.BottomLeft"
                              AriaLabel="Menu de opções"
-                             @onmouseover="MouseSobreMenu"
+                             @onmouseover='() => AplicarMensagem("Menu")'
                              @onmouseleave="ResetarMensagem">
-                        <MudMenuItem>Configurações</MudMenuItem>
+                        <MudMenuItem OnClick="AbrirConfiguracao">Configurações</MudMenuItem>
                         <MudMenuItem>Exportações</MudMenuItem>
                         <MudMenuItem>Tema</MudMenuItem>
                         <MudMenuItem>Sobre</MudMenuItem>
@@ -87,10 +79,21 @@
     private string diaDeHoje = string.Empty;
     private string mensagem = string.Empty;
 
+    Configuracao janelaConfiguracao = new();
+
     protected override void OnInitialized()
     {
         diaDeHoje = DateTime.Now.ToShortDateString();
         mensagem = diaDeHoje;
+
+        janelaConfiguracao.AplicaAlteracoes += ReplicaAlteracoes;
+        //janelaConfiguracao.Closing += RetornoConfiguracoes;
+    }
+
+    private void AplicarMensagem(string texto)
+    {
+        mensagem = texto;
+        StateHasChanged();
     }
 
     private void ResetarMensagem()
@@ -99,21 +102,12 @@
         StateHasChanged();
     }
 
-    private void MouseSobreSalvar()
-    {
-        mensagem = "Salvar";
+    private void AbrirConfiguracao() => janelaConfiguracao.Show();
+    private void ReplicaAlteracoes(object? sender, EventArgs e) 
+    { /*reler e aplicar o arquivo de configurações*/
+        _isDarkMode = !_isDarkMode;
         StateHasChanged();
     }
+    //private void RetornoConfiguracoes(object? sender, EventArgs e) { }
 
-    private void MouseSobrePararTudo()
-    {
-        mensagem = "Parar tudo";
-        StateHasChanged();
-    }
-
-    private void MouseSobreMenu()
-    {
-        mensagem = "Menu";
-        StateHasChanged();
-    }
 }
