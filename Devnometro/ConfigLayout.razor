@@ -1,0 +1,97 @@
+﻿<MudThemeProvider DefaultScrollbar="false" />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar Elevation="1" Dense="true" Color="Color.Primary" Class="ma-0 pa-0">
+        <MudIconButton Icon="@Icone()" Color="Color.Dark" Edge="Edge.Start" Class="cursor-default" />
+        <MudText Typo="Typo.h6" Class="ml-5">@Exibicao()</MudText>
+        <MudSpacer />
+        <MudIconButton Icon="@Icone()" Color="Color.Dark" Edge="Edge.End" OnClick="Teste" Class="cursor-default" />
+    </MudAppBar>
+    <MudDrawer @bind-Open="@expandido"
+               Fixed="true"
+               Elevation="3"
+               ClipMode="DrawerClipMode.Always"
+               Anchor="Anchor.Left"
+               Variant="DrawerVariant.Mini"
+               Width="60"
+               OpenMiniOnHover="true">
+        <MudNavMenu>
+            <MudNavLink Icon="@Icons.Material.TwoTone.Settings" IconColor="Color.Warning" OnClick="()=>Selecionar(0)">Geral</MudNavLink>
+            <MudNavLink Icon="@Icons.Material.TwoTone.DriveFolderUpload" IconColor="Color.Warning" OnClick="()=>Selecionar(1)">Caminhos</MudNavLink>
+            <MudNavLink Icon=@Icons.Material.TwoTone.Palette IconColor="Color.Warning" OnClick="()=>Selecionar(2)">Tema</MudNavLink>
+            <MudDivider />
+            <MudNavLink Icon=@Icons.Material.TwoTone.Timer IconColor="Color.Info" OnClick="()=>Selecionar(10)">Contadores</MudNavLink>
+            <MudNavLink Icon=@Icons.Material.TwoTone.GroupWork IconColor="Color.Info" OnClick="()=>Selecionar(11)">Padrões</MudNavLink>
+        </MudNavMenu>
+        <MudSpacer />
+        <MudText Typo="Typo.subtitle1" Class="ma-1 pa-1">V:2.0</MudText>
+    </MudDrawer>
+    <MudMainContent>
+        @if (selecionado == 0)
+        {
+            <Devnometro.Configuracoes.Geral />
+        }
+        @if (selecionado == 1)
+        {
+            <Devnometro.Configuracoes.Caminho />
+        }
+        @if (selecionado == 2)
+        {
+            <Devnometro.Configuracoes.Tema />
+        }
+        @if (selecionado == 10)
+        {
+            <Devnometro.Cadastros.Contador />
+        }
+        @if (selecionado == 11)
+        {
+            <Devnometro.Cadastros.Padrao />
+        }
+    </MudMainContent>
+</MudLayout>
+
+
+@code {
+    [Parameter]
+    public Configuracao? janela { get; set; }
+
+    bool expandido = true;
+    void ExpandirRecolherMenu() => expandido = !expandido;
+
+    private int selecionado;
+    private void Selecionar(int i) => selecionado = i;
+
+    private string Exibicao()
+    {
+        switch (selecionado)
+        {
+            case 0: return "Configurações: Geral";
+            case 1: return "Configurações: Caminhos";
+            case 2: return "Configurações: Tema";
+            case 10: return "Cadastros: Contadores";
+            case 11: return "Cadastros: Padrões de cronômetros";
+            default: return "C̷̢̪͓̮̼͓̹̪̃͊͐͂̈͐̌͌͌͘͝ö̶̧̖͎̣͂̍n̶̬̫̹̞͓̈́f̸̟͇̦̪̟̄̏́̀͋͐͐̎̎̐̚̚͝i̵̡̘̩̘͕͋͆̐̑̌̈́̌͐̓͑g̶̢̢̘̬̩͉̪̯̜͕͚͎̣̪͕̒̓̔̂͊̅͒͌̂͊̀͑͗̇͌u̴̢̡̙̙͉͓̰͉͍̙̭̻̟͛̓̅̆͂͌̌̂̽̏͝r̷̹͍͎̦̆͌̄͘͝à̴̜̳̥̻͓͆͛͂́̇͐͂͐͘͜ç̵̣̗̪͑͗́͋̏͛̍̒͐̓͘͝͠õ̴̱͓͑̆̂̅͐̐́͗ę̶̢̼̺̙̩͔͇͎̈́s̶̡̖̳̗̱̹͇̯̣̞̗̤̩̆̈̆̒͠͝ ̸̫̐̿̈̽̉͛̉͑̄̌͑̇͠ͅ/̷̢̛̬̥̻͊̍̆͗͝ ̸̨̡̝̟̪͎̈́C̴̻͛̋͛͌̌̽̐̓̃̐͌̋̐à̴̡̧̧͇͇̮̙̻̝͚͍̫͉̃̔̇̈́ḏ̸̨͇̮̠̈̄͛͒͋̋̈̃̕͠͝a̵̳͕͇͚̙͆́̃̎ṣ̷̹̣̰͉̗̰̹͍̑̒̂̓̒͂t̷̯̒̒̋̎̃̓͂͗̿̑͒͂͝ṟ̶̠̲̺̩̜͇͖̹͛̈́̾̿̿͘ó̶̧͓̬̱͔̫̝͙̦͔̟͆̊̆̎̀͌͘͠ͅs̷̨͈̠̯̲̟̼̀̈́̂͆̆̍̍̉̚ͅ";
+        }
+    }
+
+    private string Icone()
+    {
+        switch (selecionado)
+        {
+            case 0: return MudBlazor.Icons.Material.Rounded.Settings;
+            case 1: return MudBlazor.Icons.Material.Rounded.DriveFolderUpload;
+            case 2: return MudBlazor.Icons.Material.Rounded.Palette;
+            case 10: return MudBlazor.Icons.Material.Rounded.Timer;
+            case 11: return MudBlazor.Icons.Material.Rounded.GroupWork;
+            default: return MudBlazor.Icons.Material.TwoTone.RemoveRedEye;
+        }
+    }
+
+    private void Teste()
+    {
+        janela?.Alterar();
+    }
+}

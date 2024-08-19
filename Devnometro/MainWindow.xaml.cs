@@ -23,4 +23,10 @@ public partial class MainWindow : Window
         serviceCollection.AddMudServices();
         Resources.Add("services", serviceCollection.BuildServiceProvider());
     }
+    protected override void OnClosed(EventArgs e)
+    {
+        base.OnClosed(e);
+
+        Application.Current.Shutdown();
+    }
 }

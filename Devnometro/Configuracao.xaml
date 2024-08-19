@@ -6,11 +6,11 @@
         xmlns:blazor="clr-namespace:Microsoft.AspNetCore.Components.WebView.Wpf;assembly=Microsoft.AspNetCore.Components.WebView.Wpf"
         xmlns:local="clr-namespace:Devnometro"
         mc:Ignorable="d"
-        Title="Configurações" Height="600" Width="800">
+        Title="Configurações" Height="600" Width="800" MinHeight="350" MinWidth="500">
     <Grid>
         <blazor:BlazorWebView HostPage="wwwroot\index.html" Services="{DynamicResource services}">
             <blazor:BlazorWebView.RootComponents>
-                <blazor:RootComponent x:Name="config" Selector="#app" ComponentType="{x:Type local:Counter}" />
+                <blazor:RootComponent x:Name="config" Selector="#app" ComponentType="{x:Type local:ConfigLayout}" />
             </blazor:BlazorWebView.RootComponents>
         </blazor:BlazorWebView>
     </Grid>

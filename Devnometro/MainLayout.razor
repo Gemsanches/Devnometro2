@@ -52,7 +52,6 @@
                              @onmouseleave="ResetarMensagem">
                         <MudMenuItem OnClick="AbrirConfiguracao">Configurações</MudMenuItem>
                         <MudMenuItem>Exportações</MudMenuItem>
-                        <MudMenuItem>Tema</MudMenuItem>
                         <MudMenuItem>Sobre</MudMenuItem>
                     </MudMenu>
                 </ChildContent>
@@ -85,9 +84,6 @@
     {
         diaDeHoje = DateTime.Now.ToShortDateString();
         mensagem = diaDeHoje;
-
-        janelaConfiguracao.AplicaAlteracoes += ReplicaAlteracoes;
-        //janelaConfiguracao.Closing += RetornoConfiguracoes;
     }
 
     private void AplicarMensagem(string texto)
@@ -102,7 +98,15 @@
         StateHasChanged();
     }
 
-    private void AbrirConfiguracao() => janelaConfiguracao.Show();
+    private void AbrirConfiguracao() 
+    {
+        janelaConfiguracao = new();
+
+        janelaConfiguracao.AplicaAlteracoes += ReplicaAlteracoes;
+        //janelaConfiguracao.Closing += RetornoConfiguracoes;
+
+        janelaConfiguracao.Show(); 
+    }
     private void ReplicaAlteracoes(object? sender, EventArgs e) 
     { /*reler e aplicar o arquivo de configurações*/
         _isDarkMode = !_isDarkMode;
