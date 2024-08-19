@@ -17,6 +17,19 @@
                ThumbIcon="@(temaEscuro==true ? Icons.Material.Filled.DarkMode : Icons.Material.Filled.LightMode)"
                ThumbIconColor="@(temaEscuro==true ? Color.Dark : Color.Warning)">Modo Claro/Escuro</MudSwitch>
 </MudPaper>
+
+<div style="width: 22px;
+            height: 22px;
+            border-top-left-radius: 5px;border-bottom-left-radius: 5px;
+            border-right: 1px solid black;
+            display: inline-block;
+            background-color: red;"></div><div style="width: 22px;
+            height: 22px;
+            border-top-right-radius: 5px;border-bottom-right-radius: 5px;
+            border-left: 1px solid black;
+            display: inline-block;
+            background-color: green;"></div>
+
 <MudPaper Class="pa-4 ma-4" Elevation="3" MaxWidth="575px">
     <MudRadioGroup @bind-Value="Selecionado">
         <MudRadio Value="1" Color="Color.Dark" Size="Size.Large">
