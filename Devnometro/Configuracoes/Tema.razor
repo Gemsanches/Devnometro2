@@ -1,10 +1,174 @@
-﻿<h3>Tema</h3>
+﻿<MudThemeProvider @bind-IsDarkMode="@temaEscuro" Theme="@TemaSelecionado" />
 
-<p>[_]Modo escuro</p>
-<p>Temas: [X]Defaut, [_]Padrão mudBlazor, [_]TealLove,[_] Monocromático</p>
-<p>Crie seu prórpio tema</p>@*??? fazer isso ou não:*@
+<MudPaper Class="pa-4 ma-4" Elevation="3" MaxWidth="575px">
+    <MudText>Tema atual</MudText>
+    <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Primary" />
+    <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Secondary" />
+    <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Tertiary" />
+    <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Info" />
+    <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Warning" />
+    <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Error" />
+    <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Success" />
+    <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Surface" />
+</MudPaper>
+<MudPaper Class="px-4 mx-4 py-1 my-0" Elevation="3" MaxWidth="575px">
+    <MudSwitch @bind-Value="temaEscuro"
+               Size="Size.Large"
+               ThumbIcon="@(temaEscuro==true ? Icons.Material.Filled.DarkMode : Icons.Material.Filled.LightMode)"
+               ThumbIconColor="@(temaEscuro==true ? Color.Dark : Color.Warning)">Modo Claro/Escuro</MudSwitch>
+</MudPaper>
+<MudPaper Class="pa-4 ma-4" Elevation="3" MaxWidth="575px">
+    <MudRadioGroup @bind-Value="Selecionado">
+        <MudRadio Value="1" Color="Color.Dark" Size="Size.Large">
+            <MudPaper Class="pa-2 ma-0" Elevation="2" MaxWidth="440px">
+                <MudGrid>
+                    <MudItem xl="4" lg="4" md="4" sm="4">
+                        <MudText Class="pt-2" Typo="Typo.h6">Padrão</MudText>
+                    </MudItem>
+                    <MudItem xl="8" lg="8" md="8" sm="8">
+                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Primary" />
+                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Secondary" />
+                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Tertiary" />
+                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Info" />
+                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Warning" />
+                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Error" />
+                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Success" />
+                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Surface" />
+                    </MudItem>
+                </MudGrid>
+            </MudPaper>
+        </MudRadio>
+        <MudRadio Value="2" Color="Color.Dark" Size="Size.Large">
+            <MudPaper Class="pa-2 ma-0" Elevation="2" MaxWidth="440px">
+                <MudGrid>
+                    <MudItem xl="4" lg="4" md="4" sm="4">
+                        <MudText Class="pt-2" Typo="Typo.h6">MudBlazor</MudText>
+                    </MudItem>
+                    <MudItem xl="8" lg="8" md="8" sm="8">
+                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Primary" />
+                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Secondary" />
+                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Tertiary" />
+                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Info" />
+                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Warning" />
+                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Error" />
+                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Success" />
+                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Surface" />
+                    </MudItem>
+                </MudGrid>
+            </MudPaper>
+        </MudRadio>
+        <MudRadio Value="3" Color="Color.Dark" Size="Size.Large">
+            <MudPaper Class="pa-2 ma-0" Elevation="2" MaxWidth="440px">
+                <MudGrid>
+                    <MudItem xl="4" lg="4" md="4" sm="4">
+                        <MudText Class="pt-2" Typo="Typo.h6">Teal Deal</MudText>
+                    </MudItem>
+                    <MudItem xl="8" lg="8" md="8" sm="8">
+                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Primary" />
+                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Secondary" />
+                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Tertiary" />
+                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Info" />
+                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Warning" />
+                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Error" />
+                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Success" />
+                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Surface" />
+                    </MudItem>
+                </MudGrid>
+            </MudPaper>
+        </MudRadio>
+        <MudRadio Value="4" Color="Color.Dark" Size="Size.Large">
+            <MudPaper Class="pa-2 ma-0" Elevation="2" MaxWidth="440px">
+                <MudGrid>
+                    <MudItem xl="4" lg="4" md="4" sm="4">
+                        <MudText Class="pt-2" Typo="Typo.h6">Monocromático</MudText>
+                    </MudItem>
+                    <MudItem xl="8" lg="8" md="8" sm="8">
+                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Primary" />
+                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Secondary" />
+                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Tertiary" />
+                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Info" />
+                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Warning" />
+                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Error" />
+                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Success" />
+                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Surface" />
+                    </MudItem>
+                </MudGrid>
+            </MudPaper>
+        </MudRadio>
+    </MudRadioGroup>
+</MudPaper>
 
 @code {
     [Parameter]
     public Configuracao? janela { get; set; }
+
+    private int _selecionado;
+    private int Selecionado 
+    {
+        get => _selecionado;
+        set
+        {
+            _selecionado = value;
+            switch (value)
+            {
+                case 2:
+                    TemaSelecionado = new();
+                    break;
+                case 3:
+                    TemaSelecionado = TemaTeal;
+                    break;
+                case 4:
+                    TemaSelecionado = TemaMono;
+                    break;
+                default:
+                    TemaSelecionado = TemaPadrao;
+                    break;
+            }
+        }
+    }
+    private bool temaEscuro;
+
+    MudTheme TemaSelecionado = new();
+
+    MudTheme TemaPadrao = new MudTheme()
+        {
+            PaletteLight = new PaletteLight()
+            {
+                Primary = Colors.Blue.Default,
+                Secondary = Colors.Green.Accent4,
+                AppbarBackground = Colors.Red.Default,
+            },
+            PaletteDark = new PaletteDark()
+            {
+                Primary = Colors.Blue.Lighten1
+            }
+        };
+
+    MudTheme TemaTeal = new MudTheme()
+        {
+            PaletteLight = new PaletteLight()
+            {
+                Primary = Colors.Blue.Default,
+                Secondary = Colors.Green.Accent4,
+                AppbarBackground = Colors.Red.Default
+            },
+            PaletteDark = new PaletteDark()
+            {
+                Primary = Colors.Blue.Lighten1
+            }
+        };
+
+    MudTheme TemaMono = new MudTheme()
+        {
+            PaletteLight = new PaletteLight()
+            {
+                Primary = Colors.Blue.Default,
+                Secondary = Colors.Green.Accent4,
+                AppbarBackground = Colors.Red.Default,
+            },
+            PaletteDark = new PaletteDark()
+            {
+                Primary = Colors.Blue.Lighten1
+            }
+        };
 }
