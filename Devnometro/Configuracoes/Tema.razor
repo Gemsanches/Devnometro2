@@ -1,114 +1,151 @@
 ﻿<MudThemeProvider @bind-IsDarkMode="@temaEscuro" Theme="@TemaSelecionado" />
 
-<MudPaper Class="pa-4 ma-4" Elevation="3" MaxWidth="575px">
-    <MudText>Tema atual</MudText>
-    <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Primary" />
-    <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Secondary" />
-    <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Tertiary" />
-    <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Info" />
-    <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Warning" />
-    <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Error" />
-    <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Success" />
-    <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Surface" />
+<style>
+    .cor-clara {
+        margin-left: 1px;
+        width: 36px;
+        height: 20px;
+        border-right: 1px solid black;
+        display: inline-block;
+    }
+
+    .cor-escura {
+        margin-right: 1px;
+        width: 36px;
+        height: 20px;
+        border-left: 1px solid black;
+        display: inline-block;
+    }
+</style>
+
+<MudPaper Class="pa-3 ma-3" Elevation="3" MaxWidth="575px" Style="background-color:#F5F0FF">
+    <MudText Color="Color.Dark">Tema atual</MudText>
+    <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-1" Color="Color.Primary">1°</MudButton>
+    <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-1" Color="Color.Secondary">2°</MudButton>
+    <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-1" Color="Color.Tertiary">3°</MudButton>
+    <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-1" Color="Color.Info">Info</MudButton>
+    <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-1" Color="Color.Warning">Aviso</MudButton>
+    <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-1" Color="Color.Error">Erro</MudButton>
+    <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-1" Color="Color.Success">Ok</MudButton>
+    <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-1" Color="Color.Surface">Fundo</MudButton>
 </MudPaper>
-<MudPaper Class="px-4 mx-4 py-1 my-0" Elevation="3" MaxWidth="575px">
+<MudPaper Class="px-3 mx-3 py-1 my-0" Elevation="3" MaxWidth="575px">
     <MudSwitch @bind-Value="temaEscuro"
                Size="Size.Large"
                ThumbIcon="@(temaEscuro==true ? Icons.Material.Filled.DarkMode : Icons.Material.Filled.LightMode)"
                ThumbIconColor="@(temaEscuro==true ? Color.Dark : Color.Warning)">Modo Claro/Escuro</MudSwitch>
 </MudPaper>
 
-<div style="width: 22px;
-            height: 22px;
-            border-top-left-radius: 5px;border-bottom-left-radius: 5px;
-            border-right: 1px solid black;
-            display: inline-block;
-            background-color: red;"></div><div style="width: 22px;
-            height: 22px;
-            border-top-right-radius: 5px;border-bottom-right-radius: 5px;
-            border-left: 1px solid black;
-            display: inline-block;
-            background-color: green;"></div>
+<MudPaper Class="pa-3 ma-3" Elevation="3" MaxWidth="575px">
+    <MudGrid>
+        <MudItem xl="1" lg="1" md="1" sm="1">
+            <MudRadioGroup @bind-Value="Selecionado">
+                <MudRadio Value="1" Color="Color.Dark" Size="Size.Large" Class="my-1"/>
+                <MudDivider/>
+                <MudRadio Value="2" Color="Color.Dark" Size="Size.Large" Class="my-2"/>
+                <MudDivider/>
+                <MudRadio Value="3" Color="Color.Dark" Size="Size.Large" Class="my-1"/>
+                <MudDivider/>
+                <MudRadio Value="4" Color="Color.Dark" Size="Size.Large" Class="mt-2 mb-n1"/>
+            </MudRadioGroup>
+        </MudItem>
+        <MudItem xl="11" lg="11" md="11" sm="11">
+            <MudPaper Class="pa-2 ma-0 mb-1" Elevation="2" Width="500px" Style="background-color:#F5F0FF">
+                <MudGrid>
+                    <MudItem xl="4" lg="4" md="4" sm="4">
+                        <MudText Class="pt-2" Typo="Typo.h6" Color="Color.Dark">Padrão</MudText>
+                    </MudItem>
+                    <MudItem xl="8" lg="8" md="8" sm="8">
+                        <div class="cor-clara" style="background-color: #6e7a73;" /><div class="cor-escura" style="background-color: #2e4045;" />@*Primary*@
+                        <div class="cor-clara" style="background-color: #bfb5b2;" /><div class="cor-escura" style="background-color: #5e3c58;" />@*Secondary*@
+                        <div class="cor-clara" style="background-color: #dab600;" /><div class="cor-escura" style="background-color: #a98600;" />@*Tertiary*@
+                        <div class="cor-clara" style="background-color: #54afcd;" /><div class="cor-escura" style="background-color: #359aca;" />@*Info*@
+                        <div class="cor-clara" style="background-color: #FF9800;" /><div class="cor-escura" style="background-color: #ffa800;" />@*Warning*@
+                        <div class="cor-clara" style="background-color: #bf0000;" /><div class="cor-escura" style="background-color: #800000;" />@*Error*@
+                        <div class="cor-clara" style="background-color: #77ab59;" /><div class="cor-escura" style="background-color: #36802d;" />@*Success*@
+                        <div class="cor-clara" style="background-color: #F3F3FF;" /><div class="cor-escura" style="background-color: #838996;" />@*Surface*@
+                    </MudItem>
+                </MudGrid>
+            </MudPaper>
+            <MudPaper Class="pa-2 ma-0 mb-1" Elevation="2" Width="500px" Style="background-color:#F5F0FF">
+                <MudGrid>
+                    <MudItem xl="4" lg="4" md="4" sm="4">
+                        <MudText Class="pt-2" Typo="Typo.h6" Color="Color.Dark">MudBlazor</MudText>
+                    </MudItem>
+                    <MudItem xl="8" lg="8" md="8" sm="8">
+                        <div class="cor-clara" style="background-color: #594AE2;" /><div class="cor-escura" style="background-color: #776be7;" />@*Primary*@
+                        <div class="cor-clara" style="background-color: #FF4081;" /><div class="cor-escura" style="background-color: #FF4081;" />@*Secondary*@
+                        <div class="cor-clara" style="background-color: #1EC8A5;" /><div class="cor-escura" style="background-color: #1EC8A5;" />@*Tertiary*@
+                        <div class="cor-clara" style="background-color: #2196F3;" /><div class="cor-escura" style="background-color: #3299ff;" />@*Info*@
+                        <div class="cor-clara" style="background-color: #FF9800;" /><div class="cor-escura" style="background-color: #ffa800;" />@*Warning*@
+                        <div class="cor-clara" style="background-color: #F44336;" /><div class="cor-escura" style="background-color: #f64e62;" />@*Error*@
+                        <div class="cor-clara" style="background-color: #00C853;" /><div class="cor-escura" style="background-color: #0bba83;" />@*Success*@
+                        <div class="cor-clara" style="background-color: #FFFFFF;" /><div class="cor-escura" style="background-color: #373740;" />@*Surface*@
+                    </MudItem>
+                </MudGrid>
+            </MudPaper>
+            <MudPaper Class="pa-2 ma-0 mb-1" Elevation="2" Width="500px" Style="background-color:#F5F0FF">
+                <MudGrid>
+                    <MudItem xl="4" lg="4" md="4" sm="4">
+                        <MudText Class="pt-2" Typo="Typo.h6" Color="Color.Dark">Teal Deal</MudText>
+                    </MudItem>
+                    <MudItem xl="8" lg="8" md="8" sm="8">
+                        <div class="cor-clara" style="background-color: #006666;" /><div class="cor-escura" style="background-color: #004c4c;" />@*Primary*@
+                        <div class="cor-clara" style="background-color: #008080;" /><div class="cor-escura" style="background-color: #006666;" />@*Secondary*@
+                        <div class="cor-clara" style="background-color: #66b2b2;" /><div class="cor-escura" style="background-color: #008080;" />@*Tertiary*@
+                        <div class="cor-clara" style="background-color: #b2d8d8;" /><div class="cor-escura" style="background-color: #66b2b2;" />@*Info*@
+                        <div class="cor-clara" style="background-color: #949406;" /><div class="cor-escura" style="background-color: #949406;" />@*Warning*@
+                        <div class="cor-clara" style="background-color: #945306;" /><div class="cor-escura" style="background-color: #942206;" />@*Error*@
+                        <div class="cor-clara" style="background-color: #09DE4C;" /><div class="cor-escura" style="background-color: #07A872;" />@*Success*@
+                        <div class="cor-clara" style="background-color: #F3FFFF;" /><div class="cor-escura" style="background-color: #718E8B;" />@*Surface*@
+                    </MudItem>
+                </MudGrid>
+            </MudPaper>
+            <MudPaper Class="pa-2 ma-0" Elevation="2" Width="500px" Style="background-color:#F5F0FF">
+                <MudGrid>
+                    <MudItem xl="4" lg="4" md="4" sm="4">
+                        <MudText Class="pt-2" Typo="Typo.body2" Color="Color.Dark">Tema Personalizado</MudText>
+                        <MudPaper Square="true" Class="d-flex justify-space-around">
+                            <MudIcon Class="ml-1" Style="font-size: 20px;" Icon="@Icons.Material.Filled.Save" />
+                            <MudDivider Vertical="true" FlexItem="true" />
+                            <MudIcon Style="font-size: 20px;" Icon="@Icons.Material.Filled.FileDownload" />
+                            <MudDivider Vertical="true" FlexItem="true" />
+                            <MudIcon Style="font-size: 20px;" Icon="@Icons.Material.Filled.FileUpload" />
+                            <MudDivider Vertical="true" FlexItem="true" />
+                            <MudIcon Class="mr-1" Style="font-size: 20px;" Icon="@Icons.Material.Filled.SettingsBackupRestore" />
+                        </MudPaper>
+                    </MudItem>
+                    <MudItem xl="8" lg="8" md="8" sm="8">
 
-<MudPaper Class="pa-4 ma-4" Elevation="3" MaxWidth="575px">
-    <MudRadioGroup @bind-Value="Selecionado">
-        <MudRadio Value="1" Color="Color.Dark" Size="Size.Large">
-            <MudPaper Class="pa-2 ma-0" Elevation="2" MaxWidth="440px">
-                <MudGrid>
-                    <MudItem xl="4" lg="4" md="4" sm="4">
-                        <MudText Class="pt-2" Typo="Typo.h6">Padrão</MudText>
-                    </MudItem>
-                    <MudItem xl="8" lg="8" md="8" sm="8">
-                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Primary" />
-                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Secondary" />
-                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Tertiary" />
-                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Info" />
-                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Warning" />
-                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Error" />
-                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Success" />
-                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Surface" />
-                    </MudItem>
-                </MudGrid>
-            </MudPaper>
-        </MudRadio>
-        <MudRadio Value="2" Color="Color.Dark" Size="Size.Large">
-            <MudPaper Class="pa-2 ma-0" Elevation="2" MaxWidth="440px">
-                <MudGrid>
-                    <MudItem xl="4" lg="4" md="4" sm="4">
-                        <MudText Class="pt-2" Typo="Typo.h6">MudBlazor</MudText>
-                    </MudItem>
-                    <MudItem xl="8" lg="8" md="8" sm="8">
-                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Primary" />
-                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Secondary" />
-                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Tertiary" />
-                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Info" />
-                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Warning" />
-                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Error" />
-                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Success" />
-                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Surface" />
+                        <MudColorPicker Class="cor-clara mr-n1" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="primaryLight" Style='@($"color:{primaryLight}; background-color:{primaryLight};font-size:6px")' />
+                        <MudColorPicker Class="cor-escura" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="primaryDark" Style='@($"color:{primaryDark}; background-color:{primaryDark};font-size:6px")' />
+
+                        <MudColorPicker Class="cor-clara mr-n1" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="secondaryLight" Style='@($"color:{secondaryLight}; background-color:{secondaryLight};font-size:6px")' />
+                        <MudColorPicker Class="cor-escura" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="secondaryDark" Style='@($"color:{secondaryDark}; background-color:{secondaryDark};font-size:6px")' />
+
+                        <MudColorPicker Class="cor-clara mr-n1" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="tertiaryLight" Style='@($"color:{tertiaryLight}; background-color:{tertiaryLight};font-size:6px")' />
+                        <MudColorPicker Class="cor-escura" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="tertiaryDark" Style='@($"color:{tertiaryDark}; background-color:{tertiaryDark};font-size:6px")' />
+
+                        <MudColorPicker Class="cor-clara mr-n1" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="infoLight" Style='@($"color:{infoLight}; background-color:{infoLight};font-size:6px")' />
+                        <MudColorPicker Class="cor-escura" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="infoDark" Style='@($"color:{infoDark}; background-color:{infoDark};font-size:6px")' />
+
+                        <MudColorPicker Class="cor-clara mr-n1" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="warningLight" Style='@($"color:{warningLight}; background-color:{warningLight};font-size:6px")' />
+                        <MudColorPicker Class="cor-escura" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="warningDark" Style='@($"color:{warningDark}; background-color:{warningDark};font-size:6px")' />
+
+                        <MudColorPicker Class="cor-clara mr-n1" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="errorLight" Style='@($"color:{errorLight}; background-color:{errorLight};font-size:6px")' />
+                        <MudColorPicker Class="cor-escura" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="errorDark" Style='@($"color:{errorDark}; background-color:{errorDark};font-size:6px")' />
+
+                        <MudColorPicker Class="cor-clara mr-n1" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="successLight" Style='@($"color:{successLight}; background-color:{successLight};font-size:6px")' />
+                        <MudColorPicker Class="cor-escura" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="successDark" Style='@($"color:{successDark}; background-color:{successDark};font-size:6px")' />
+
+                        <MudColorPicker Class="cor-clara mr-n1" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="surfaceLight" Style='@($"color:{surfaceLight}; background-color:{surfaceLight};font-size:6px")' />
+                        <MudColorPicker Class="cor-escura" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="surfaceDark" Style='@($"color:{surfaceDark}; background-color:{surfaceDark};font-size:6px")' />
+
                     </MudItem>
                 </MudGrid>
             </MudPaper>
-        </MudRadio>
-        <MudRadio Value="3" Color="Color.Dark" Size="Size.Large">
-            <MudPaper Class="pa-2 ma-0" Elevation="2" MaxWidth="440px">
-                <MudGrid>
-                    <MudItem xl="4" lg="4" md="4" sm="4">
-                        <MudText Class="pt-2" Typo="Typo.h6">Teal Deal</MudText>
-                    </MudItem>
-                    <MudItem xl="8" lg="8" md="8" sm="8">
-                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Primary" />
-                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Secondary" />
-                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Tertiary" />
-                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Info" />
-                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Warning" />
-                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Error" />
-                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Success" />
-                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Surface" />
-                    </MudItem>
-                </MudGrid>
-            </MudPaper>
-        </MudRadio>
-        <MudRadio Value="4" Color="Color.Dark" Size="Size.Large">
-            <MudPaper Class="pa-2 ma-0" Elevation="2" MaxWidth="440px">
-                <MudGrid>
-                    <MudItem xl="4" lg="4" md="4" sm="4">
-                        <MudText Class="pt-2" Typo="Typo.h6">Monocromático</MudText>
-                    </MudItem>
-                    <MudItem xl="8" lg="8" md="8" sm="8">
-                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Primary" />
-                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Secondary" />
-                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Tertiary" />
-                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Info" />
-                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Warning" />
-                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Error" />
-                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Success" />
-                        <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-3" Color="Color.Surface" />
-                    </MudItem>
-                </MudGrid>
-            </MudPaper>
-        </MudRadio>
-    </MudRadioGroup>
+        </MudItem>
+    </MudGrid>
 </MudPaper>
 
 @code {
@@ -116,7 +153,7 @@
     public Configuracao? janela { get; set; }
 
     private int _selecionado;
-    private int Selecionado 
+    private int Selecionado
     {
         get => _selecionado;
         set
@@ -131,7 +168,7 @@
                     TemaSelecionado = TemaTeal;
                     break;
                 case 4:
-                    TemaSelecionado = TemaMono;
+                    TemaSelecionado = TemaPersonalizado;
                     break;
                 default:
                     TemaSelecionado = TemaPadrao;
@@ -147,13 +184,25 @@
         {
             PaletteLight = new PaletteLight()
             {
-                Primary = Colors.Blue.Default,
-                Secondary = Colors.Green.Accent4,
-                AppbarBackground = Colors.Red.Default,
+                Primary = "#6e7a73",
+                Secondary = "#bfb5b2",
+                Tertiary = "#dab600",
+                Info = "#54afcd",
+                Warning = "#FF9800",
+                Error = "#bf0000",
+                Success = "#77ab59",
+                Surface = "#F3F3FF"
             },
             PaletteDark = new PaletteDark()
             {
-                Primary = Colors.Blue.Lighten1
+                Primary = "#2e4045",
+                Secondary = "#5e3c58",
+                Tertiary = "#a98600",
+                Info = "#359aca",
+                Warning = "#ffa800",
+                Error = "#800000",
+                Success = "#36802d",
+                Surface = "#838996"
             }
         };
 
@@ -161,27 +210,70 @@
         {
             PaletteLight = new PaletteLight()
             {
-                Primary = Colors.Blue.Default,
-                Secondary = Colors.Green.Accent4,
-                AppbarBackground = Colors.Red.Default
+                Primary = "#006666",
+                Secondary = "#008080",
+                Tertiary = "#66b2b2",
+                Info = "#b2d8d8",
+                Warning = "#949406",
+                Error = "#945306",
+                Success = "#09DE4C",
+                Surface = "#F3FFFF"
             },
             PaletteDark = new PaletteDark()
             {
-                Primary = Colors.Blue.Lighten1
+                Primary = "#004c4c",
+                Secondary = "#006666",
+                Tertiary = "#008080",
+                Info = "#66b2b2",
+                Warning = "#949406",
+                Error = "#942206",
+                Success = "#07A872",
+                Surface = "#718E8B"
             }
         };
 
-    MudTheme TemaMono = new MudTheme()
+    #region Cores do tema personalizado
+    private string primaryLight = "#6e7a73";
+    private string primaryDark = "#2e4045";
+    private string secondaryLight = "#bfb5b2";
+    private string secondaryDark = "#5e3c58";
+    private string tertiaryLight = "#dab600";
+    private string tertiaryDark = "#a98600";
+    private string infoLight = "#54afcd";
+    private string infoDark = "#359aca";
+    private string warningLight = "#FF9800";
+    private string warningDark = "#ffa800";
+    private string errorLight = "#bf0000";
+    private string errorDark = "#800000";
+    private string successLight = "#77ab59";
+    private string successDark = "#36802d";
+    private string surfaceLight = "#F3F3FF";
+    private string surfaceDark = "#838996";
+    #endregion
+
+    MudTheme TemaPersonalizado = new MudTheme()
         {
             PaletteLight = new PaletteLight()
             {
-                Primary = Colors.Blue.Default,
-                Secondary = Colors.Green.Accent4,
-                AppbarBackground = Colors.Red.Default,
+                Primary = "#6e7a73",
+                Secondary = "#bfb5b2",
+                Tertiary = "#dab600",
+                Info = "#54afcd",
+                Warning = "#FF9800",
+                Error = "#bf0000",
+                Success = "#77ab59",
+                Surface = "#F3F3FF"
             },
             PaletteDark = new PaletteDark()
             {
-                Primary = Colors.Blue.Lighten1
+                Primary = "#2e4045",
+                Secondary = "#5e3c58",
+                Tertiary = "#a98600",
+                Info = "#359aca",
+                Warning = "#ffa800",
+                Error = "#800000",
+                Success = "#36802d",
+                Surface = "#838996"
             }
         };
 }
