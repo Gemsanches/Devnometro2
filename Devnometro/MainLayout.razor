@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+@inject MudTheme _theme
 
 <MudThemeProvider
     DefaultScrollbar="false" 
@@ -73,7 +74,7 @@
 
 @code
 {
-    public MudTheme _theme = new ();
+    //public MudTheme _theme = new ();
     private bool _isDarkMode;
     private string diaDeHoje = string.Empty;
     private string mensagem = string.Empty;

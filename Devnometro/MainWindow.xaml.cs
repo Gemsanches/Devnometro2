@@ -23,6 +23,7 @@ public partial class MainWindow : Window
         var serviceCollection = new ServiceCollection();
         serviceCollection.AddWpfBlazorWebView();
         serviceCollection.AddMudServices();
+        serviceCollection.AddSingleton<MudTheme>();
         Resources.Add("services", serviceCollection.BuildServiceProvider());
     }
     protected override void OnClosed(EventArgs e)

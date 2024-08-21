@@ -29,6 +29,7 @@ namespace Devnometro
             var serviceCollection = new ServiceCollection();
             serviceCollection.AddWpfBlazorWebView();
             serviceCollection.AddMudServices();
+            serviceCollection.AddSingleton<MudTheme>();
             Resources.Add("services", serviceCollection.BuildServiceProvider());
             config.Parameters = new Dictionary<string, object?>
             {
