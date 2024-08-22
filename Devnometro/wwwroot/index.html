@@ -22,17 +22,25 @@
     </div>
     <script src="_framework/blazor.webview.js"></script>
     <script src="_content/MudBlazor/MudBlazor.min.js"></script>
-    <script>
-    /*Desabilitando F5*/
+    <script>/*Desabilitando Teclas de comando*/
         document.addEventListener('keydown', (e) => {
-            e = e || window.event;
-            if (e.keyCode == 116) {
+                e = e || window.event;
+            if (e.keyCode == 116/F5/
+            || e.ctrlKey && (e.keyCode == 107 /* Numpad Add - Zoom */
+                          || e.keyCode == 109 /* Numpad Subtract - Zoom */
+                          || e.keyCode == 61  /* Equal - Zoom */
+                          || e.keyCode == 173 /* Minus - Zoom */
+                          || e.keyCode == 80  /* P - Imprimir*/
+                          || e.keyCode == 82  /* R - Reload*/
+                          || e.keyCode == 70  /* F - Busca*/
+                          || e.keyCode == 71  /* G - Busca*/
+                          || e.keyCode == 65  /* A - Selecionar tudo */
+                          || e.keyCode == 74  /* J - Downloads*/)) {
                 e.preventDefault();
             }
         });
     </script>
-    <script>
-    /*Desabilitando Scrool zoom*/
+    <script>/*Desabilitando Scrool zoom*/
         document.addEventListener('wheel', function (event) {
             if (event.ctrlKey) {
                 event.preventDefault();
