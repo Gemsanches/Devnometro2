@@ -1,9 +1,9 @@
 ﻿@inherits LayoutComponentBase
-@inject MudTheme _theme
+@* @inject MudTheme _theme *@
 
 <MudThemeProvider
     DefaultScrollbar="false" 
-    @bind-IsDarkMode="@_isDarkMode" 
+    @bind-IsDarkMode="@_isDarkMode"
     Theme="_theme" />
 <MudPopoverProvider />
 <MudDialogProvider />
@@ -51,7 +51,7 @@
                              AriaLabel="Menu de opções"
                              @onmouseover='() => AplicarMensagem("Menu")'
                              @onmouseleave="ResetarMensagem">
-                        <MudMenuItem OnClick="AbrirConfiguracao">Configurações</MudMenuItem>
+                        <MudMenuItem OnClick="AbrirConfiguracao" Disabled="@janelaConfiguracao.IsLoaded">Configurações</MudMenuItem>
                         <MudMenuItem>Exportações</MudMenuItem>
                         <MudMenuItem>Sobre</MudMenuItem>
                     </MudMenu>
@@ -74,7 +74,9 @@
 
 @code
 {
-    //public MudTheme _theme = new ();
+    [Inject]
+    public MudTheme _theme { get; set; } = new();
+
     private bool _isDarkMode;
     private string diaDeHoje = string.Empty;
     private string mensagem = string.Empty;
@@ -101,6 +103,13 @@
 
     private void AbrirConfiguracao() 
     {
+        if (janelaConfiguracao.IsLoaded)
+        {
+            janelaConfiguracao.BringIntoView();
+            janelaConfiguracao.Focus();
+            return;
+        }
+
         janelaConfiguracao = new();
 
         janelaConfiguracao.AplicaAlteracoes += ReplicaAlteracoes;

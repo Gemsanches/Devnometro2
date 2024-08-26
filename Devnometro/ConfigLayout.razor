@@ -1,6 +1,7 @@
-﻿@inject MudTheme _theme
+﻿@inherits ConfigLayoutBase
+@* @inject MudTheme _theme *@
 
-<MudThemeProvider DefaultScrollbar="false" />
+<MudThemeProvider DefaultScrollbar="false" @bind-IsDarkMode="@temaEscuro" Theme="@TemaSelecionado" />
 <MudPopoverProvider />
 <MudDialogProvider />
 <MudSnackbarProvider />
@@ -14,6 +15,7 @@
     </MudAppBar>
     <MudDrawer @bind-Open="@expandido"
                Fixed="true"
+               Color="Color.Secondary"
                Elevation="3"
                ClipMode="DrawerClipMode.Always"
                Anchor="Anchor.Left"
@@ -31,7 +33,7 @@
         <MudSpacer />
         <MudText Typo="Typo.subtitle1" Class="ma-1 pa-1">V:2.0</MudText>
     </MudDrawer>
-    <MudMainContent>
+        <MudMainContent>
         @if (selecionado == 0)
         {
             <Devnometro.Configuracoes.Geral />
@@ -54,46 +56,3 @@
         }
     </MudMainContent>
 </MudLayout>
-
-
-@code {
-    [Parameter]
-    public Configuracao? janela { get; set; }
-
-    bool expandido = true;
-    void ExpandirRecolherMenu() => expandido = !expandido;
-
-    private int selecionado;
-    private void Selecionar(int i) => selecionado = i;
-
-    private string Exibicao()
-    {
-        switch (selecionado)
-        {
-            case 0: return "Configurações: Geral";
-            case 1: return "Configurações: Caminhos";
-            case 2: return "Configurações: Tema";
-            case 10: return "Cadastros: Contadores";
-            case 11: return "Cadastros: Padrões de cronômetros";
-            default: return "C̷̢̪͓̮̼͓̹̪̃͊͐͂̈͐̌͌͌͘͝ö̶̧̖͎̣͂̍n̶̬̫̹̞͓̈́f̸̟͇̦̪̟̄̏́̀͋͐͐̎̎̐̚̚͝i̵̡̘̩̘͕͋͆̐̑̌̈́̌͐̓͑g̶̢̢̘̬̩͉̪̯̜͕͚͎̣̪͕̒̓̔̂͊̅͒͌̂͊̀͑͗̇͌u̴̢̡̙̙͉͓̰͉͍̙̭̻̟͛̓̅̆͂͌̌̂̽̏͝r̷̹͍͎̦̆͌̄͘͝à̴̜̳̥̻͓͆͛͂́̇͐͂͐͘͜ç̵̣̗̪͑͗́͋̏͛̍̒͐̓͘͝͠õ̴̱͓͑̆̂̅͐̐́͗ę̶̢̼̺̙̩͔͇͎̈́s̶̡̖̳̗̱̹͇̯̣̞̗̤̩̆̈̆̒͠͝ ̸̫̐̿̈̽̉͛̉͑̄̌͑̇͠ͅ/̷̢̛̬̥̻͊̍̆͗͝ ̸̨̡̝̟̪͎̈́C̴̻͛̋͛͌̌̽̐̓̃̐͌̋̐à̴̡̧̧͇͇̮̙̻̝͚͍̫͉̃̔̇̈́ḏ̸̨͇̮̠̈̄͛͒͋̋̈̃̕͠͝a̵̳͕͇͚̙͆́̃̎ṣ̷̹̣̰͉̗̰̹͍̑̒̂̓̒͂t̷̯̒̒̋̎̃̓͂͗̿̑͒͂͝ṟ̶̠̲̺̩̜͇͖̹͛̈́̾̿̿͘ó̶̧͓̬̱͔̫̝͙̦͔̟͆̊̆̎̀͌͘͠ͅs̷̨͈̠̯̲̟̼̀̈́̂͆̆̍̍̉̚ͅ";
-        }
-    }
-
-    private string Icone()
-    {
-        switch (selecionado)
-        {
-            case 0: return MudBlazor.Icons.Material.Rounded.Settings;
-            case 1: return MudBlazor.Icons.Material.Rounded.DriveFolderUpload;
-            case 2: return MudBlazor.Icons.Material.Rounded.Palette;
-            case 10: return MudBlazor.Icons.Material.Rounded.Timer;
-            case 11: return MudBlazor.Icons.Material.Rounded.GroupWork;
-            default: return MudBlazor.Icons.Material.TwoTone.RemoveRedEye;
-        }
-    }
-
-    private void Teste()
-    {
-        janela?.Alterar();
-    }
-}

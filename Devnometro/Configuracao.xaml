@@ -6,7 +6,9 @@
         xmlns:blazor="clr-namespace:Microsoft.AspNetCore.Components.WebView.Wpf;assembly=Microsoft.AspNetCore.Components.WebView.Wpf"
         xmlns:local="clr-namespace:Devnometro"
         mc:Ignorable="d"
-        Title="Configurações" Height="600" Width="800" MinHeight="580" MinWidth="670">
+        ResizeMode="NoResize"
+        Topmost="True"
+        Title="Configurações" Height="580" Width="670">
     <Grid>
         <blazor:BlazorWebView HostPage="wwwroot\index.html" Services="{DynamicResource services}">
             <blazor:BlazorWebView.RootComponents>
