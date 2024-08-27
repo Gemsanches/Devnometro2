@@ -1,5 +1,5 @@
 ﻿@inherits LayoutComponentBase
-@* @inject MudTheme _theme *@
+@inject MudTheme _theme
 
 <MudThemeProvider
     DefaultScrollbar="false" 
@@ -45,7 +45,12 @@
             </MudButton>
             <MudTooltip Delay="1500" Duration="2500" Placement="Placement.Bottom" Color="Color.Info" Class="ml-n20">
                 <ChildContent>
-                    <MudMenu Icon="@Icons.Material.Filled.Menu"
+                    <MudIconButton Icon="@Icons.Material.Filled.Menu"
+                                   @onmouseover='() => AplicarMensagem("Menu")'
+                                   @onmouseleave="ResetarMensagem"
+                                   OnClick="AbrirMenu"
+                                   Disabled="@janelaMenu.IsLoaded" />
+                    @* <MudMenu Icon="@Icons.Material.Filled.Menu"
                              AnchorOrigin="Origin.BottomRight"
                              TransformOrigin="Origin.BottomLeft"
                              AriaLabel="Menu de opções"
@@ -54,7 +59,7 @@
                         <MudMenuItem OnClick="AbrirConfiguracao" Disabled="@janelaConfiguracao.IsLoaded">Configurações</MudMenuItem>
                         <MudMenuItem>Exportações</MudMenuItem>
                         <MudMenuItem>Sobre</MudMenuItem>
-                    </MudMenu>
+                    </MudMenu> *@
                 </ChildContent>
                 <TooltipContent>
                     <MudText Typo="Typo.h5"><MudIcon Icon="@Icons.Material.Outlined.Menu" /> Menu <MudIcon Icon="@Icons.Material.Outlined.Menu" /></MudText>
@@ -74,14 +79,16 @@
 
 @code
 {
-    [Inject]
-    public MudTheme _theme { get; set; } = new();
+    //[Inject]
+    //public MudTheme _theme { get; set; } = new();
 
     private bool _isDarkMode;
     private string diaDeHoje = string.Empty;
     private string mensagem = string.Empty;
 
     Configuracao janelaConfiguracao = new();
+
+    MenuWindow janelaMenu = new();
 
     protected override void OnInitialized()
     {
@@ -116,6 +123,18 @@
         //janelaConfiguracao.Closing += RetornoConfiguracoes;
 
         janelaConfiguracao.Show(); 
+    }
+    private void AbrirMenu()
+    {
+        if (janelaMenu.IsLoaded)
+        {
+            janelaMenu.BringIntoView();
+            janelaMenu.Focus();
+            return;
+        }
+        janelaMenu = new();
+        janelaMenu.AplicaAlteracoes += ReplicaAlteracoes;
+        janelaMenu.Show();
     }
     private void ReplicaAlteracoes(object? sender, EventArgs e) 
     { /*reler e aplicar o arquivo de configurações*/

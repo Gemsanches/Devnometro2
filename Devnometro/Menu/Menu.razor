@@ -1,0 +1,61 @@
+﻿@inherits MenuBase
+
+<MudThemeProvider DefaultScrollbar="false" />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar Elevation="1" Dense="true" Color="Color.Primary" Class="ma-0 pa-0">
+        <MudIcon Icon="@Icone()" Color="Color.Dark" Edge="Edge.Start" Class="cursor-default" />
+        <MudText Typo="Typo.h5" Class="mx-5">@Exibicao()</MudText>
+        <MudSpacer />
+        <MudIconButton Icon="@Icons.Material.Filled.Close" Color="Color.Dark" Edge="Edge.End" OnClick="Teste" Class="cursor-default" />
+    </MudAppBar>
+    <MudDrawer @bind-Open="@expandido"
+               Fixed="true"
+               Color="Color.Secondary"
+               Elevation="3"
+               ClipMode="DrawerClipMode.Always"
+               Anchor="Anchor.Left"
+               Variant="DrawerVariant.Mini"
+               Width="60"
+               OpenMiniOnHover="true">
+        <MudNavMenu>
+            <MudNavLink Icon="@Icons.Material.TwoTone.DriveFolderUpload" IconColor="Color.Warning" OnClick="()=>Selecionar(0)">Exportações</MudNavLink>
+            <MudDivider />
+            <MudNavLink Icon="@Icons.Material.TwoTone.Settings" IconColor="Color.Warning" OnClick="()=>Selecionar(10)">Configurações</MudNavLink>
+            <MudNavLink Icon=@Icons.Material.TwoTone.Palette IconColor="Color.Warning" OnClick="()=>Selecionar(11)">Tema</MudNavLink>
+            <MudDivider />
+            <MudNavLink Icon=@Icons.Material.TwoTone.Dataset IconColor="Color.Info" OnClick="()=>Selecionar(20)">Cadastros</MudNavLink>
+            <MudDivider />
+        </MudNavMenu>
+        <MudSpacer />
+        <MudNavMenu>
+            <MudDivider />
+            <MudNavLink Icon=@Icons.Material.TwoTone.Info IconColor="Color.Info" OnClick="()=>Selecionar(99)">Sobre</MudNavLink>
+        </MudNavMenu>
+    </MudDrawer>
+    <MudMainContent>
+        @if (selecionado == 0)
+        {
+            <Devnometro.Configuracoes.Geral />
+        }
+        @if (selecionado == 10)
+        {
+            <Devnometro.Configuracoes.Caminho />
+        }
+        @if (selecionado == 11)
+        {
+            <Devnometro.Configuracoes.Tema />
+        }
+        @if (selecionado == 00)
+        {
+            <Devnometro.Cadastros.Contador />
+        }
+        @if (selecionado == 99)
+        {
+            <Devnometro.Menu.Sobre />
+        }
+    </MudMainContent>
+</MudLayout>
