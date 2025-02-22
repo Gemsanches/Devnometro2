@@ -1,6 +1,6 @@
 ﻿@inherits MenuBase
 
-<MudThemeProvider DefaultScrollbar="false" />
+<MudThemeProvider DefaultScrollbar="false" Theme="_theme" />
 <MudPopoverProvider />
 <MudDialogProvider />
 <MudSnackbarProvider />
@@ -9,8 +9,8 @@
     <MudAppBar Elevation="1" Dense="true" Color="Color.Primary" Class="ma-0 pa-0">
         <MudIcon Icon="@Icone()" Color="Color.Dark" Edge="Edge.Start" Class="cursor-default" />
         <MudText Typo="Typo.h5" Class="mx-5">@Exibicao()</MudText>
-        <MudSpacer />
-        <MudIconButton Icon="@Icons.Material.Filled.Close" Color="Color.Dark" Edge="Edge.End" OnClick="Teste" Class="cursor-default" />
+        @* <MudSpacer /> *@
+        @* <MudIconButton Icon="@Icons.Material.Filled.Close" Color="Color.Dark" Edge="Edge.End" OnClick="Teste" Class="cursor-default" /> *@
     </MudAppBar>
     <MudDrawer @bind-Open="@expandido"
                Fixed="true"
@@ -39,23 +39,23 @@
     <MudMainContent>
         @if (selecionado == 0)
         {
-            <Devnometro.Configuracoes.Geral />
+            <Devnometro.TelasConfig.MenuLateral.AbasExportacao />
         }
         @if (selecionado == 10)
         {
-            <Devnometro.Configuracoes.Caminho />
+            <Devnometro.TelasConfig.MenuLateral.AbasConfiguracao />
         }
         @if (selecionado == 11)
         {
-            <Devnometro.Configuracoes.Tema />
+            <Devnometro.TelasConfig.MenuLateral.AbasTema />
         }
-        @if (selecionado == 00)
+        @if (selecionado == 20)
         {
-            <Devnometro.Cadastros.Contador />
+            <Devnometro.TelasConfig.MenuLateral.AbasCadastro />
         }
         @if (selecionado == 99)
         {
-            <Devnometro.Menu.Sobre />
+            <Devnometro.TelasConfig.MenuLateral.Sobre />
         }
     </MudMainContent>
 </MudLayout>

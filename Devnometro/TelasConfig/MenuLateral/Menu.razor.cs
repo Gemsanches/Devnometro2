@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Devnometro.TelasConfig.Configuracoes;
+using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Devnometro.Menu;
+namespace Devnometro;
 
 public class MenuBase : ComponentBase
 {
@@ -41,13 +42,19 @@ public class MenuBase : ComponentBase
     {
         switch (selecionado)
         {
-            case 0: return MudBlazor.Icons.Material.Rounded.DriveFolderUpload;
-            case 10: return MudBlazor.Icons.Material.Rounded.Settings;
-            case 11: return MudBlazor.Icons.Material.Rounded.Palette;
-            case 20: return MudBlazor.Icons.Material.Rounded.Dataset;
-            case 99: return MudBlazor.Icons.Material.Rounded.Info;
-            default: return MudBlazor.Icons.Material.TwoTone.RemoveRedEye;
+            case 0: return Icons.Material.Rounded.DriveFolderUpload;
+            case 10: return Icons.Material.Rounded.Settings;
+            case 11: return Icons.Material.Rounded.Palette;
+            case 20: return Icons.Material.Rounded.Dataset;
+            case 99: return Icons.Material.Rounded.Info;
+            default: return Icons.Material.TwoTone.RemoveRedEye;
         }
+    }
+
+    protected override void OnInitialized()
+    {
+        _theme = Dominio.TemaModel.TemaPadrao();
+        base.OnInitialized();
     }
 
     public void Teste()

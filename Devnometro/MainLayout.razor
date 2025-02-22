@@ -64,9 +64,10 @@
                 <TooltipContent>
                     <MudText Typo="Typo.h5"><MudIcon Icon="@Icons.Material.Outlined.Menu" /> Menu <MudIcon Icon="@Icons.Material.Outlined.Menu" /></MudText>
                     <MudText Typo="Typo.body2">Abre o menu de opções:</MudText>
-                    <MudText Typo="Typo.body2" Align="Align.Start">Configurações - Opções gerais</MudText>
                     <MudText Typo="Typo.body2" Align="Align.Start">Exportações - Exporte os dados</MudText>
-                    <MudText Typo="Typo.body2" Align="Align.Start">Sobre - Informações do APP</MudText>
+                    <MudText Typo="Typo.body2" Align="Align.Start">Configurações - Opções gerais</MudText>
+                    <MudText Typo="Typo.body2" Align="Align.Start">Tema - Ajuste a aparência</MudText>
+                    <MudText Typo="Typo.body2" Align="Align.Start">Cadastro - Ajuste a aparência</MudText>
                 </TooltipContent>
             </MudTooltip>
         </MudButtonGroup>
@@ -93,7 +94,9 @@
     protected override void OnInitialized()
     {
         diaDeHoje = DateTime.Now.ToShortDateString();
+        _theme = Devnometro.Dominio.TemaModel.TemaPadrao();
         mensagem = diaDeHoje;
+        base.OnInitialized();
     }
 
     private void AplicarMensagem(string texto)

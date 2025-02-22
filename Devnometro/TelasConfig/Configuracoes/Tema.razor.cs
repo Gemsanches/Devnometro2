@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Devnometro.Configuracoes;
+namespace Devnometro.TelasConfig.Configuracoes;
 
 public class TemaBase : ComponentBase
 {
