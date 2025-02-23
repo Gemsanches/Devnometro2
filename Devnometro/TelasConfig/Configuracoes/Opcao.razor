@@ -74,6 +74,18 @@
     <MudDivider />
     <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info" Class="ml-20">
         <ChildContent>
+            <MudCheckBox @bind-Value="ApenasUmAtivo" Class="my-n2" Label="Apenas um cronômetro ativo por vez"></MudCheckBox>
+        </ChildContent>
+        <TooltipContent>
+            <MudText Typo="Typo.body2">Ao iniciar um cronômetro, os demais</MudText>
+            <MudText Typo="Typo.body2">cronomêtros abertos são interrompidos.</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
+            <MudText Typo="Typo.overline" Style="display:inline"> Sim</MudText>
+        </TooltipContent>
+    </MudTooltip>
+    <MudDivider />
+    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info" Class="ml-20">
+        <ChildContent>
             <MudCheckBox @bind-Value="ExcluirAutomaticamente" Class="my-n2" Label="Excluir cronômetro automaticamente"></MudCheckBox>
         </ChildContent>
         <TooltipContent>
@@ -97,23 +109,25 @@ IconColor="Color.Dark">
 </MudButton>
 
 @code {
-    public int Exibicao { get; set; } = 2;
+    protected int Exibicao { get; set; } = 2;
 
-    public bool LigarJunto { get; set; } = false;
-    public bool PrimeiroPontoAutomatico { get; set; } = false;
-    public bool AutoExportarComecoDoMes { get; set; } = true;
-    public bool ExcluirAutomaticamente { get; set; } = true;
+    protected bool LigarJunto { get; set; } = false;
+    protected bool PrimeiroPontoAutomatico { get; set; } = false;
+    protected bool AutoExportarComecoDoMes { get; set; } = true;
+    protected bool ExcluirAutomaticamente { get; set; } = true;
+    protected bool ApenasUmAtivo { get; set; } = true;
 
-    private void RestauraPadroes()
+    protected void RestauraPadroes()
     {
         Exibicao = 2;
         LigarJunto = false;
         PrimeiroPontoAutomatico = false;
         AutoExportarComecoDoMes = true;
         ExcluirAutomaticamente = true;
+        ApenasUmAtivo = true;
     }
 
-    private bool EstaNosPadroes
+    protected bool EstaNosPadroes
     {
         get
         {
@@ -121,7 +135,8 @@ IconColor="Color.Dark">
                 && LigarJunto == false
                 && PrimeiroPontoAutomatico == false
                 && AutoExportarComecoDoMes == true
-                && ExcluirAutomaticamente == true;
+                && ExcluirAutomaticamente == true
+                && ApenasUmAtivo == true;
         }
     }
 }

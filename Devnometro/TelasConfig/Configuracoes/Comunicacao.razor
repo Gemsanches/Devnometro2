@@ -1,13 +1,392 @@
-﻿<h3>Comunicacao</h3>
+﻿<MudPaper Class="pa-0 ma-3" Elevation="3" MaxWidth="575px">
+    <MudExpansionPanel Class="pa-0 mx-0 mb-n4" Dense="true">
+        <TitleContent>
+            <MudText Typo="Typo.h6" Class="pa-0 mx-n3 mt-n5" Color="Color.Dark">Exibir mensagens de confirmação</MudText>
+            <MudDivider />
+        </TitleContent>
+        <ChildContent>
+            <MudGrid>
+                <MudItem xl="5" lg="5" md="5" sm="5">
+                    <MudButton Color="Color.Dark" OnClick="() => {MarcaTudo(true);}" Class="pt-1 pb-0 px-3 mb-0 mt-n4" style="display:block;">Marcar todos</MudButton>
+                    <MudButton Color="Color.Dark" OnClick="() => {MarcaConfirmacoes(true);}" Class="pt-1 pb-0 px-3 mx-0" style="display:block">Marcar confirmações</MudButton>
+                    <MudButton Color="Color.Dark" OnClick="() => {MarcaAvisos(true);}" Class="pt-1 pb-0 px-3 mt-0 mb-n3" style="display:block">Marcar alertas</MudButton>
+                </MudItem>
+                <MudItem xl="7" lg="7" md="7" sm="7">
+                    <MudButton Color="Color.Dark" OnClick="() => {MarcaTudo(false);}" Class="pt-1 pb-0 px-3 mb-0 mt-n4" style="display:block">Desmarcar todos</MudButton>
+                    <MudButton Color="Color.Dark" OnClick="() => {MarcaConfirmacoes(false);}" Class="pt-1 pb-0 px-3 mx-0" style="display:block">Desmarcar confirmações</MudButton>
+                    <MudButton Color="Color.Dark" OnClick="() => {MarcaAvisos(false);}" Class="pt-1 pb-0 px-3 mt-0 mb-n3" style="display:block">Desmarcar alertas</MudButton>
+                </MudItem>
+            </MudGrid>
+            <MudDivider Class="mt-3 mb-5" />
+        </ChildContent>
+    </MudExpansionPanel>
+    <MudDivider />
+    <MudPaper Elevation="0" Class="d-inline mx-20 py-0 px-n4 my-n4">&#160 &#160 &#160 &#160</MudPaper>
+    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info">
+        <ChildContent>
+            <MudCheckBox @bind-Value="AvisarFecharPrograma" Class="py-0 mt-n3 my-n2" Label="Ao fechar o programa"></MudCheckBox>
+        </ChildContent>
+        <TooltipContent>
+            <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
+            <MudText Typo="Typo.body2">antes de fechar o programa.</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
+            <MudText Typo="Typo.overline" Style="display:inline"> Não</MudText>
+        </TooltipContent>
+    </MudTooltip>
+    <MudDivider />
+    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info" Class="ml-20">
+        <ChildContent>
+            <MudCheckBox @bind-Value="AvisarSucessoExpotacaoPonto" Class="my-n2" Label="Confirmar sucesso"></MudCheckBox>
+        </ChildContent>
+        <TooltipContent>
+            <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
+            <MudText Typo="Typo.body2">após exportar os registros de ponto</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
+            <MudText Typo="Typo.overline" Style="display:inline"> Sim</MudText>
+        </TooltipContent>
+    </MudTooltip>
+    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info">
+        <ChildContent>
+            <MudCheckBox @bind-Value="AvisarIniciarExpotacaoPonto" Class="my-n2" Label="Ao iniciar exportação de ponto"></MudCheckBox>
+        </ChildContent>
+        <TooltipContent>
+            <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
+            <MudText Typo="Typo.body2">antes de exportar os registros de ponto</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
+            <MudText Typo="Typo.overline" Style="display:inline"> Não</MudText>
+        </TooltipContent>
+    </MudTooltip>
+    <MudDivider />
+    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info" Class="ml-20">
+        <ChildContent>
+            <MudCheckBox @bind-Value="AvisarSucessoExpotacaoTempo" Class="my-n2" Label="Confirmar sucesso"></MudCheckBox>
+        </ChildContent>
+        <TooltipContent>
+            <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
+            <MudText Typo="Typo.body2">após exportar os registros de tempo</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
+            <MudText Typo="Typo.overline" Style="display:inline"> Sim</MudText>
+        </TooltipContent>
+    </MudTooltip>
+    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info">
+        <ChildContent>
+            <MudCheckBox @bind-Value="AvisarIniciarExpotacaoTempo" Class="my-n2" Label="Ao iniciar exportação de tempo"></MudCheckBox>
+        </ChildContent>
+        <TooltipContent>
+            <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
+            <MudText Typo="Typo.body2">antes de exportar os registros de tempo</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
+            <MudText Typo="Typo.overline" Style="display:inline"> Não</MudText>
+        </TooltipContent>
+    </MudTooltip>
+    <MudDivider />
+    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info" Class="ml-20">
+        <ChildContent>
+            <MudCheckBox @bind-Value="AvisarSucessoCriacaoPonto" Class="my-n2" Label="Confirmar sucesso"></MudCheckBox>
+        </ChildContent>
+        <TooltipContent>
+            <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
+            <MudText Typo="Typo.body2">após criar um registro de ponto.</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
+            <MudText Typo="Typo.overline" Style="display:inline"> Não</MudText>
+        </TooltipContent>
+    </MudTooltip>
+    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info">
+        <ChildContent>
+            <MudCheckBox @bind-Value="AvisarIniciarCriacaoPonto" Class="my-n2" Label="Ao criar um registro de ponto"></MudCheckBox>
+        </ChildContent>
+        <TooltipContent>
+            <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
+            <MudText Typo="Typo.body2">antes de criar um registro de ponto.</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
+            <MudText Typo="Typo.overline" Style="display:inline"> Não</MudText>
+        </TooltipContent>
+    </MudTooltip>
+    <MudDivider />
+    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info" Class="ml-20">
+        <ChildContent>
+            <MudCheckBox @bind-Value="AvisarSucessoExclusaoPonto" Class="my-n2" Label="Confirmar sucesso"></MudCheckBox>
+        </ChildContent>
+        <TooltipContent>
+            <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
+            <MudText Typo="Typo.body2">após excluir um registro de ponto.</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
+            <MudText Typo="Typo.overline" Style="display:inline"> Sim</MudText>
+        </TooltipContent>
+    </MudTooltip>
+    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info">
+        <ChildContent>
+            <MudCheckBox @bind-Value="AvisarIniciarExclusaoPonto" Class="my-n2" Label="Ao excluir um registro de ponto"></MudCheckBox>
+        </ChildContent>
+        <TooltipContent>
+            <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
+            <MudText Typo="Typo.body2">antes de excluir um registro de ponto.</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
+            <MudText Typo="Typo.overline" Style="display:inline"> Sim</MudText>
+        </TooltipContent>
+    </MudTooltip>
+    <MudDivider />
+    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info" Class="ml-20">
+        <ChildContent>
+            <MudCheckBox @bind-Value="AvisarSucessoEdicaoPonto" Class="my-n2" Label="Confirmar sucesso"></MudCheckBox>
+        </ChildContent>
+        <TooltipContent>
+            <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
+            <MudText Typo="Typo.body2">após editar um registro de ponto.</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
+            <MudText Typo="Typo.overline" Style="display:inline"> Não</MudText>
+        </TooltipContent>
+    </MudTooltip>
+    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info">
+        <ChildContent>
+            <MudCheckBox @bind-Value="AvisarIniciarEdicaoPonto" Class="my-n2" Label="Ao editar um registro de ponto"></MudCheckBox>
+        </ChildContent>
+        <TooltipContent>
+            <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
+            <MudText Typo="Typo.body2">antes de editar um registro de ponto.</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
+            <MudText Typo="Typo.overline" Style="display:inline"> Não</MudText>
+        </TooltipContent>
+    </MudTooltip>
+    <MudDivider />
+    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info" Class="ml-20">
+        <ChildContent>
+            <MudCheckBox @bind-Value="AvisarSucessoCriacaoCronometro" Class="my-n2" Label="Confirmar sucesso"></MudCheckBox>
+        </ChildContent>
+        <TooltipContent>
+            <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
+            <MudText Typo="Typo.body2">após criar um cronômetro.</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
+            <MudText Typo="Typo.overline" Style="display:inline"> Não</MudText>
+        </TooltipContent>
+    </MudTooltip>
+    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info">
+        <ChildContent>
+            <MudCheckBox @bind-Value="AvisarIniciarCriacaoCronometro" Class="my-n2" Label="Ao criar um cronômetro"></MudCheckBox>
+        </ChildContent>
+        <TooltipContent>
+            <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
+            <MudText Typo="Typo.body2">antes de criar um cronômetro.</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
+            <MudText Typo="Typo.overline" Style="display:inline"> Não</MudText>
+        </TooltipContent>
+    </MudTooltip>
+    <MudDivider />
+    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info" Class="ml-20">
+        <ChildContent>
+            <MudCheckBox @bind-Value="AvisarSucessoExclusaoCronometro" Class="my-n2" Label="Confirmar sucesso"></MudCheckBox>
+        </ChildContent>
+        <TooltipContent>
+            <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
+            <MudText Typo="Typo.body2">após excluir um cronômetro.</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
+            <MudText Typo="Typo.overline" Style="display:inline"> Não</MudText>
+        </TooltipContent>
+    </MudTooltip>
+    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info">
+        <ChildContent>
+            <MudCheckBox @bind-Value="AvisarIniciarExclusaoCronometro" Class="my-n2" Label="Ao excluir um cronômetro"></MudCheckBox>
+        </ChildContent>
+        <TooltipContent>
+            <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
+            <MudText Typo="Typo.body2">antes de excluir um cronômetro.</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
+            <MudText Typo="Typo.overline" Style="display:inline"> Não</MudText>
+        </TooltipContent>
+    </MudTooltip>
+    <MudDivider />
+    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info" Class="ml-20">
+        <ChildContent>
+            <MudCheckBox @bind-Value="AvisarSucessoEdicaoCronometro" Class="my-n2" Label="Confirmar sucesso"></MudCheckBox>
+        </ChildContent>
+        <TooltipContent>
+            <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
+            <MudText Typo="Typo.body2">após editar um cronômetro.</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
+            <MudText Typo="Typo.overline" Style="display:inline"> Não</MudText>
+        </TooltipContent>
+    </MudTooltip>
+    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info">
+        <ChildContent>
+            <MudCheckBox @bind-Value="AvisarIniciarEdicaoCronometro" Class="my-n2" Label="Ao editar um cronômetro"></MudCheckBox>
+        </ChildContent>
+        <TooltipContent>
+            <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
+            <MudText Typo="Typo.body2">antes de editar um cronômetro.</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
+            <MudText Typo="Typo.overline" Style="display:inline"> Não</MudText>
+        </TooltipContent>
+    </MudTooltip>
+    <MudDivider />
+    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info" Class="ml-20">
+        <ChildContent>
+            <MudCheckBox @bind-Value="AvisarSucessoAbandonoCronometro" Class="my-n2" Label="Confirmar sucesso"></MudCheckBox>
+        </ChildContent>
+        <TooltipContent>
+            <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
+            <MudText Typo="Typo.body2">após abandonar um cronômetro.</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
+            <MudText Typo="Typo.overline" Style="display:inline"> Não</MudText>
+        </TooltipContent>
+    </MudTooltip>
+    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info">
+        <ChildContent>
+            <MudCheckBox @bind-Value="AvisarIniciarAbandonoCronometro" Class="my-n2" Label="Ao abandonar um cronômetro"></MudCheckBox>
+        </ChildContent>
+        <TooltipContent>
+            <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
+            <MudText Typo="Typo.body2">depois de abandonar um cronômetro.</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
+            <MudText Typo="Typo.overline" Style="display:inline"> Sim</MudText>
+        </TooltipContent>
+    </MudTooltip>
+    <MudDivider />
+    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info" Class="ml-20">
+        <ChildContent>
+            <MudCheckBox @bind-Value="AvisarSucessoFinalizacaoCronometro" Class="my-n2" Label="Confirmar sucesso"></MudCheckBox>
+        </ChildContent>
+        <TooltipContent>
+            <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
+            <MudText Typo="Typo.body2">após finalizar um cronômetro.</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
+            <MudText Typo="Typo.overline" Style="display:inline"> Não</MudText>
+        </TooltipContent>
+    </MudTooltip>
+    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info">
+        <ChildContent>
+            <MudCheckBox @bind-Value="AvisarIniciarFinalizacaoCronometro" Class="my-n2" Label="Ao finalizar um cronômetro"></MudCheckBox>
+        </ChildContent>
+        <TooltipContent>
+            <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
+            <MudText Typo="Typo.body2">antes de finalizar um cronômetro.</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
+            <MudText Typo="Typo.overline" Style="display:inline"> Não</MudText>
+        </TooltipContent>
+    </MudTooltip>
+</MudPaper>
 
-<p>Exibir mensagens de confirmação:</p>
-<p>Fechar o programa [_] </p>
-<p>Exportações - [_] Criação, [_] Sucesso de criação</p>
-<p>Cronômetros - [_] Criação, [_] Sucesso de criação, [_] Exclusão, [_] Sucesso de exclusão, [_] Abandono/finalização, [_] Sucesso de abandonar/finalizar</p>
-<p>Marca Ponto - [_] Criação, [_] Sucesso de criação</p>
-<p />
-<p>[Restaurar padrões]</p>
+<MudDivider Class="my-3" />
+
+<MudButton Class="ma-3 px-3 py-1"
+Style="float:right"
+Variant="Variant.Filled"
+Color="Color.Secondary"
+OnClick="RestauraPadroes"
+Disabled="EstaNosPadroes"
+StartIcon="@Icons.Material.Filled.SettingsBackupRestore"
+IconColor="Color.Dark">
+    Restaurar padrões
+</MudButton>
 
 @code {
+    private bool AvisarFecharPrograma { get; set; } = false;
+
+    private bool AvisarIniciarExpotacaoPonto { get; set; } = false;
+    private bool AvisarSucessoExpotacaoPonto { get; set; } = true;
+    private bool AvisarIniciarExpotacaoTempo { get; set; } = false;
+    private bool AvisarSucessoExpotacaoTempo { get; set; } = true;
+
+    private bool AvisarIniciarCriacaoPonto { get; set; } = false;
+    private bool AvisarSucessoCriacaoPonto { get; set; } = false;
+    private bool AvisarIniciarExclusaoPonto { get; set; } = true;
+    private bool AvisarSucessoExclusaoPonto { get; set; } = true;
+    private bool AvisarIniciarEdicaoPonto { get; set; } = false;
+    private bool AvisarSucessoEdicaoPonto { get; set; } = false;
+
+    private bool AvisarIniciarCriacaoCronometro { get; set; } = false;
+    private bool AvisarSucessoCriacaoCronometro { get; set; } = false;
+    private bool AvisarIniciarExclusaoCronometro { get; set; } = false;
+    private bool AvisarSucessoExclusaoCronometro { get; set; } = false;
+    private bool AvisarIniciarEdicaoCronometro { get; set; } = false;
+    private bool AvisarSucessoEdicaoCronometro { get; set; } = false;
+    private bool AvisarIniciarAbandonoCronometro { get; set; } = true;
+    private bool AvisarSucessoAbandonoCronometro { get; set; } = false;
+    private bool AvisarIniciarFinalizacaoCronometro { get; set; } = false;
+    private bool AvisarSucessoFinalizacaoCronometro { get; set; } = false;
+
+    private void RestauraPadroes()
+    {
+        AvisarFecharPrograma = false;
+        AvisarIniciarExpotacaoPonto = false;
+        AvisarSucessoExpotacaoPonto = true;
+        AvisarIniciarExpotacaoTempo = false;
+        AvisarSucessoExpotacaoTempo = true;
+        AvisarIniciarCriacaoPonto = false;
+        AvisarSucessoCriacaoPonto = false;
+        AvisarIniciarExclusaoPonto = true;
+        AvisarSucessoExclusaoPonto = true;
+        AvisarIniciarEdicaoPonto = false;
+        AvisarSucessoEdicaoPonto = false;
+        AvisarIniciarCriacaoCronometro = false;
+        AvisarSucessoCriacaoCronometro = false;
+        AvisarIniciarExclusaoCronometro = false;
+        AvisarSucessoExclusaoCronometro = false;
+        AvisarIniciarEdicaoCronometro = false;
+        AvisarSucessoEdicaoCronometro = false;
+        AvisarIniciarAbandonoCronometro = true;
+        AvisarSucessoAbandonoCronometro = false;
+        AvisarIniciarFinalizacaoCronometro = false;
+        AvisarSucessoFinalizacaoCronometro = false;
+    }
+    private bool EstaNosPadroes
+    {
+        get
+        {
+            return !(AvisarFecharPrograma
+                  ||  AvisarIniciarExpotacaoPonto
+                  || !AvisarSucessoExpotacaoPonto
+                  ||  AvisarIniciarExpotacaoTempo
+                  || !AvisarSucessoExpotacaoTempo
+                  ||  AvisarIniciarCriacaoPonto
+                  ||  AvisarSucessoCriacaoPonto
+                  || !AvisarIniciarExclusaoPonto
+                  || !AvisarSucessoExclusaoPonto
+                  ||  AvisarIniciarEdicaoPonto
+                  ||  AvisarSucessoEdicaoPonto
+                  ||  AvisarIniciarCriacaoCronometro
+                  ||  AvisarSucessoCriacaoCronometro
+                  ||  AvisarIniciarExclusaoCronometro
+                  ||  AvisarSucessoExclusaoCronometro
+                  ||  AvisarIniciarEdicaoCronometro
+                  ||  AvisarSucessoEdicaoCronometro
+                  || !AvisarIniciarAbandonoCronometro
+                  ||  AvisarSucessoAbandonoCronometro
+                  ||  AvisarIniciarFinalizacaoCronometro
+                  ||  AvisarSucessoFinalizacaoCronometro);
+        }
+    }
+
+    private void MarcaAvisos(bool marca)
+    {
+        AvisarFecharPrograma = marca;
+        AvisarIniciarExpotacaoPonto = marca;
+        AvisarIniciarExpotacaoTempo = marca;
+        AvisarIniciarCriacaoPonto = marca;
+        AvisarIniciarExclusaoPonto = marca;
+        AvisarIniciarEdicaoPonto = marca;
+        AvisarIniciarCriacaoCronometro = marca;
+        AvisarIniciarExclusaoCronometro = marca;
+        AvisarIniciarEdicaoCronometro = marca;
+        AvisarIniciarAbandonoCronometro = marca;
+        AvisarIniciarFinalizacaoCronometro = marca;
+    }
+    private void MarcaConfirmacoes(bool marca)
+    {
+        AvisarSucessoExpotacaoPonto = marca;
+        AvisarSucessoExpotacaoTempo = marca;
+        AvisarSucessoCriacaoPonto = marca;
+        AvisarSucessoExclusaoPonto = marca;
+        AvisarSucessoEdicaoPonto = marca;
+        AvisarSucessoCriacaoCronometro = marca;
+        AvisarSucessoExclusaoCronometro = marca;
+        AvisarSucessoEdicaoCronometro = marca;
+        AvisarSucessoAbandonoCronometro = marca;
+        AvisarSucessoFinalizacaoCronometro = marca;
+    }
+    private void MarcaTudo(bool marca)
+    {
+        MarcaAvisos(marca);
+        MarcaConfirmacoes(marca);
+    }
 
 }
