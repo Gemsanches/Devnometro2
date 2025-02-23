@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:Devnometro.TelasConfig.MenuLateral"
         mc:Ignorable="d"
         Topmost="True"
-        Title="Devnômetro" Height="600" Width="800" MinHeight="580" MinWidth="670">
+        Title="Devnômetro" Height="580" Width="670" MinHeight="580" MinWidth="670" MaxHeight="600" MaxWidth="800">
     <Grid>
         <blazor:BlazorWebView HostPage="wwwroot\index.html" Services="{DynamicResource services}">
             <blazor:BlazorWebView.RootComponents>

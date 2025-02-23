@@ -13,7 +13,7 @@ namespace Devnometro.TelasConfig.Configuracoes;
 public class TemaBase : ComponentBase
 {
     [Parameter]
-    public Configuracao? janela { get; set; }
+    public MenuWindow? janela { get; set; }
 
     [Inject]
     public MudTheme _theme { get; set; }

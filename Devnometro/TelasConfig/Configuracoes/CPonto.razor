@@ -1,0 +1,88 @@
+﻿@inherits CPontoBase
+
+<MudPaper Class="pa-0 ma-3" Elevation="3" MaxWidth="575px">
+    <MudText Typo="Typo.h6" Class="pa-0 mx-3 pointer-events-none" Color="Color.Dark">Automação</MudText>
+    <MudDivider />
+    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info" Class="ml-20">
+        <ChildContent>
+            <MudCheckBox @bind-Value="PrimeiroPontoAutomatico" Class="my-n2" Label="Registrar o primeiro ponto do dia automaticamente"></MudCheckBox>
+        </ChildContent>
+        <TooltipContent>
+            <MudText Typo="Typo.body2">Ao abrir o Devnômetro, se não houver</MudText>
+            <MudText Typo="Typo.body2">nenhum registro de ponto para o dia,</MudText>
+            <MudText Typo="Typo.body2">criar o registro da primeira entrada.</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
+            <MudText Typo="Typo.overline" Style="display:inline"> Não</MudText>
+        </TooltipContent>
+    </MudTooltip>
+    <MudDivider />
+    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info" Class="ml-20">
+        <ChildContent>
+            <MudCheckBox @bind-Value="AutoExportarComecoDoMes" Class="my-n2" Label="Auto exportar os pontos no começo do mês"></MudCheckBox>
+        </ChildContent>
+        <TooltipContent>
+            <MudText Typo="Typo.body2">Ao abrir o Devnômetro na primeira</MudText>
+            <MudText Typo="Typo.body2">segunda-feira do mês, uma exportação</MudText>
+            <MudText Typo="Typo.body2">dos pontos do mês anterior será feita.</MudText>
+            <MudText Typo="Typo.body2">(caminho de exportação precisa estar</MudText>
+            <MudText Typo="Typo.body2">configurado para essa opção funcionar)</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
+            <MudText Typo="Typo.overline" Style="display:inline"> Sim</MudText>
+        </TooltipContent>
+    </MudTooltip>
+</MudPaper>
+
+<MudPaper Class="pa-0 ma-3" Elevation="3" MaxWidth="575px">
+    <MudText Typo="Typo.h6" Class="pa-0 mx-3 pointer-events-none" Color="Color.Dark">Caminho para exportação do arquivo de ponto</MudText>
+    <MudDivider />
+    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info" Class="ml-20">
+        <ChildContent>
+            <MudTextField @bind-Value="CaminhoPonto"
+                          AdornmentIcon="@Icons.Material.TwoTone.Folder"
+                          Adornment="Adornment.Start"
+                          Margin="Margin.Dense"
+                          Variant="Variant.Text"
+                          OnAdornmentClick="SelecionarPasta"
+                          ReadOnly="true"
+                          Class="pa-0 mx-3"
+                          Style="width:540px"></MudTextField>
+        </ChildContent>
+        <TooltipContent>
+            <MudText Typo="Typo.body2">Quando um exportação de registros de ponto</MudText>
+            <MudText Typo="Typo.body2">for feita, o Devnômetro usará essa pasta.</MudText>
+        </TooltipContent>
+    </MudTooltip>
+</MudPaper>
+
+<MudPaper Class="pa-0 pb-1 ma-3" Elevation="3" MaxWidth="575px">
+    <MudText Typo="Typo.h6" Class="pa-0 mx-3 pointer-events-none" Color="Color.Dark">Segurança</MudText>
+    <MudDivider />
+    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info" Class="ml-20">
+        <ChildContent>
+            <MudGrid>
+                <MudItem xl="10" lg="10" md="10" sm="10">
+                    <MudSlider T="int" Min="1" Max="300" Value="@TempoBatidaRepetida" ValueChanged="@(x=>AjustadoPeloSlider(x))" Class="pa-0 mx-3" Size="Size.Medium">Margem para batidas repetidas (em segundos)</MudSlider>
+                </MudItem>
+                <MudItem xl="2" lg="2" md="2" sm="2">
+                    <MudNumericField Min="1" Max="300" Variant="Variant.Text" @bind-Value="TempoBatidaRepetida" Class="mt-5 mr-4" />
+                </MudItem>
+            </MudGrid>
+        </ChildContent>
+        <TooltipContent>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
+            <MudText Typo="Typo.overline" Style="display:inline">@padraoTempoBatidaRepetida s.</MudText>
+        </TooltipContent>
+    </MudTooltip>
+</MudPaper>
+
+<MudDivider Class="my-3" />
+<MudButton Class="ma-3 px-3 py-1"
+           Style="float:right"
+           Variant="Variant.Filled"
+           Color="Color.Secondary"
+           OnClick="RestauraPadroes"
+           Disabled="EstaNosPadroes"
+           StartIcon="@Icons.Material.Filled.SettingsBackupRestore"
+           IconColor="Color.Dark">
+    Restaurar padrões
+</MudButton>

@@ -1,5 +1,75 @@
-﻿<MudPaper Class="pa-0 ma-0 mt-n4 pt-4" Height="508px">
-    <h3>Sobre</h3>
+﻿<MudPaper Class="pa-0 pb-1 ma-3 pointer-events-none" Elevation="3" MaxWidth="575px">
+    <MudText Typo="Typo.h6" Class="pa-0 mx-3" Color="Color.Dark">Sobre</MudText>
+    <MudDivider />
+    <MudText Typo="Typo.body1" Class="pa-0 mx-3">Controlador de tempos e resgistro de ponto, criado para ajudar o desenvolvedor a monitorar seu tempo, encontrar gargalos e visualizar seu aproveitamento de trabalho a longo prazo.</MudText>
+    <MudPaper Class="my-3 mx-6 pa-1" Style="background-color:palegoldenrod">
+        <MudGrid>
+            <MudItem xl="2" lg="2" md="2" sm="2">
+                <MudIcon Icon="@Icons.Material.TwoTone.Warning" Class="mx-3 mt-3" Style="font-size: 4rem;" Color="Color.Dark" />
+            </MudItem>
+            <MudItem xl="10" lg="10" md="10" sm="10">
+                <MudText Typo="Typo.body2"
+                         Style="font-weight:bold;"
+                         Color="Color.Dark"
+                         Class="mx-3 mb-0 mt-3">Esse programa não segue o rigor da lei e não pode ser usado como controle oficial de registro de ponto.</MudText>
+                <MudText Typo="Typo.body2"
+                         Style="font-weight:bold;"
+                         Color="Color.Dark"
+                         Class="mx-3 mb-3 mt-0">Servindo apenas para monitoramento pessoal do usuário.</MudText>
+            </MudItem>
+        </MudGrid>
+    </MudPaper>
+</MudPaper>
+
+<MudPaper Class="pa-0 pb-1 ma-3 pointer-events-none" Elevation="3" MaxWidth="575px">
+    <MudText Typo="Typo.h6" Class="pa-0 mx-3" Color="Color.Dark">Dúvidas</MudText>
+    <MudDivider />
+    <MudText Typo="Typo.body1" Class="pa-0 mx-3">Se tiver dúvida sobre alguma funcionalidade, tente parar com o mouse sobre o elemento em questão. Um tooltip com detalhes deve aparecer após algum tempo.</MudText>
+</MudPaper>
+
+<MudPaper Class="pa-0 ma-3" Elevation="3" MaxWidth="575px">
+    <MudText Typo="Typo.h6" Class="pa-0 mx-3 pointer-events-none" Color="Color.Dark">Quero contribuir/agradecer</MudText>
+    <MudDivider />
+    <MudGrid>
+        <MudItem xl="1" lg="1" md="1" sm="1">
+            <MudIcon Icon="@Icons.Custom.Brands.GitHub" Size="Size.Large" Class="mx-3 mt-2" Color="Color.Info" />
+        </MudItem>
+        <MudItem xl="11" lg="11" md="11" sm="11">
+            <MudPaper Class="align-self-center py-2 flex-1" Elevation="0">
+                <MudText Typo="Typo.button" Class="ml-5 pointer-events-none" Style="display:inline; font-weight:bold;">Github: </MudText>
+                <MudText Typo="Typo.overline" Style="display:inline">https://github.com/Gemsanches/Devnometro2</MudText>
+            </MudPaper>
+        </MudItem>
+    </MudGrid>
+    <MudDivider />
+    <MudGrid>
+        <MudItem xl="1" lg="1" md="1" sm="1">
+            <MudIcon Icon="@Icons.Material.TwoTone.Pix" Size="Size.Large" Class="mx-3 mt-2" Color="Color.Success" />
+        </MudItem>
+        <MudItem xl="11" lg="11" md="11" sm="11">
+            <MudPaper Class="align-self-center py-2 flex-1" Elevation="0">
+                <MudText Typo="Typo.button" Class="ml-5 pointer-events-none" Style="display:inline; font-weight:bold;">Pix: </MudText>
+                <MudText Typo="Typo.overline" Style="display:inline">7d63ca42-5319-42d9-9a83-8ee6d35bacc6</MudText>
+            </MudPaper>
+        </MudItem>
+    </MudGrid>
+</MudPaper>
+
+<MudPaper Class="pa-0 ma-3 pointer-events-none" Elevation="3" MaxWidth="575px">
+    <MudText Typo="Typo.h6" Class="pa-0 mx-3" Color="Color.Dark">Versão</MudText>
+    <MudDivider />
+    <MudText Typo="Typo.button" Class="ml-3" Style="display:bl; font-weight:bold;"> Desenvolvido por: </MudText>
+    <MudText Typo="Typo.overline" Style="display:inline">Guilherme E. M. Sanches</MudText>
+    <MudText Style="display:block" Class="my-n3"></MudText>
+    <MudText Typo="Typo.button" Class="ml-3" Style="display:bl; font-weight:bold;"> Desenvolvido em: </MudText>
+    <MudText Typo="Typo.overline" Style="display:inline">C# usando Wpf WebView e MudBlazor</MudText>
+    <MudText Style="display:block" Class="my-n3"></MudText>
+    <MudText Typo="Typo.button" Class="ml-3" Style="display:bl; font-weight:bold;"> Licença: </MudText>
+    <MudText Typo="Typo.overline" Style="display:inline">[definir licença]</MudText>
+    <MudText Style="display:block" Class="my-n3"></MudText>
+    <MudText Typo="Typo.button" Class="ml-3" Style="display:inline; font-weight:bold;"> Versão: </MudText>
+    <MudText Typo="Typo.overline" Style="display:inline">a.2.0.15 - Alpha: em desenvolvimento</MudText>
+
 </MudPaper>
 
 @code {

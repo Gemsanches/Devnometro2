@@ -1,7 +1,7 @@
 ﻿<MudPaper Class="pa-0 ma-3" Elevation="3" MaxWidth="575px">
     <MudExpansionPanel Class="pa-0 mx-0 mb-n4" Dense="true">
         <TitleContent>
-            <MudText Typo="Typo.h6" Class="pa-0 mx-n3 mt-n5" Color="Color.Dark">Exibir mensagens de confirmação</MudText>
+            <MudText Typo="Typo.h6" Class="pa-0 mx-n3 mt-n5 pointer-events-none" Color="Color.Dark">Exibir mensagens de confirmação</MudText>
             <MudDivider />
         </TitleContent>
         <ChildContent>
@@ -29,8 +29,8 @@
         <TooltipContent>
             <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
             <MudText Typo="Typo.body2">antes de fechar o programa.</MudText>
-            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
-            <MudText Typo="Typo.overline" Style="display:inline"> Não</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão: </MudText>
+            <MudText Typo="Typo.overline" Style="display:inline">@BooleanoSimNao(padraoAvisarFecharPrograma)</MudText>
         </TooltipContent>
     </MudTooltip>
     <MudDivider />
@@ -41,8 +41,8 @@
         <TooltipContent>
             <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
             <MudText Typo="Typo.body2">após exportar os registros de ponto</MudText>
-            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
-            <MudText Typo="Typo.overline" Style="display:inline"> Sim</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão: </MudText>
+            <MudText Typo="Typo.overline" Style="display:inline">@BooleanoSimNao(padraoAvisarSucessoExpotacaoPonto)</MudText>
         </TooltipContent>
     </MudTooltip>
     <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info">
@@ -52,8 +52,8 @@
         <TooltipContent>
             <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
             <MudText Typo="Typo.body2">antes de exportar os registros de ponto</MudText>
-            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
-            <MudText Typo="Typo.overline" Style="display:inline"> Não</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão: </MudText>
+            <MudText Typo="Typo.overline" Style="display:inline">@BooleanoSimNao(padraoAvisarIniciarExpotacaoPonto)</MudText>
         </TooltipContent>
     </MudTooltip>
     <MudDivider />
@@ -64,8 +64,8 @@
         <TooltipContent>
             <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
             <MudText Typo="Typo.body2">após exportar os registros de tempo</MudText>
-            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
-            <MudText Typo="Typo.overline" Style="display:inline"> Sim</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão: </MudText>
+            <MudText Typo="Typo.overline" Style="display:inline">@BooleanoSimNao(padraoAvisarSucessoExpotacaoTempo)</MudText>
         </TooltipContent>
     </MudTooltip>
     <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info">
@@ -75,8 +75,8 @@
         <TooltipContent>
             <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
             <MudText Typo="Typo.body2">antes de exportar os registros de tempo</MudText>
-            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
-            <MudText Typo="Typo.overline" Style="display:inline"> Não</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão: </MudText>
+            <MudText Typo="Typo.overline" Style="display:inline">@BooleanoSimNao(padraoAvisarIniciarExpotacaoTempo)</MudText>
         </TooltipContent>
     </MudTooltip>
     <MudDivider />
@@ -87,8 +87,8 @@
         <TooltipContent>
             <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
             <MudText Typo="Typo.body2">após criar um registro de ponto.</MudText>
-            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
-            <MudText Typo="Typo.overline" Style="display:inline"> Não</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão: </MudText>
+            <MudText Typo="Typo.overline" Style="display:inline">@BooleanoSimNao(padraoAvisarSucessoCriacaoPonto)</MudText>
         </TooltipContent>
     </MudTooltip>
     <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info">
@@ -98,8 +98,8 @@
         <TooltipContent>
             <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
             <MudText Typo="Typo.body2">antes de criar um registro de ponto.</MudText>
-            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
-            <MudText Typo="Typo.overline" Style="display:inline"> Não</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão: </MudText>
+            <MudText Typo="Typo.overline" Style="display:inline">@BooleanoSimNao(padraoAvisarIniciarCriacaoPonto)</MudText>
         </TooltipContent>
     </MudTooltip>
     <MudDivider />
@@ -110,8 +110,8 @@
         <TooltipContent>
             <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
             <MudText Typo="Typo.body2">após excluir um registro de ponto.</MudText>
-            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
-            <MudText Typo="Typo.overline" Style="display:inline"> Sim</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão: </MudText>
+            <MudText Typo="Typo.overline" Style="display:inline">@BooleanoSimNao(padraoAvisarSucessoExclusaoPonto)</MudText>
         </TooltipContent>
     </MudTooltip>
     <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info">
@@ -121,8 +121,8 @@
         <TooltipContent>
             <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
             <MudText Typo="Typo.body2">antes de excluir um registro de ponto.</MudText>
-            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
-            <MudText Typo="Typo.overline" Style="display:inline"> Sim</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão: </MudText>
+            <MudText Typo="Typo.overline" Style="display:inline">@BooleanoSimNao(padraoAvisarIniciarExclusaoPonto)</MudText>
         </TooltipContent>
     </MudTooltip>
     <MudDivider />
@@ -133,8 +133,8 @@
         <TooltipContent>
             <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
             <MudText Typo="Typo.body2">após editar um registro de ponto.</MudText>
-            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
-            <MudText Typo="Typo.overline" Style="display:inline"> Não</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão: </MudText>
+            <MudText Typo="Typo.overline" Style="display:inline">@BooleanoSimNao(padraoAvisarSucessoEdicaoPonto)</MudText>
         </TooltipContent>
     </MudTooltip>
     <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info">
@@ -144,8 +144,8 @@
         <TooltipContent>
             <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
             <MudText Typo="Typo.body2">antes de editar um registro de ponto.</MudText>
-            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
-            <MudText Typo="Typo.overline" Style="display:inline"> Não</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão: </MudText>
+            <MudText Typo="Typo.overline" Style="display:inline">@BooleanoSimNao(padraoAvisarIniciarEdicaoPonto)</MudText>
         </TooltipContent>
     </MudTooltip>
     <MudDivider />
@@ -156,8 +156,8 @@
         <TooltipContent>
             <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
             <MudText Typo="Typo.body2">após criar um cronômetro.</MudText>
-            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
-            <MudText Typo="Typo.overline" Style="display:inline"> Não</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão: </MudText>
+            <MudText Typo="Typo.overline" Style="display:inline">@BooleanoSimNao(padraoAvisarSucessoCriacaoCronometro)</MudText>
         </TooltipContent>
     </MudTooltip>
     <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info">
@@ -167,8 +167,8 @@
         <TooltipContent>
             <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
             <MudText Typo="Typo.body2">antes de criar um cronômetro.</MudText>
-            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
-            <MudText Typo="Typo.overline" Style="display:inline"> Não</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão: </MudText>
+            <MudText Typo="Typo.overline" Style="display:inline">@BooleanoSimNao(padraoAvisarIniciarCriacaoCronometro)</MudText>
         </TooltipContent>
     </MudTooltip>
     <MudDivider />
@@ -179,8 +179,8 @@
         <TooltipContent>
             <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
             <MudText Typo="Typo.body2">após excluir um cronômetro.</MudText>
-            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
-            <MudText Typo="Typo.overline" Style="display:inline"> Não</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão: </MudText>
+            <MudText Typo="Typo.overline" Style="display:inline">@BooleanoSimNao(padraoAvisarSucessoExclusaoCronometro)</MudText>
         </TooltipContent>
     </MudTooltip>
     <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info">
@@ -190,8 +190,8 @@
         <TooltipContent>
             <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
             <MudText Typo="Typo.body2">antes de excluir um cronômetro.</MudText>
-            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
-            <MudText Typo="Typo.overline" Style="display:inline"> Não</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão: </MudText>
+            <MudText Typo="Typo.overline" Style="display:inline">@BooleanoSimNao(padraoAvisarIniciarExclusaoCronometro)</MudText>
         </TooltipContent>
     </MudTooltip>
     <MudDivider />
@@ -202,8 +202,8 @@
         <TooltipContent>
             <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
             <MudText Typo="Typo.body2">após editar um cronômetro.</MudText>
-            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
-            <MudText Typo="Typo.overline" Style="display:inline"> Não</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão: </MudText>
+            <MudText Typo="Typo.overline" Style="display:inline">@BooleanoSimNao(padraoAvisarSucessoEdicaoCronometro)</MudText>
         </TooltipContent>
     </MudTooltip>
     <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info">
@@ -213,8 +213,8 @@
         <TooltipContent>
             <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
             <MudText Typo="Typo.body2">antes de editar um cronômetro.</MudText>
-            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
-            <MudText Typo="Typo.overline" Style="display:inline"> Não</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão: </MudText>
+            <MudText Typo="Typo.overline" Style="display:inline">@BooleanoSimNao(padraoAvisarIniciarEdicaoCronometro)</MudText>
         </TooltipContent>
     </MudTooltip>
     <MudDivider />
@@ -225,8 +225,8 @@
         <TooltipContent>
             <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
             <MudText Typo="Typo.body2">após abandonar um cronômetro.</MudText>
-            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
-            <MudText Typo="Typo.overline" Style="display:inline"> Não</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão: </MudText>
+            <MudText Typo="Typo.overline" Style="display:inline">@BooleanoSimNao(padraoAvisarSucessoAbandonoCronometro)</MudText>
         </TooltipContent>
     </MudTooltip>
     <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info">
@@ -236,8 +236,8 @@
         <TooltipContent>
             <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
             <MudText Typo="Typo.body2">depois de abandonar um cronômetro.</MudText>
-            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
-            <MudText Typo="Typo.overline" Style="display:inline"> Sim</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão: </MudText>
+            <MudText Typo="Typo.overline" Style="display:inline">@BooleanoSimNao(padraoAvisarIniciarAbandonoCronometro)</MudText>
         </TooltipContent>
     </MudTooltip>
     <MudDivider />
@@ -248,8 +248,8 @@
         <TooltipContent>
             <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
             <MudText Typo="Typo.body2">após finalizar um cronômetro.</MudText>
-            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
-            <MudText Typo="Typo.overline" Style="display:inline"> Não</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão: </MudText>
+            <MudText Typo="Typo.overline" Style="display:inline">@BooleanoSimNao(padraoAvisarSucessoFinalizacaoCronometro)</MudText>
         </TooltipContent>
     </MudTooltip>
     <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info">
@@ -259,8 +259,8 @@
         <TooltipContent>
             <MudText Typo="Typo.body2">Exibir uma mensagem de confirmação</MudText>
             <MudText Typo="Typo.body2">antes de finalizar um cronômetro.</MudText>
-            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
-            <MudText Typo="Typo.overline" Style="display:inline"> Não</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão: </MudText>
+            <MudText Typo="Typo.overline" Style="display:inline">@BooleanoSimNao(padraoAvisarIniciarFinalizacaoCronometro)</MudText>
         </TooltipContent>
     </MudTooltip>
 </MudPaper>
@@ -279,83 +279,116 @@ IconColor="Color.Dark">
 </MudButton>
 
 @code {
-    private bool AvisarFecharPrograma { get; set; } = false;
+    #region Constantes
+    private const bool padraoAvisarFecharPrograma = false;
 
-    private bool AvisarIniciarExpotacaoPonto { get; set; } = false;
-    private bool AvisarSucessoExpotacaoPonto { get; set; } = true;
-    private bool AvisarIniciarExpotacaoTempo { get; set; } = false;
-    private bool AvisarSucessoExpotacaoTempo { get; set; } = true;
+    private const bool padraoAvisarIniciarExpotacaoPonto = false;
+    private const bool padraoAvisarSucessoExpotacaoPonto = true;
+    private const bool padraoAvisarIniciarExpotacaoTempo = false;
+    private const bool padraoAvisarSucessoExpotacaoTempo = true;
 
-    private bool AvisarIniciarCriacaoPonto { get; set; } = false;
-    private bool AvisarSucessoCriacaoPonto { get; set; } = false;
-    private bool AvisarIniciarExclusaoPonto { get; set; } = true;
-    private bool AvisarSucessoExclusaoPonto { get; set; } = true;
-    private bool AvisarIniciarEdicaoPonto { get; set; } = false;
-    private bool AvisarSucessoEdicaoPonto { get; set; } = false;
+    private const bool padraoAvisarIniciarCriacaoPonto = false;
+    private const bool padraoAvisarSucessoCriacaoPonto = false;
+    private const bool padraoAvisarIniciarExclusaoPonto = true;
+    private const bool padraoAvisarSucessoExclusaoPonto = true;
+    private const bool padraoAvisarIniciarEdicaoPonto = false;
+    private const bool padraoAvisarSucessoEdicaoPonto = false;
 
-    private bool AvisarIniciarCriacaoCronometro { get; set; } = false;
-    private bool AvisarSucessoCriacaoCronometro { get; set; } = false;
-    private bool AvisarIniciarExclusaoCronometro { get; set; } = false;
-    private bool AvisarSucessoExclusaoCronometro { get; set; } = false;
-    private bool AvisarIniciarEdicaoCronometro { get; set; } = false;
-    private bool AvisarSucessoEdicaoCronometro { get; set; } = false;
-    private bool AvisarIniciarAbandonoCronometro { get; set; } = true;
-    private bool AvisarSucessoAbandonoCronometro { get; set; } = false;
-    private bool AvisarIniciarFinalizacaoCronometro { get; set; } = false;
-    private bool AvisarSucessoFinalizacaoCronometro { get; set; } = false;
+    private const bool padraoAvisarIniciarCriacaoCronometro = false;
+    private const bool padraoAvisarSucessoCriacaoCronometro = false;
+    private const bool padraoAvisarIniciarExclusaoCronometro = false;
+    private const bool padraoAvisarSucessoExclusaoCronometro = false;
+    private const bool padraoAvisarIniciarEdicaoCronometro = false;
+    private const bool padraoAvisarSucessoEdicaoCronometro = false;
+    private const bool padraoAvisarIniciarAbandonoCronometro = true;
+    private const bool padraoAvisarSucessoAbandonoCronometro = false;
+    private const bool padraoAvisarIniciarFinalizacaoCronometro = false;
+    private const bool padraoAvisarSucessoFinalizacaoCronometro = false;
+    #endregion
 
+    #region Propriedades
+    private bool AvisarFecharPrograma { get; set; } = padraoAvisarFecharPrograma;
+
+    private bool AvisarIniciarExpotacaoPonto { get; set; } = padraoAvisarIniciarExpotacaoPonto;
+    private bool AvisarSucessoExpotacaoPonto { get; set; } = padraoAvisarSucessoExpotacaoPonto;
+    private bool AvisarIniciarExpotacaoTempo { get; set; } = padraoAvisarIniciarExpotacaoTempo;
+    private bool AvisarSucessoExpotacaoTempo { get; set; } = padraoAvisarSucessoExpotacaoTempo;
+
+    private bool AvisarIniciarCriacaoPonto { get; set; } = padraoAvisarIniciarCriacaoPonto;
+    private bool AvisarSucessoCriacaoPonto { get; set; } = padraoAvisarSucessoCriacaoPonto;
+    private bool AvisarIniciarExclusaoPonto { get; set; } = padraoAvisarIniciarExclusaoPonto;
+    private bool AvisarSucessoExclusaoPonto { get; set; } = padraoAvisarSucessoExclusaoPonto;
+    private bool AvisarIniciarEdicaoPonto { get; set; } = padraoAvisarIniciarEdicaoPonto;
+    private bool AvisarSucessoEdicaoPonto { get; set; } = padraoAvisarSucessoEdicaoPonto;
+
+    private bool AvisarIniciarCriacaoCronometro { get; set; } = padraoAvisarIniciarCriacaoCronometro;
+    private bool AvisarSucessoCriacaoCronometro { get; set; } = padraoAvisarSucessoCriacaoCronometro;
+    private bool AvisarIniciarExclusaoCronometro { get; set; } = padraoAvisarIniciarExclusaoCronometro;
+    private bool AvisarSucessoExclusaoCronometro { get; set; } = padraoAvisarSucessoExclusaoCronometro;
+    private bool AvisarIniciarEdicaoCronometro { get; set; } = padraoAvisarIniciarEdicaoCronometro;
+    private bool AvisarSucessoEdicaoCronometro { get; set; } = padraoAvisarSucessoEdicaoCronometro;
+    private bool AvisarIniciarAbandonoCronometro { get; set; } = padraoAvisarIniciarAbandonoCronometro;
+    private bool AvisarSucessoAbandonoCronometro { get; set; } = padraoAvisarSucessoAbandonoCronometro;
+    private bool AvisarIniciarFinalizacaoCronometro { get; set; } = padraoAvisarIniciarFinalizacaoCronometro;
+    private bool AvisarSucessoFinalizacaoCronometro { get; set; } = padraoAvisarSucessoFinalizacaoCronometro;
+    #endregion
+
+    #region Botão Restaurar padrões
     private void RestauraPadroes()
     {
-        AvisarFecharPrograma = false;
-        AvisarIniciarExpotacaoPonto = false;
-        AvisarSucessoExpotacaoPonto = true;
-        AvisarIniciarExpotacaoTempo = false;
-        AvisarSucessoExpotacaoTempo = true;
-        AvisarIniciarCriacaoPonto = false;
-        AvisarSucessoCriacaoPonto = false;
-        AvisarIniciarExclusaoPonto = true;
-        AvisarSucessoExclusaoPonto = true;
-        AvisarIniciarEdicaoPonto = false;
-        AvisarSucessoEdicaoPonto = false;
-        AvisarIniciarCriacaoCronometro = false;
-        AvisarSucessoCriacaoCronometro = false;
-        AvisarIniciarExclusaoCronometro = false;
-        AvisarSucessoExclusaoCronometro = false;
-        AvisarIniciarEdicaoCronometro = false;
-        AvisarSucessoEdicaoCronometro = false;
-        AvisarIniciarAbandonoCronometro = true;
-        AvisarSucessoAbandonoCronometro = false;
-        AvisarIniciarFinalizacaoCronometro = false;
-        AvisarSucessoFinalizacaoCronometro = false;
+        AvisarFecharPrograma = padraoAvisarFecharPrograma;
+        AvisarIniciarExpotacaoPonto = padraoAvisarIniciarExpotacaoPonto;
+        AvisarSucessoExpotacaoPonto = padraoAvisarSucessoExpotacaoPonto;
+        AvisarIniciarExpotacaoTempo = padraoAvisarIniciarExpotacaoTempo;
+        AvisarSucessoExpotacaoTempo = padraoAvisarSucessoExpotacaoTempo;
+        AvisarIniciarCriacaoPonto = padraoAvisarIniciarCriacaoPonto;
+        AvisarSucessoCriacaoPonto = padraoAvisarSucessoCriacaoPonto;
+        AvisarIniciarExclusaoPonto = padraoAvisarIniciarExclusaoPonto;
+        AvisarSucessoExclusaoPonto = padraoAvisarSucessoExclusaoPonto;
+        AvisarIniciarEdicaoPonto = padraoAvisarIniciarEdicaoPonto;
+        AvisarSucessoEdicaoPonto = padraoAvisarSucessoEdicaoPonto;
+        AvisarIniciarCriacaoCronometro = padraoAvisarIniciarCriacaoCronometro;
+        AvisarSucessoCriacaoCronometro = padraoAvisarSucessoCriacaoCronometro;
+        AvisarIniciarExclusaoCronometro = padraoAvisarIniciarExclusaoCronometro;
+        AvisarSucessoExclusaoCronometro = padraoAvisarSucessoExclusaoCronometro;
+        AvisarIniciarEdicaoCronometro = padraoAvisarIniciarEdicaoCronometro;
+        AvisarSucessoEdicaoCronometro = padraoAvisarSucessoEdicaoCronometro;
+        AvisarIniciarAbandonoCronometro = padraoAvisarIniciarAbandonoCronometro;
+        AvisarSucessoAbandonoCronometro = padraoAvisarSucessoAbandonoCronometro;
+        AvisarIniciarFinalizacaoCronometro = padraoAvisarIniciarFinalizacaoCronometro;
+        AvisarSucessoFinalizacaoCronometro = padraoAvisarSucessoFinalizacaoCronometro;
     }
     private bool EstaNosPadroes
     {
         get
         {
-            return !(AvisarFecharPrograma
-                  ||  AvisarIniciarExpotacaoPonto
-                  || !AvisarSucessoExpotacaoPonto
-                  ||  AvisarIniciarExpotacaoTempo
-                  || !AvisarSucessoExpotacaoTempo
-                  ||  AvisarIniciarCriacaoPonto
-                  ||  AvisarSucessoCriacaoPonto
-                  || !AvisarIniciarExclusaoPonto
-                  || !AvisarSucessoExclusaoPonto
-                  ||  AvisarIniciarEdicaoPonto
-                  ||  AvisarSucessoEdicaoPonto
-                  ||  AvisarIniciarCriacaoCronometro
-                  ||  AvisarSucessoCriacaoCronometro
-                  ||  AvisarIniciarExclusaoCronometro
-                  ||  AvisarSucessoExclusaoCronometro
-                  ||  AvisarIniciarEdicaoCronometro
-                  ||  AvisarSucessoEdicaoCronometro
-                  || !AvisarIniciarAbandonoCronometro
-                  ||  AvisarSucessoAbandonoCronometro
-                  ||  AvisarIniciarFinalizacaoCronometro
-                  ||  AvisarSucessoFinalizacaoCronometro);
+            return AvisarFecharPrograma == padraoAvisarFecharPrograma
+                && AvisarIniciarExpotacaoPonto == padraoAvisarIniciarExpotacaoPonto
+                && AvisarSucessoExpotacaoPonto == padraoAvisarSucessoExpotacaoPonto
+                && AvisarIniciarExpotacaoTempo == padraoAvisarIniciarExpotacaoTempo
+                && AvisarSucessoExpotacaoTempo == padraoAvisarSucessoExpotacaoTempo
+                && AvisarIniciarCriacaoPonto == padraoAvisarIniciarCriacaoPonto
+                && AvisarSucessoCriacaoPonto == padraoAvisarSucessoCriacaoPonto 
+                && AvisarIniciarExclusaoPonto == padraoAvisarIniciarExclusaoPonto
+                && AvisarSucessoExclusaoPonto == padraoAvisarSucessoExclusaoPonto
+                && AvisarIniciarEdicaoPonto == padraoAvisarIniciarEdicaoPonto
+                && AvisarSucessoEdicaoPonto == padraoAvisarSucessoEdicaoPonto
+                && AvisarIniciarCriacaoCronometro == padraoAvisarIniciarCriacaoCronometro
+                && AvisarSucessoCriacaoCronometro == padraoAvisarSucessoCriacaoCronometro
+                && AvisarIniciarExclusaoCronometro == padraoAvisarIniciarExclusaoCronometro
+                && AvisarSucessoExclusaoCronometro == padraoAvisarSucessoExclusaoCronometro
+                && AvisarIniciarEdicaoCronometro == padraoAvisarIniciarEdicaoCronometro
+                && AvisarSucessoEdicaoCronometro == padraoAvisarSucessoEdicaoCronometro
+                && AvisarIniciarAbandonoCronometro == padraoAvisarIniciarAbandonoCronometro
+                && AvisarSucessoAbandonoCronometro == padraoAvisarSucessoAbandonoCronometro
+                && AvisarIniciarFinalizacaoCronometro == padraoAvisarIniciarFinalizacaoCronometro
+                && AvisarSucessoFinalizacaoCronometro == padraoAvisarSucessoFinalizacaoCronometro;
         }
     }
+    private string BooleanoSimNao(bool valor) => valor ? "Sim" : "Não";
+    #endregion
 
+    #region Marcações em massa
     private void MarcaAvisos(bool marca)
     {
         AvisarFecharPrograma = marca;
@@ -388,5 +421,5 @@ IconColor="Color.Dark">
         MarcaAvisos(marca);
         MarcaConfirmacoes(marca);
     }
-
+    #endregion
 }

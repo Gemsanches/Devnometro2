@@ -50,16 +50,6 @@
                                    @onmouseleave="ResetarMensagem"
                                    OnClick="AbrirMenu"
                                    Disabled="@janelaMenu.IsLoaded" />
-                    @* <MudMenu Icon="@Icons.Material.Filled.Menu"
-                             AnchorOrigin="Origin.BottomRight"
-                             TransformOrigin="Origin.BottomLeft"
-                             AriaLabel="Menu de opções"
-                             @onmouseover='() => AplicarMensagem("Menu")'
-                             @onmouseleave="ResetarMensagem">
-                        <MudMenuItem OnClick="AbrirConfiguracao" Disabled="@janelaConfiguracao.IsLoaded">Configurações</MudMenuItem>
-                        <MudMenuItem>Exportações</MudMenuItem>
-                        <MudMenuItem>Sobre</MudMenuItem>
-                    </MudMenu> *@
                 </ChildContent>
                 <TooltipContent>
                     <MudText Typo="Typo.h5"><MudIcon Icon="@Icons.Material.Outlined.Menu" /> Menu <MudIcon Icon="@Icons.Material.Outlined.Menu" /></MudText>
@@ -87,8 +77,6 @@
     private string diaDeHoje = string.Empty;
     private string mensagem = string.Empty;
 
-    Configuracao janelaConfiguracao = new();
-
     MenuWindow janelaMenu = new();
 
     protected override void OnInitialized()
@@ -111,22 +99,6 @@
         StateHasChanged();
     }
 
-    private void AbrirConfiguracao() 
-    {
-        if (janelaConfiguracao.IsLoaded)
-        {
-            janelaConfiguracao.BringIntoView();
-            janelaConfiguracao.Focus();
-            return;
-        }
-
-        janelaConfiguracao = new();
-
-        janelaConfiguracao.AplicaAlteracoes += ReplicaAlteracoes;
-        //janelaConfiguracao.Closing += RetornoConfiguracoes;
-
-        janelaConfiguracao.Show(); 
-    }
     private void AbrirMenu()
     {
         if (janelaMenu.IsLoaded)
