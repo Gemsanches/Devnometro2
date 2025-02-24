@@ -1,5 +1,111 @@
-﻿<h3>Ponto</h3>
+﻿<MudPaper Class="pa-0">
+    <MudText Typo="Typo.button" Class="d-inline px-3" Style="font-weight:bold">Exportação de ponto</MudText>
+    <MudToggleIconButton @bind-Toggled="SelecionaFiltro"
+                         Icon="@Icons.Material.TwoTone.FilterAlt"
+                         Color="@Color.Secondary"
+                         ToggledIcon="@Icons.Material.TwoTone.FilterAlt"
+                         ToggledColor="@Color.Success" />
+    <MudToggleIconButton @bind-Toggled="SelecionaVisualizacao"
+                         Icon="@Icons.Material.TwoTone.Pageview"
+                         Color="@Color.Secondary"
+                         ToggledIcon="@Icons.Material.TwoTone.Pageview"
+                         ToggledColor="@Color.Success" />
+    <MudToggleIconButton @bind-Toggled="SelecionaExportacao"
+                         Icon="@Icons.Material.TwoTone.Receipt"
+                         Color="@Color.Secondary"
+                         ToggledIcon="@Icons.Material.TwoTone.Receipt"
+                         ToggledColor="@Color.Success" />
+
+    <MudCollapse Expanded="expandeFiltro">
+        <MudDivider />
+        <MudPaper Elevation="2" Class="ma-3">
+            <MudPaper Elevation="0" Class="mx-3 d-flex justify-space-between">
+                <MudText Typo="Typo.button">Filtro</MudText>
+                <MudToggleIconButton @bind-Toggled="travaFiltro"
+                                     Class="pa-0 ma-0"
+                                     Icon="@Icons.Material.TwoTone.LockOpen"
+                                     Color="@Color.Secondary"
+                                     ToggledIcon="@Icons.Material.TwoTone.Lock"
+                                     ToggledColor="@Color.Success" />
+            </MudPaper>
+            <MudText Class="mx-3">Filtros</MudText>
+        </MudPaper>
+    </MudCollapse>
+    <MudCollapse Expanded="expandeVisualizacao">
+        <MudDivider />
+        <MudPaper Elevation="2" Class="ma-3">
+            <MudPaper Elevation="0" Class="mx-3 d-flex justify-space-between">
+                <MudText Typo="Typo.button">Resultado</MudText>
+                <MudToggleIconButton @bind-Toggled="travaVisualizacao"
+                                     Class="pa-0 ma-0"
+                                     Icon="@Icons.Material.TwoTone.LockOpen"
+                                     Color="@Color.Secondary"
+                                     ToggledIcon="@Icons.Material.TwoTone.Lock"
+                                     ToggledColor="@Color.Success" />
+            </MudPaper>
+            <MudText Class="mx-3">Visualização</MudText>
+        </MudPaper>        
+    </MudCollapse>
+    <MudCollapse Expanded="expandeExportacao">
+        <MudDivider />
+        <MudPaper Elevation="2" Class="ma-3">
+            <MudPaper Elevation="0" Class="mx-3 d-flex justify-space-between">
+                <MudText Typo="Typo.button">Exportação</MudText>
+                <MudToggleIconButton @bind-Toggled="travaExportacao"
+                                     Class="pa-0 ma-0"
+                                     Icon="@Icons.Material.TwoTone.LockOpen"
+                                     Color="@Color.Secondary"
+                                     ToggledIcon="@Icons.Material.TwoTone.Lock"
+                                     ToggledColor="@Color.Success" />
+            </MudPaper>
+            <MudText Class="mx-3">Exportação</MudText>
+        </MudPaper>        
+    </MudCollapse>
+</MudPaper>
 
 @code {
+    private bool expandeFiltro = false;
+    private bool expandeVisualizacao = false;
+    private bool expandeExportacao = false;
 
+    private bool travaFiltro = false;
+    private bool travaVisualizacao = false;
+    private bool travaExportacao = false;
+
+    private bool SelecionaFiltro
+    {
+        get => expandeFiltro;
+        set
+        {
+            expandeFiltro = travaFiltro ? true : value;
+            if (!travaVisualizacao)
+                expandeVisualizacao = false;
+            if (!travaExportacao)
+                expandeExportacao = false;
+        }
+    }
+    private bool SelecionaVisualizacao
+    {
+        get => expandeVisualizacao;
+        set
+        {
+            expandeVisualizacao = travaVisualizacao ? true : value;
+            if (!travaFiltro)
+                expandeFiltro = false;
+            if (!travaExportacao)
+                expandeExportacao = false;
+        }
+    }
+    private bool SelecionaExportacao
+    {
+        get => expandeExportacao;
+        set
+        {
+            expandeExportacao = travaExportacao ? true : value;
+            if (!travaFiltro)
+                expandeFiltro = false;
+            if (!travaVisualizacao)
+                expandeVisualizacao = false;
+        }
+    }
 }
