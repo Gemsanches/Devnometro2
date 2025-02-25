@@ -7,20 +7,21 @@
         IconColor="Color.Dark"
         MinimumTabWidth="20px">
         <MudTabPanel ToolTip="Geral" Icon="@Icons.Material.TwoTone.Tune">
-            <Devnometro.TelasConfig.Configuracoes.CGeral />
+            <Devnometro.TelasConfig.Configuracoes.CGeral Preferencias="Preferencias" />
         </MudTabPanel>
         <MudTabPanel ToolTip="Registo de Ponto" Icon="@Icons.Material.TwoTone.Badge">
-            <Devnometro.TelasConfig.Configuracoes.CPonto />
+            <Devnometro.TelasConfig.Configuracoes.CPonto Preferencias="Preferencias" />
         </MudTabPanel>
         <MudTabPanel ToolTip="Cronômetros" Icon="@Icons.Material.TwoTone.AccessTime">
-            <Devnometro.TelasConfig.Configuracoes.CCronometro />
+            <Devnometro.TelasConfig.Configuracoes.CCronometro Preferencias="Preferencias" />
         </MudTabPanel>
         <MudTabPanel ToolTip="Comunicação" Icon="@Icons.Material.TwoTone.Announcement">
-            <Devnometro.TelasConfig.Configuracoes.Comunicacao />
+            <Devnometro.TelasConfig.Configuracoes.Comunicacao Preferencias="Preferencias" />
         </MudTabPanel>
     </MudTabs>
 </MudPaper>
 
 @code {
-
+    [Parameter]
+    public required Devnometro.Dominio.Preferencias Preferencias { get; set; }
 }

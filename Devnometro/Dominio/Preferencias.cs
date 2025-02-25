@@ -7,17 +7,22 @@ using System.Threading.Tasks;
 
 namespace Devnometro.Dominio;
 
-class Preferencias
+public class Preferencias
 {
+    public event Action OnChanged;
+
     #region Caminhos
 
     #endregion
 
     #region Tema
-    public MudTheme TemaPadrao { get; set; }
-    public bool TemaNoturno { get; set; }
+    private MudTheme _tema = new();
+    public MudTheme Tema { get => _tema; set { _tema = value; OnChanged?.Invoke(); } }
+    
+    private bool _temaNoturno;
+    public bool TemaNoturno { get => _temaNoturno; set { _temaNoturno = value; OnChanged?.Invoke(); } }
 
-    public TemaPersonalizado temaPersonalizado { get; set; } = new();
+    public TemaPersonalizado TemaPersonalizado { get; set; } = new();
     #endregion
 
 }

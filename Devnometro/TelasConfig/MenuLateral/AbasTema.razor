@@ -1,7 +1,8 @@
 ﻿<MudPaper Class="pa-0 ma-0 mt-n4 pt-4" Height="508px">
-    <Devnometro.TelasConfig.Configuracoes.Tema/>
+    <Devnometro.TelasConfig.Configuracoes.Tema Preferencias="Preferencias" />
 </MudPaper>
 
 @code {
-
+    [Parameter]
+    public required Devnometro.Dominio.Preferencias Preferencias { get; set; }
 }

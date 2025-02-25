@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace Devnometro.TelasConfig.Configuracoes;
 
-public class TemaBase : ComponentBase
+public class TemaBase : ComponentBase, IDisposable
 {
     [Parameter]
-    public MenuWindow? janela { get; set; }
+    public MenuWindow? Janela { get; set; }
 
-    [Inject]
-    public MudTheme _theme { get; set; }
+    [Parameter]
+    public required Preferencias Preferencias { get; set; }
 
     protected int _selecionado;
     protected int Selecionado
@@ -40,11 +40,9 @@ public class TemaBase : ComponentBase
                     TemaSelecionado = TemaModel.TemaPadrao();
                     break;
             }
-            _theme = TemaSelecionado;
+            Preferencias.Tema = TemaSelecionado;
         }
     }
-
-    protected bool temaEscuro;
 
     protected MudTheme TemaSelecionado { get; set; } = new();
     protected MudTheme TemaPersonalizado { get; set; } = new();
@@ -65,10 +63,13 @@ public class TemaBase : ComponentBase
     protected override void OnInitialized()
     {
         TemaPersonalizado = Personalizado.Tema;
-        
-        temaEscuro = false;
-        Selecionado = 1;
+        Preferencias.OnChanged += StateHasChanged;
 
-        base.OnInitialized();
+        Selecionado = 1;
+    }
+
+    public void Dispose()
+    {
+        Preferencias.OnChanged -= StateHasChanged;
     }
 }

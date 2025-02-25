@@ -279,6 +279,9 @@ IconColor="Color.Dark">
 </MudButton>
 
 @code {
+    [Parameter]
+    public required Devnometro.Dominio.Preferencias Preferencias { get; set; }
+
     #region Constantes
     private const bool padraoAvisarFecharPrograma = false;
 

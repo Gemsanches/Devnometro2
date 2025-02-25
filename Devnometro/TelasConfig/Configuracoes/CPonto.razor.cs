@@ -12,6 +12,9 @@ namespace Devnometro.TelasConfig.Configuracoes;
 
 public class CPontoBase : ComponentBase
 {
+    [Parameter]
+    public required Devnometro.Dominio.Preferencias Preferencias { get; set; }
+
     #region Constantes
     protected const int padraoTempoBatidaRepetida = 60;
     protected const bool padraoPrimeiroPontoAutomatico = false;

@@ -125,6 +125,9 @@ IconColor="Color.Dark">
 </MudButton>
 
 @code {
+    [Parameter]
+    public required Devnometro.Dominio.Preferencias Preferencias { get; set; }
+
     #region Constantes
     private const int  padraoExibicao = 2;
     private const int  padraoAutoSaveTempo = 1;

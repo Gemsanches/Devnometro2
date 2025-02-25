@@ -1,4 +1,5 @@
-﻿using Devnometro.TelasConfig.Configuracoes;
+﻿using Devnometro.Dominio;
+using Devnometro.TelasConfig.Configuracoes;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using System;
@@ -9,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace Devnometro;
 
-public class MenuBase : ComponentBase
+public class MenuBase : ComponentBase, IDisposable
 {
-    [Inject]
-    public MudTheme _theme { get; set; }
+    [Parameter]
+    public required Preferencias Preferencias { get; set; }
 
     [Parameter]
     public MenuWindow? Janela { get; set; }
@@ -20,7 +21,6 @@ public class MenuBase : ComponentBase
     public bool expandido = true;
     public void ExpandirRecolherMenu() => expandido = !expandido;
 
-    protected bool temaEscuro;
     protected MudTheme TemaSelecionado { get; set; } = new();
 
     public int selecionado;
@@ -53,14 +53,19 @@ public class MenuBase : ComponentBase
 
     protected override void OnInitialized()
     {
-        _theme = Dominio.TemaModel.TemaPadrao();
-        base.OnInitialized();
+        Preferencias.Tema = Dominio.TemaModel.TemaPadrao();
+        Preferencias.OnChanged += StateHasChanged;
     }
 
     public void Teste()
     {
-        var adds = _theme.PaletteLight.Primary.ToString();
-        TemaSelecionado = _theme;
+        var adds = Preferencias.Tema.PaletteLight.Primary.ToString();
+        TemaSelecionado = Preferencias.Tema;
         Janela?.Alterar();
+    }
+
+    public void Dispose()
+    {
+        Preferencias.OnChanged -= StateHasChanged;
     }
 }

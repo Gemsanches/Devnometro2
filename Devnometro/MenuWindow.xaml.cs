@@ -17,24 +17,29 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Web.WebView2.Core;
 using MudBlazor;
 using MudBlazor.Services;
+using Devnometro.Dominio;
 
 namespace Devnometro;
 
 public partial class MenuWindow : Window
 {
-    public MenuWindow()
+    public MenuWindow(Preferencias preferencias)
     {
         InitializeComponent();
         var serviceCollection = new ServiceCollection();
         serviceCollection.AddWpfBlazorWebView();
         serviceCollection.AddMudServices();
-        serviceCollection.AddSingleton<MudTheme>();
+        //serviceCollection.AddSingleton<Preferencias>();
+        this.preferencias = preferencias;
         Resources.Add("services", serviceCollection.BuildServiceProvider());
         menu.Parameters = new Dictionary<string, object?>
         {
-            { "janela", this }
+            { "Janela", this },
+            { "Preferencias", preferencias }
         };
     }
+
+    public readonly Preferencias preferencias;
 
     public event EventHandler? AplicaAlteracoes;
 

@@ -6,14 +6,15 @@
              IconColor="Color.Dark"
              MinimumTabWidth="20px">
         <MudTabPanel ToolTip="Ponto" Icon="@Icons.Material.TwoTone.Badge">
-            <Devnometro.TelasConfig.Exportacoes.Ponto />
+            <Devnometro.TelasConfig.Exportacoes.Ponto Preferencias="Preferencias" />
         </MudTabPanel>
         <MudTabPanel ToolTip="Tempos" Icon="@Icons.Material.TwoTone.AccessTime">
-            <Devnometro.TelasConfig.Exportacoes.Tempo/>
+            <Devnometro.TelasConfig.Exportacoes.Tempo Preferencias="Preferencias" />
         </MudTabPanel>
     </MudTabs>
 </MudPaper>
 
 @code {
-
+    [Parameter]
+    public required Devnometro.Dominio.Preferencias Preferencias { get; set; }
 }

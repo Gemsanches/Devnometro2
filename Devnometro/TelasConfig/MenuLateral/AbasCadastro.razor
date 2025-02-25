@@ -6,14 +6,18 @@
              IconColor="Color.Dark"
              MinimumTabWidth="20px">
         <MudTabPanel ToolTip="Contador" Icon="@Icons.Material.TwoTone.HourglassBottom">
-            <Devnometro.TelasConfig.Cadastros.Contador/>
+            <Devnometro.TelasConfig.Cadastros.Contador Preferencias="Preferencias" />
         </MudTabPanel>
-        <MudTabPanel ToolTip="Padrão de contador" Icon="@Icons.Material.TwoTone.Mediation">
-            <Devnometro.TelasConfig.Cadastros.Padrao/>
+        <MudTabPanel ToolTip="Padrão de cronômetros" Icon="@Icons.Material.TwoTone.AutoMode">
+            <Devnometro.TelasConfig.Cadastros.Padrao Preferencias="Preferencias" />
+        </MudTabPanel>
+        <MudTabPanel ToolTip="Tarefa Expressa" Icon="@Icons.Material.TwoTone.AlarmOn">
+            <Devnometro.TelasConfig.Cadastros.Expresso Preferencias="Preferencias" />
         </MudTabPanel>
     </MudTabs>
 </MudPaper>
 
 @code {
-
+    [Parameter]
+    public required Devnometro.Dominio.Preferencias Preferencias { get; set; }
 }

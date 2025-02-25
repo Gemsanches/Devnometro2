@@ -1,6 +1,4 @@
-﻿@inject MudTheme _theme
-
-<MudPaper Height="508px">
+﻿<MudPaper Height="508px">
 <h3>Padrão de Cronometros</h3>
 
 <p>CRUD</p>
@@ -15,5 +13,6 @@
 
 </MudPaper>
 @code {
-
+    [Parameter]
+    public required Devnometro.Dominio.Preferencias Preferencias { get; set; }
 }

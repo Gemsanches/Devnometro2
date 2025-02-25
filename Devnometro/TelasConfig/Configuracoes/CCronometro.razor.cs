@@ -10,6 +10,9 @@ namespace Devnometro.TelasConfig.Configuracoes;
 
 public class CCronometroBase : ComponentBase
 {
+    [Parameter]
+    public required Devnometro.Dominio.Preferencias Preferencias { get; set; }
+
     #region Constantes
     protected const int padraoCronometrosSimultaneos = 5;
     protected const bool padraoExcluirAutomaticamente = true;

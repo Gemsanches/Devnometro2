@@ -1,7 +1,6 @@
 ﻿@inherits TemaBase
-@* @inject MudTheme _theme *@
 
-<MudThemeProvider @bind-IsDarkMode="@temaEscuro" Theme="@TemaSelecionado" />
+<MudThemeProvider @bind-IsDarkMode="@Preferencias.TemaNoturno" Theme="@Preferencias.Tema" />
 
 <style>
     .cor-clara {
@@ -33,10 +32,10 @@
     <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-1" Color="Color.Surface">Fundo</MudButton>
 </MudPaper>
 <MudPaper Class="px-3 mx-3 py-1 my-0" Elevation="3" MaxWidth="575px">
-    <MudSwitch @bind-Value="temaEscuro"
+    <MudSwitch @bind-Value="Preferencias.TemaNoturno"
                Size="Size.Large"
-               ThumbIcon="@(temaEscuro==true ? Icons.Material.Filled.DarkMode : Icons.Material.Filled.LightMode)"
-               ThumbIconColor="@(temaEscuro==true ? Color.Dark : Color.Warning)">Modo Claro/Escuro</MudSwitch>
+               ThumbIcon="@(Preferencias.TemaNoturno==true ? Icons.Material.Filled.DarkMode : Icons.Material.Filled.LightMode)"
+               ThumbIconColor="@(Preferencias.TemaNoturno==true ? Color.Dark : Color.Warning)">Modo Claro/Escuro</MudSwitch>
 </MudPaper>
 
 <MudPaper Class="pa-3 ma-3" Elevation="3" MaxWidth="575px">
