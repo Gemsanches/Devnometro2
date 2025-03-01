@@ -1,0 +1,107 @@
+﻿<MudDialog Class="pa-0" Style="width:600px; height:500px">
+    <TitleContent>
+        <MudStack Row="true">
+            <MudPaper Elevation="2" Width="80px" Height="80px">
+                <MudIcon Icon=@iconePadrao Color=@CorExibicao Style="font-size: 80px;"/>
+            </MudPaper>
+            <MudPaper Elevation="0" Width="500px" Height="80px">
+                <MudStack Row="true">
+                    <MudPaper Elevation="0" Width="290px" Height="30px">
+                        <MudText Class="pa-0 pointer-events-none"
+                                 Typo="Typo.h6"
+                                 Style="height:25px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"
+                                 Color="Color.Dark">@Descricao</MudText>
+                    </MudPaper>
+                    <MudPaper Elevation="0" Width="155px" Height="30px">
+                        <MudStack Row="true">
+                            <MudButton Variant="Variant.Filled"
+                                       OnClick="Submit"
+                                       Size="Size.Small"
+                                       Color="Color.Success">OK</MudButton>
+                            <MudButton Variant="Variant.Filled"
+                                       OnClick="Cancel"
+                                       Size="Size.Small"
+                                       Color="Color.Error"
+                                       Class="px-5">Cancela</MudButton>
+                        </MudStack>
+                    </MudPaper>
+                </MudStack>
+                <MudPaper Elevation="0" Class="py-1 px-0" Width="460px" Height="50px">
+                    <MudIconButton Ripple="false" Icon=@Icons.Material.Filled.Square Style="font-size: 20px;" Color="Color.Dark" onclick="() => SetCor(Color.Dark)" />
+                    <MudIconButton Ripple="false" Icon=@Icons.Material.Filled.Square Style="font-size: 20px;" Color="Color.Error" onclick="() => SetCor(Color.Error)" />
+                    <MudText>Content One aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaa aaaaaaaa</MudText>
+                    <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-1" Color="Color.Primary">1°</MudButton>
+                    <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-1" Color="Color.Secondary">2°</MudButton>
+                    <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-1" Color="Color.Tertiary">3°</MudButton>
+                    <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-1" Color="Color.Info">Info</MudButton>
+                    <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-1" Color="Color.Warning">Aviso</MudButton>
+                    <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-1" Color="Color.Error">Erro</MudButton>
+                    <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-1" Color="Color.Success">Ok</MudButton>
+                    <MudButton Variant="Variant.Filled" Size="Size.Small" Ripple="false" Class="cursor-default py-1" Color="Color.Surface">Fundo</MudButton>
+                </MudPaper>
+            </MudPaper>
+        </MudStack>
+    </TitleContent>
+    <DialogContent>
+        <MudTabs Elevation="3">
+            <MudTabPanel Text="Tab One">
+                <MudText>Content One</MudText>
+            </MudTabPanel>
+            <MudTabPanel Text="Tab Two">
+                <MudText>Content Two</MudText>
+            </MudTabPanel>
+            <MudTabPanel Text="Tab Three">
+                <MudText>Content Three</MudText>
+            </MudTabPanel>
+        </MudTabs>
+    </DialogContent>
+</MudDialog>
+
+
+
+@code {
+    [CascadingParameter]
+    public required MudDialogInstance Dialog { get; set; }
+
+    [Parameter]
+    public string Descricao { get; set; } = "MMMMMMMMM WWWWWWWWW MMMMMMMMM WWWWWWWWW MMMMMMMMM WWWWWWWWW MMMMMMMMM WWWWWWWWW ";
+    private string DescricaoCortada
+    {
+        get
+        {
+            if (Descricao.Length > 50)
+                return $"{Descricao[0..49]}...";
+            else
+                return Descricao;
+        }
+    }
+
+    [Parameter]
+    public string IconeString { get; set; } = "";
+    private string iconeExibição = "";
+    private const string iconePadrao = @Icons.Material.Filled.QuestionMark;
+
+    [Parameter]
+    public string IconeOriginal { get; set; } = "";
+    private string iconeAnterior = "";
+
+    [Parameter]
+    public Color CorExibicao { get; set; } = Color.Dark;
+
+
+    protected override void OnInitialized()
+    {
+        iconeExibição = string.IsNullOrEmpty(IconeString) ? iconePadrao : IconeString;
+        iconeAnterior = string.IsNullOrEmpty(IconeOriginal) ? iconePadrao : IconeOriginal;
+    }
+
+    private void SetCor(Color cor)
+    {
+        CorExibicao = cor;
+        StateHasChanged();
+    }
+
+    private void Submit() => Dialog.Close(DialogResult.Ok(true));
+
+    private void Cancel() => Dialog.Cancel();
+}
