@@ -1,32 +1,104 @@
-﻿<MudPaper Height="508px">
-<h3>Contador</h3>
+﻿@using Devnometro.Dominio
+@inject IDialogService DialogService
 
-<p>CRUD</p>
-
-<p>Pré-cadastrados: Requerimento, Desenho, Desenvolvimento, Teste, Documentação, Implantação
-    Aguardando, Aprendendo, AjudandoOutros, TrabalhoParalelo, Natureza, Outros
-</p>
-
-<p>
-<MudIconButton Icon="@Icons.Material.Filled.ContentPasteSearch" Title="Requerimento"/>
-<MudIconButton Icon="@Icons.Material.Filled.DesignServices" Title="Desenho" />
-<MudIconButton Icon="@Icons.Material.Filled.Code" Title="Desenvolvimento" />
-<MudIconButton Icon="@Icons.Material.Filled.Ballot" Title="Teste" />
-<MudIconButton Icon="@Icons.Material.Filled.AutoStories" Title="Documentacao" />
-<MudIconButton Icon="@Icons.Material.Filled.Commit" Title="Implantação" />
-</p>
-<p>
-<MudIconButton Icon="@Icons.Material.Filled.AccessTimeFilled" Title="Aguardando" />
-<MudIconButton Icon="@Icons.Material.Filled.School" Title="Aprendendo" />
-<MudIconButton Icon="@Icons.Material.Filled.EscalatorWarning" Title="Ajudando outros" />
-<MudIconButton Icon="@Icons.Material.Filled.AutoAwesomeMotion" Title="Trabalho Paralelo" />
-<MudIconButton Icon="@Icons.Material.Filled.Dining" Title="Natureza" />
-<MudIconButton Icon="@Icons.Material.Filled.AllInclusive" Title="Outros" />
-</p>
+<MudPaper Height="508px">
+    <h3>Contador</h3>
+    <MudIconButton OnClick=@(e=> SelcionarIcone(descricao:"Teste",cor:Color.Error,iconeAtual:@Icons.Material.Filled.Fullscreen)) Icon="@Icons.Material.Filled.Fullscreen" Color="@Color.Primary" ToggledIcon="@Icons.Material.Filled.FullscreenExit" ToggledColor="@Color.Secondary" />
+    <p>CRUD</p>
+    <p>
+        Pré-cadastrados: Requerimento, Desenho, Desenvolvimento, Teste, Documentação, Implantação
+        Aguardando, Aprendendo, AjudandoOutros, TrabalhoParalelo, Natureza, Outros
+        Expresso: daily
+    </p>
+    <p />
+    <MudIconButton Icon="" Title="Selecionado" />
+    <p />
+    <p>
+        <MudIconButton Icon="@Icons.Material.Filled.AirlineSeatIndividualSuite" />
+        <MudIconButton Icon="@Icons.Material.Filled.Agriculture" />
+        <MudIconButton Icon="@Icons.Material.Filled.AllInclusive" Title="Outros" />
+        <MudIconButton Icon="@Icons.Material.Filled.Assignment" />
+        <MudIconButton Icon="@Icons.Material.Filled.AttachEmail" />
+        <MudIconButton Icon="@Icons.Material.Filled.BatteryChargingFull" />
+        <MudIconButton Icon="@Icons.Material.Filled.Blender" />
+        <MudIconButton Icon="@Icons.Material.Filled.BugReport" />
+        <MudIconButton Icon="@Icons.Material.Filled.Campaign" />
+        <MudIconButton Icon="@Icons.Material.Filled.Category" />
+        <MudIconButton Icon="@Icons.Material.Filled.Commit" Title="Implantação" />
+        <MudIconButton Icon="@Icons.Material.Filled.ContentPasteSearch" Title="Requerimento" />
+        <MudIconButton Icon="@Icons.Material.Filled.Delete" />
+        <MudIconButton Icon="@Icons.Material.Filled.DirectionsBus" />
+        <MudIconButton Icon="@Icons.Material.Filled.Diversity3" />
+        <MudIconButton Icon="@Icons.Material.Filled.Drafts" />
+        <MudIconButton Icon="@Icons.Material.Filled.ElectricalServices" />
+        <MudIconButton Icon="@Icons.Material.Filled.EscalatorWarning" Title="Ajudando outros" />
+        <MudIconButton Icon="@Icons.Material.Filled.Factory" />
+        <MudIconButton Icon="@Icons.Material.Filled.Feedback" />
+        <MudIconButton Icon="@Icons.Material.Filled.FlightTakeoff" />
+        <MudIconButton Icon="@Icons.Material.Filled.FollowTheSigns" />
+        <MudIconButton Icon="@Icons.Material.Filled.Handshake" />
+        <MudIconButton Icon="@Icons.Material.Filled.HistoryEdu" />
+        <MudIconButton Icon="@Icons.Material.Filled.Https" />
+        <MudIconButton Icon="@Icons.Material.Filled.Key" />
+        <MudIconButton Icon="@Icons.Material.Filled.KeyboardVoice" />
+        <MudIconButton Icon="@Icons.Material.Filled.LogoDev" />
+        <MudIconButton Icon="@Icons.Material.Filled.Mail" />
+        <MudIconButton Icon="@Icons.Material.Filled.Mediation" />
+        <MudIconButton Icon="@Icons.Material.Filled.MeetingRoom" />
+        <MudIconButton Icon="@Icons.Material.Filled.MiscellaneousServices" />
+        <MudIconButton Icon="@Icons.Material.Filled.MonitorHeart" />
+        <MudIconButton Icon="@Icons.Material.Filled.MusicNote" />
+        <MudIconButton Icon="@Icons.Material.Filled.Piano" />
+        <MudIconButton Icon="@Icons.Material.Filled.PlaylistAddCheckCircle" />
+        <MudIconButton Icon="@Icons.Material.Filled.PrecisionManufacturing" />
+        <MudIconButton Icon="@Icons.Material.Filled.RemoveRedEye" />
+        <MudIconButton Icon="@Icons.Material.Filled.RocketLaunch" />
+        <MudIconButton Icon="@Icons.Material.Filled.RoomService" />
+        <MudIconButton Icon="@Icons.Material.Filled.SafetyDivider" />
+        <MudIconButton Icon="@Icons.Material.Filled.Scoreboard" />
+        <MudIconButton Icon="@Icons.Material.Filled.SentimentSatisfiedAlt" />
+        <MudIconButton Icon="@Icons.Material.Filled.SentimentNeutral" />
+        <MudIconButton Icon="@Icons.Material.Filled.SentimentVeryDissatisfied" />
+        <MudIconButton Icon="@Icons.Material.Filled.ShoppingBasket" />
+        <MudIconButton Icon="@Icons.Material.Filled.SportsEsports" />
+        <MudIconButton Icon="@Icons.Material.Filled.Subscriptions" />
+        <MudIconButton Icon="@Icons.Material.Filled.TableView" />
+        <MudIconButton Icon="@Icons.Material.Filled.TheaterComedy" />
+        <MudIconButton Icon="@Icons.Material.Filled.Traffic" />
+        <MudIconButton Icon="@Icons.Material.Filled.Train" />
+        <MudIconButton Icon="@Icons.Material.Filled.Verified" />
+        <MudIconButton Icon="@Icons.Material.Filled.VoiceChat" />
+        <MudIconButton Icon="@Icons.Material.Filled.Watch" />
+        <MudIconButton Icon="@Icons.Material.Filled.Web" />
+        <MudIconButton Icon="@Icons.Material.Filled.Work" />
+        <MudIconButton Icon="@Icons.Material.Filled.WorkspacePremium" />
+    </p>
 
 </MudPaper>
 
 @code {
     [Parameter]
     public required Devnometro.Dominio.Preferencias Preferencias { get; set; }
+
+    private async Task SelcionarIcone(string descricao, Color cor, string iconeAtual, string iconePadrao = "")
+    {
+        var dadosEnvio = new IconeDados(descricao: descricao,
+                                        cor: cor,
+                                        iconeAtual: iconeAtual,
+                                        iconePadrao: iconePadrao);
+        var dialogo = await DialogService.ShowAsync<Devnometro.TelasConfig.SelecaoIcone>("",
+                            new DialogParameters { { "Dados", dadosEnvio } },
+                            new DialogOptions { CloseOnEscapeKey = true });
+        var resultado = await dialogo.Result;
+        
+        if (resultado == null) return;
+        if (!resultado.Canceled)
+        {
+            var dadosRetorno = resultado.Data as IconeDados;
+            dadosRetorno ??= new();
+
+            cor = dadosRetorno.Cor;
+            iconeAtual = dadosRetorno.IconeAtual;
+        }
+    }
 }

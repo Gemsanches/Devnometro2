@@ -29,7 +29,6 @@ public partial class MenuWindow : Window
         var serviceCollection = new ServiceCollection();
         serviceCollection.AddWpfBlazorWebView();
         serviceCollection.AddMudServices();
-        //serviceCollection.AddSingleton<Preferencias>();
         this.preferencias = preferencias;
         Resources.Add("services", serviceCollection.BuildServiceProvider());
         menu.Parameters = new Dictionary<string, object?>

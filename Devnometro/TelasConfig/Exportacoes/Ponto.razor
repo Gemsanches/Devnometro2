@@ -1,5 +1,5 @@
 ﻿<MudPaper Class="pa-0">
-    <MudText Typo="Typo.button" Class="d-inline px-3" Style="font-weight:bold">Exportação de ponto</MudText>
+    <MudText Typo="Typo.button" Class="d-inline px-3 pointer-events-none" Style="font-weight:bold">Exportação de ponto</MudText>
     <MudToggleIconButton @bind-Toggled="SelecionaFiltro"
                          Icon="@Icons.Material.TwoTone.FilterAlt"
                          Color="@Color.Secondary"
@@ -20,7 +20,7 @@
         <MudDivider />
         <MudPaper Elevation="2" Class="ma-3">
             <MudPaper Elevation="0" Class="mx-3 d-flex justify-space-between">
-                <MudText Typo="Typo.button">Filtro</MudText>
+                <MudText Typo="Typo.button" Class="pointer-events-none">Filtro</MudText>
                 <MudToggleIconButton @bind-Toggled="travaFiltro"
                                      Class="pa-0 ma-0"
                                      Icon="@Icons.Material.TwoTone.LockOpen"
@@ -35,7 +35,7 @@
         <MudDivider />
         <MudPaper Elevation="2" Class="ma-3">
             <MudPaper Elevation="0" Class="mx-3 d-flex justify-space-between">
-                <MudText Typo="Typo.button">Resultado</MudText>
+                <MudText Typo="Typo.button" Class="pointer-events-none">Resultado</MudText>
                 <MudToggleIconButton @bind-Toggled="travaVisualizacao"
                                      Class="pa-0 ma-0"
                                      Icon="@Icons.Material.TwoTone.LockOpen"
@@ -50,7 +50,7 @@
         <MudDivider />
         <MudPaper Elevation="2" Class="ma-3">
             <MudPaper Elevation="0" Class="mx-3 d-flex justify-space-between">
-                <MudText Typo="Typo.button">Exportação</MudText>
+                <MudText Typo="Typo.button" Class="pointer-events-none">Exportação</MudText>
                 <MudToggleIconButton @bind-Toggled="travaExportacao"
                                      Class="pa-0 ma-0"
                                      Icon="@Icons.Material.TwoTone.LockOpen"
