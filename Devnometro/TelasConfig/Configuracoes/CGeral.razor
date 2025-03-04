@@ -1,25 +1,29 @@
-﻿<MudPaper Class="pa-0 ma-3" Elevation="3" MaxWidth="575px">
+﻿@using Devnometro.Dominio
+@using Devnometro.Aplicacao
+@inherits CGeralBase
+
+<MudPaper Class="pa-0 ma-3" Elevation="3" MaxWidth="575px">
     <MudText Typo="Typo.h6" Class="pa-0 mx-3 pointer-events-none" Color="Color.Dark">Inicialização</MudText>
     <MudDivider />
-    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info" Class="ml-20">
+    <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom" Class="ml-20">
         <ChildContent>
-            <MudCheckBox @bind-Value="LigarJunto" Class="my-n2" Label="Ligar junto do computador"></MudCheckBox>
+            <MudCheckBox @bind-Value="Preferencias.Geral.LigarJunto" Class="my-n2" Label="Ligar junto do computador"></MudCheckBox>
         </ChildContent>
         <TooltipContent>
             <MudText Typo="Typo.body2">Tentar registrar o Devnômetro para ligar</MudText>
             <MudText Typo="Typo.body2">automaticamente com o computador</MudText>
             <MudText Typo="Typo.body2">(dependente do Sistema Operacional)</MudText>
             <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
-            <MudText Typo="Typo.overline" Style="display:inline">@BooleanoSimNao(padraoLigarJunto)</MudText>
+            <MudText Typo="Typo.overline" Style="display:inline">@MetodosEstaticos.BooleanoSimNao(PrefereciaPadrao.LigarJunto)</MudText>
         </TooltipContent>
     </MudTooltip>
 </MudPaper>
 
 <MudPaper Class="pa-0 ma-3" Elevation="3" MaxWidth="575px">
     <MudText Typo="Typo.h6" Class="pa-0 mx-3 pointer-events-none" Color="Color.Dark">Exibição</MudText>
-    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info" Class="ml-20">
+    <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom"  Class="ml-20">
         <ChildContent>
-            <MudRadioGroup Class="ml-3 mb-1" @bind-Value="Exibicao">
+            <MudRadioGroup Class="ml-3 mb-1" @bind-Value="Preferencias.Geral.Exibicao">
                 <MudRadio Value=1 Color="Color.Primary" Size="Size.Small" Dense="true">Compacta</MudRadio>
                 <MudRadio Value=2 Color="Color.Primary" Size="Size.Small" Dense="true">Normal</MudRadio>
                 <MudRadio Value=3 Color="Color.Primary" Size="Size.Small" Dense="true">Expandida</MudRadio>
@@ -30,7 +34,7 @@
             <MudText Typo="Typo.body2">Regula a quantidade de informação</MudText>
             <MudText Typo="Typo.body2">a ser exibida nos cronômetros</MudText>
             <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
-            <MudText Typo="Typo.overline" Style="display:inline">@DescricaoExibicao(padraoExibicao)</MudText>
+            <MudText Typo="Typo.overline" Style="display:inline">@DescricaoExibicao(PrefereciaPadrao.Exibicao)</MudText>
         </TooltipContent>
     </MudTooltip>
 </MudPaper>
@@ -38,30 +42,30 @@
 <MudPaper Class="pa-0 pb-1 ma-3" Elevation="3" MaxWidth="575px">
     <MudText Typo="Typo.h6" Class="pa-0 mx-3 pointer-events-none" Color="Color.Dark">Salvamento automático</MudText>
     <MudDivider />
-    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info" Class="ml-20">
+    <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom"  Class="ml-20">
         <ChildContent>
-            <MudCheckBox @bind-Value="AutoSave" Class="my-n2" Label="Habilitar salvalmento automático"></MudCheckBox>
+            <MudCheckBox @bind-Value="Preferencias.AutoSave.Ativo" Class="my-n2" Label="Habilitar salvalmento automático"></MudCheckBox>
         </ChildContent>
         <TooltipContent>
             <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
-            <MudText Typo="Typo.overline" Style="display:inline">@BooleanoSimNao(padraoAutoSave)</MudText>
+            <MudText Typo="Typo.overline" Style="display:inline">@MetodosEstaticos.BooleanoSimNao(PrefereciaPadrao.AutoSave)</MudText>
         </TooltipContent>
     </MudTooltip>
     <MudDivider />
-    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info" Class="ml-20">
+    <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom"  Class="ml-20">
         <ChildContent>
             <MudGrid>
                 <MudItem xl="10" lg="10" md="10" sm="10">
-                    <MudSlider T="int" Min="1" Max="60" Value="@AutoSaveTempo" ValueChanged="@(x=>AjustadoPeloSlider(x))" Class="pa-0 mx-3" Size="Size.Medium">Tempo entre salvamentos automáticos (em minutos)</MudSlider>
+                    <MudSlider T="int" Min="1" Max="60" Value="@Preferencias.AutoSave.Tempo" ValueChanged="@(x=>AjustadoPeloSlider(x))" Class="pa-0 mx-3" Size="Size.Medium">Tempo entre salvamentos automáticos (em minutos)</MudSlider>
                 </MudItem>
                 <MudItem xl="2" lg="2" md="2" sm="2">
-                    <MudNumericField Min="1" Max="60" Variant="Variant.Text" @bind-Value="AutoSaveTempo" Class="mt-5 mr-4"/>
+                    <MudNumericField Min="1" Max="60" Variant="Variant.Text" @bind-Value="Preferencias.AutoSave.Tempo" Class="mt-5 mr-4" />
                 </MudItem>
             </MudGrid>
         </ChildContent>
         <TooltipContent>
             <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
-            <MudText Typo="Typo.overline" Style="display:inline">@padraoAutoSaveTempo min.</MudText>
+            <MudText Typo="Typo.overline" Style="display:inline">@PrefereciaPadrao.AutoSaveTempo min.</MudText>
         </TooltipContent>
     </MudTooltip>
     <MudPaper Class="pa-0 ma-3" Elevation="3">
@@ -69,16 +73,16 @@
         <MudDivider />
         <MudGrid>
             <MudItem xl="6" lg="6" md="6" sm="6">
-                <MudCheckBox @bind-Value="AutoSaveMarcarPonto" Class="my-n2" Label="Marcar ponto"></MudCheckBox>
-                <MudCheckBox @bind-Value="AutoSaveEditarPonto" Class="my-n2" Label="Editar ponto"></MudCheckBox>
-                <MudCheckBox @bind-Value="AutoSaveExcluirPonto" Class="my-n2" Label="Excluir ponto"></MudCheckBox>
-                <MudCheckBox @bind-Value="AutoSaveAbandonarCronometro" Class="my-n2" Label="Abandonar cronômetro"></MudCheckBox>
+                <MudCheckBox @bind-Value="Preferencias.AutoSave.MarcarPonto" Class="my-n2" Label="Marcar ponto"></MudCheckBox>
+                <MudCheckBox @bind-Value="Preferencias.AutoSave.EditarPonto" Class="my-n2" Label="Editar ponto"></MudCheckBox>
+                <MudCheckBox @bind-Value="Preferencias.AutoSave.ExcluirPonto" Class="my-n2" Label="Excluir ponto"></MudCheckBox>
+                <MudCheckBox @bind-Value="Preferencias.AutoSave.AbandonarCronometro" Class="my-n2" Label="Abandonar cronômetro"></MudCheckBox>
             </MudItem>
             <MudItem xl="6" lg="6" md="6" sm="6">
-                <MudCheckBox @bind-Value="AutoSaveCriarCronometro" Class="my-n2" Label="Criar cronômetro"></MudCheckBox>
-                <MudCheckBox @bind-Value="AutoSaveEditarCronometro" Class="my-n2" Label="Editar cronômetro"></MudCheckBox>
-                <MudCheckBox @bind-Value="AutoSaveExcluirCronometro" Class="my-n2" Label="Excluir cronômetro"></MudCheckBox>
-                <MudCheckBox @bind-Value="AutoSaveFinalizarCronometro" Class="my-n2" Label="Finalizar cronômetro"></MudCheckBox>
+                <MudCheckBox @bind-Value="Preferencias.AutoSave.CriarCronometro" Class="my-n2" Label="Criar cronômetro"></MudCheckBox>
+                <MudCheckBox @bind-Value="Preferencias.AutoSave.EditarCronometro" Class="my-n2" Label="Editar cronômetro"></MudCheckBox>
+                <MudCheckBox @bind-Value="Preferencias.AutoSave.ExcluirCronometro" Class="my-n2" Label="Excluir cronômetro"></MudCheckBox>
+                <MudCheckBox @bind-Value="Preferencias.AutoSave.FinalizarCronometro" Class="my-n2" Label="Finalizar cronômetro"></MudCheckBox>
             </MudItem>
         </MudGrid>
     </MudPaper>
@@ -87,27 +91,27 @@
 <MudPaper Class="pa-0 ma-3" Elevation="3" MaxWidth="575px">
     <MudText Typo="Typo.h6" Class="pa-0 mx-3 pointer-events-none" Color="Color.Dark">Caminhos externos</MudText>
     <MudDivider />
-    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info" Class="ml-20">
+    <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom"  Class="ml-20">
         <ChildContent>
-            <MudTextField @bind-Value="CaminhoAtendimento" Label="Atendimento" AdornmentIcon="@Icons.Material.TwoTone.SupportAgent" Adornment="Adornment.Start" Margin="Margin.Dense" Variant="Variant.Text" Style="width:550px"></MudTextField>
+            <MudTextField @bind-Value="Preferencias.Geral.CaminhoAtendimento" Label="Atendimento" AdornmentIcon="@Icons.Material.TwoTone.SupportAgent" Adornment="Adornment.Start" Margin="Margin.Dense" Variant="Variant.Text" Style="width:550px"></MudTextField>
         </ChildContent>
         <TooltipContent>
             <MudText Typo="Typo.body2">Caminho que precede o número do chamado</MudText>
             <MudText Typo="Typo.body2">(permitindo um link válido de acesso)</MudText>
             <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
-            <MudText Typo="Typo.overline" Style="display:inline">@padraoCaminhoAtendimento</MudText>
+            <MudText Typo="Typo.overline" Style="display:inline">@PrefereciaPadrao.CaminhoAtendimento</MudText>
         </TooltipContent>
     </MudTooltip>
     <MudDivider />
-    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info" Class="ml-20">
+    <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom"  Class="ml-20">
         <ChildContent>
-            <MudTextField @bind-Value="CaminhoDesenvolvimento" Label="Desenvolvimento" AdornmentIcon="@Icons.Material.TwoTone.LogoDev" Adornment="Adornment.Start" Margin="Margin.Dense" Variant="Variant.Text" Style="width:550px"></MudTextField>
+            <MudTextField @bind-Value="Preferencias.Geral.CaminhoDesenvolvimento" Label="Desenvolvimento" AdornmentIcon="@Icons.Material.TwoTone.LogoDev" Adornment="Adornment.Start" Margin="Margin.Dense" Variant="Variant.Text" Style="width:550px"></MudTextField>
         </ChildContent>
         <TooltipContent>
             <MudText Typo="Typo.body2">Caminho que precede o número da 'Order of Change'</MudText>
             <MudText Typo="Typo.body2">(permitindo um link válido de acesso)</MudText>
             <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
-            <MudText Typo="Typo.overline" Style="display:inline">@padraoCaminhoDesenvolvimento</MudText>
+            <MudText Typo="Typo.overline" Style="display:inline">@PrefereciaPadrao.CaminhoDesenvolvimento</MudText>
         </TooltipContent>
     </MudTooltip>
 </MudPaper>
@@ -123,98 +127,3 @@ StartIcon="@Icons.Material.Filled.SettingsBackupRestore"
 IconColor="Color.Dark">
     Restaurar padrões
 </MudButton>
-
-@code {
-    [Parameter]
-    public required Devnometro.Dominio.Preferencias Preferencias { get; set; }
-
-    #region Constantes
-    private const int  padraoExibicao = 2;
-    private const int  padraoAutoSaveTempo = 1;
-    private const bool padraoLigarJunto = false;
-    private const bool padraoAutoSave = true;
-    private const bool padraoAutoSaveMarcarPonto = true;
-    private const bool padraoAutoSaveEditarPonto = true;
-    private const bool padraoAutoSaveExcluirPonto = true;
-    private const bool padraoAutoSaveCriarCronometro = false;
-    private const bool padraoAutoSaveEditarCronometro = true;
-    private const bool padraoAutoSaveExcluirCronometro = false;
-    private const bool padraoAutoSaveFinalizarCronometro = true;
-    private const bool padraoAutoSaveAbandonarCronometro = true;
-    private const string padraoCaminhoAtendimento = "https://gr3bhelp.freshdesk.com/a/tickets/";
-    private const string padraoCaminhoDesenvolvimento = "https://gr3b.visualstudio.com/S.Adm/_workitems/edit/";
-    #endregion
-
-    #region Propriedades
-    private int  Exibicao { get; set; } = padraoExibicao;
-    private int  AutoSaveTempo { get; set; } = padraoAutoSaveTempo;
-    private bool LigarJunto { get; set; } = padraoLigarJunto;
-    private bool AutoSave { get; set; } = padraoAutoSave;
-    private bool AutoSaveMarcarPonto { get; set; } = padraoAutoSaveMarcarPonto;
-    private bool AutoSaveEditarPonto { get; set; } = padraoAutoSaveEditarPonto;
-    private bool AutoSaveExcluirPonto { get; set; } = padraoAutoSaveExcluirPonto;
-    private bool AutoSaveCriarCronometro { get; set; } = padraoAutoSaveCriarCronometro;
-    private bool AutoSaveEditarCronometro { get; set; } = padraoAutoSaveEditarCronometro;
-    private bool AutoSaveExcluirCronometro { get; set; } = padraoAutoSaveExcluirCronometro;
-    private bool AutoSaveFinalizarCronometro { get; set; } = padraoAutoSaveFinalizarCronometro;
-    private bool AutoSaveAbandonarCronometro { get; set; } = padraoAutoSaveAbandonarCronometro;
-    private string CaminhoAtendimento { get; set; } = padraoCaminhoAtendimento;
-    private string CaminhoDesenvolvimento { get; set; } = padraoCaminhoDesenvolvimento;
-    #endregion
-
-    #region Botão Restaurar padrões
-    private void RestauraPadroes()
-    {
-        Exibicao = padraoExibicao;
-        LigarJunto = padraoLigarJunto;
-        AutoSave = padraoAutoSave;
-        AutoSaveMarcarPonto = padraoAutoSaveMarcarPonto;
-        AutoSaveEditarPonto = padraoAutoSaveEditarPonto;
-        AutoSaveExcluirPonto = padraoAutoSaveExcluirPonto;
-        AutoSaveCriarCronometro = padraoAutoSaveCriarCronometro;
-        AutoSaveEditarCronometro = padraoAutoSaveEditarCronometro;
-        AutoSaveExcluirCronometro = padraoAutoSaveExcluirCronometro;
-        AutoSaveFinalizarCronometro = padraoAutoSaveFinalizarCronometro;
-        AutoSaveAbandonarCronometro = padraoAutoSaveAbandonarCronometro;
-        AutoSaveTempo = padraoAutoSaveTempo;
-        CaminhoAtendimento = padraoCaminhoAtendimento;
-        CaminhoDesenvolvimento = padraoCaminhoDesenvolvimento;
-    }
-    private bool EstaNosPadroes
-    {
-        get => Exibicao == padraoExibicao
-            && LigarJunto == padraoLigarJunto
-            && AutoSave == padraoAutoSave
-            && AutoSaveMarcarPonto == padraoAutoSaveMarcarPonto
-            && AutoSaveEditarPonto == padraoAutoSaveEditarPonto
-            && AutoSaveExcluirPonto == padraoAutoSaveExcluirPonto
-            && AutoSaveCriarCronometro == padraoAutoSaveCriarCronometro
-            && AutoSaveEditarCronometro == padraoAutoSaveEditarCronometro
-            && AutoSaveExcluirCronometro == padraoAutoSaveExcluirCronometro
-            && AutoSaveFinalizarCronometro == padraoAutoSaveFinalizarCronometro
-            && AutoSaveAbandonarCronometro == padraoAutoSaveAbandonarCronometro
-            && AutoSaveTempo == padraoAutoSaveTempo
-            && CaminhoAtendimento == padraoCaminhoAtendimento
-            && CaminhoDesenvolvimento == padraoCaminhoDesenvolvimento;
-    }
-    private string BooleanoSimNao(bool valor) => valor ? "Sim" : "Não";
-    private string DescricaoExibicao(int valor)
-    {
-        switch (valor)
-        {
-            case 1:
-                return "Compacto";
-            case 2:
-                return "Normal";
-            case 3:
-                return "Normal";
-            case 4:
-                return "Normal";
-            default:
-                return $" Ué? {valor.ToString()}?";
-        }
-    }
-    #endregion
-
-    void AjustadoPeloSlider (int valor) => AutoSaveTempo = valor;
-}

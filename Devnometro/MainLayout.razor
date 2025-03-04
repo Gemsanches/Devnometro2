@@ -1,5 +1,6 @@
 ﻿@inherits LayoutComponentBase
 @inject Devnometro.Dominio.Preferencias preferencias
+@using Devnometro.Dominio
 
 <MudThemeProvider
 DefaultScrollbar="false"
@@ -12,7 +13,7 @@ Theme="preferencias.Tema" />
 <MudLayout>
     <MudAppBar  Dense="true" Color="Color.Tertiary" Elevation="2" Class="ma-0">
         <MudButtonGroup Variant="Variant.Filled" Color="Color.Dark">
-            <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info" Class="ml-20">
+            <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom" Class="ml-20">
                 <ChildContent>
                     <MudIconButton Icon="@Icons.Material.Filled.Save" Size="Size.Small"
                     @onmouseover='() => AplicarMensagem("Salvar")'
@@ -26,7 +27,7 @@ Theme="preferencias.Tema" />
                     <MudText Typo="Typo.body2">esse botão.</MudText>
                 </TooltipContent>
             </MudTooltip>
-            <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info" Class="ml-11">
+            <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom" Class="ml-11">
                 <ChildContent>
                     <MudIconButton Icon="@Icons.Material.Filled.HourglassDisabled" Size="Size.Small"
                     @onmouseover='() => AplicarMensagem("Parar Tudo")'
@@ -43,7 +44,7 @@ Theme="preferencias.Tema" />
             <MudButton Class="cursor-default" Style="width:108px" Disabled="true">
                 <MudText Color="Color.Warning" Typo="Typo.subtitle2">@mensagem</MudText>
             </MudButton>
-            <MudTooltip Delay="1500" Duration="2500" Placement="Placement.Bottom" Color="Color.Info" Class="ml-n20">
+            <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom" Class="ml-n20">
                 <ChildContent>
                     <MudIconButton Icon="@Icons.Material.Filled.Menu"
                     @onmouseover='() => AplicarMensagem("Menu")'

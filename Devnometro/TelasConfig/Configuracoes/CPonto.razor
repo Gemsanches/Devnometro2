@@ -1,24 +1,26 @@
-﻿@inherits CPontoBase
+﻿@using Devnometro.Dominio
+@using Devnometro.Aplicacao
+@inherits CPontoBase
 
 <MudPaper Class="pa-0 ma-3" Elevation="3" MaxWidth="575px">
     <MudText Typo="Typo.h6" Class="pa-0 mx-3 pointer-events-none" Color="Color.Dark">Automação</MudText>
     <MudDivider />
-    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info" Class="ml-20">
+    <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom"  Class="ml-20">
         <ChildContent>
-            <MudCheckBox @bind-Value="PrimeiroPontoAutomatico" Class="my-n2" Label="Registrar o primeiro ponto do dia automaticamente"></MudCheckBox>
+            <MudCheckBox @bind-Value="Preferencias.Ponto.PrimeiroPontoAutomatico" Class="my-n2" Label="Registrar o primeiro ponto do dia automaticamente"></MudCheckBox>
         </ChildContent>
         <TooltipContent>
             <MudText Typo="Typo.body2">Ao abrir o Devnômetro, se não houver</MudText>
             <MudText Typo="Typo.body2">nenhum registro de ponto para o dia,</MudText>
             <MudText Typo="Typo.body2">criar o registro da primeira entrada.</MudText>
-            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
-            <MudText Typo="Typo.overline" Style="display:inline"> Não</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão: </MudText>
+            <MudText Typo="Typo.overline" Style="display:inline">@MetodosEstaticos.BooleanoSimNao(PrefereciaPadrao.PontoPrimeiroAutomatico)</MudText>
         </TooltipContent>
     </MudTooltip>
     <MudDivider />
-    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info" Class="ml-20">
+    <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom"  Class="ml-20">
         <ChildContent>
-            <MudCheckBox @bind-Value="AutoExportarComecoDoMes" Class="my-n2" Label="Auto exportar os pontos no começo do mês"></MudCheckBox>
+            <MudCheckBox @bind-Value="Preferencias.Ponto.AutoExportarComecoDoMes" Class="my-n2" Label="Auto exportar os pontos no começo do mês"></MudCheckBox>
         </ChildContent>
         <TooltipContent>
             <MudText Typo="Typo.body2">Ao abrir o Devnômetro na primeira</MudText>
@@ -26,8 +28,8 @@
             <MudText Typo="Typo.body2">dos pontos do mês anterior será feita.</MudText>
             <MudText Typo="Typo.body2">(caminho de exportação precisa estar</MudText>
             <MudText Typo="Typo.body2">configurado para essa opção funcionar)</MudText>
-            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
-            <MudText Typo="Typo.overline" Style="display:inline"> Sim</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão: </MudText>
+            <MudText Typo="Typo.overline" Style="display:inline">@MetodosEstaticos.BooleanoSimNao(PrefereciaPadrao.PontoAutoExportarComecoDoMes)</MudText>
         </TooltipContent>
     </MudTooltip>
 </MudPaper>
@@ -35,9 +37,9 @@
 <MudPaper Class="pa-0 ma-3" Elevation="3" MaxWidth="575px">
     <MudText Typo="Typo.h6" Class="pa-0 mx-3 pointer-events-none" Color="Color.Dark">Caminho para exportação do arquivo de ponto</MudText>
     <MudDivider />
-    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info" Class="ml-20">
+    <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom"  Class="ml-20">
         <ChildContent>
-            <MudTextField @bind-Value="CaminhoPonto"
+            <MudTextField @bind-Value="Preferencias.Ponto.Caminho"
                           AdornmentIcon="@Icons.Material.TwoTone.Folder"
                           Adornment="Adornment.Start"
                           Margin="Margin.Dense"
@@ -57,20 +59,20 @@
 <MudPaper Class="pa-0 pb-1 ma-3" Elevation="3" MaxWidth="575px">
     <MudText Typo="Typo.h6" Class="pa-0 mx-3 pointer-events-none" Color="Color.Dark">Segurança</MudText>
     <MudDivider />
-    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info" Class="ml-20">
+    <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom"  Class="ml-20">
         <ChildContent>
             <MudGrid>
                 <MudItem xl="10" lg="10" md="10" sm="10">
-                    <MudSlider T="int" Min="1" Max="300" Value="@TempoBatidaRepetida" ValueChanged="@(x=>AjustadoPeloSlider(x))" Class="pa-0 mx-3" Size="Size.Medium">Margem para batidas repetidas (em segundos)</MudSlider>
+                    <MudSlider T="int" Min="1" Max="300" Value="@Preferencias.Ponto.TempoBatidaRepetida" ValueChanged="@(x=>AjustadoPeloSlider(x))" Class="pa-0 mx-3" Size="Size.Medium">Margem para batidas repetidas (em segundos)</MudSlider>
                 </MudItem>
                 <MudItem xl="2" lg="2" md="2" sm="2">
-                    <MudNumericField Min="1" Max="300" Variant="Variant.Text" @bind-Value="TempoBatidaRepetida" Class="mt-5 mr-4" />
+                    <MudNumericField Min="1" Max="300" Variant="Variant.Text" @bind-Value="Preferencias.Ponto.TempoBatidaRepetida" Class="mt-5 mr-4" />
                 </MudItem>
             </MudGrid>
         </ChildContent>
         <TooltipContent>
             <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
-            <MudText Typo="Typo.overline" Style="display:inline">@padraoTempoBatidaRepetida s.</MudText>
+            <MudText Typo="Typo.overline" Style="display:inline">@PrefereciaPadrao.PontoTempoBatidaRepetida s.</MudText>
         </TooltipContent>
     </MudTooltip>
 </MudPaper>

@@ -1,29 +1,31 @@
-﻿@inherits CCronometroBase
+﻿@using Devnometro.Dominio
+@using Devnometro.Aplicacao
+@inherits CCronometroBase
 
 <MudPaper Class="pa-0 ma-3" Elevation="3" MaxWidth="575px">
     <MudText Typo="Typo.h6" Class="pa-0 mx-3 pointer-events-none" Color="Color.Dark">Automação</MudText>
     <MudDivider />
-    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info" Class="ml-20">
+    <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom"  Class="ml-20">
         <ChildContent>
-            <MudCheckBox @bind-Value="ApenasUmAtivo" Class="my-n2" Label="Apenas um cronômetro ativo por vez"></MudCheckBox>
+            <MudCheckBox @bind-Value="Preferencias.Cronometro.ApenasUmAtivo" Class="my-n2" Label="Apenas um cronômetro ativo por vez"></MudCheckBox>
         </ChildContent>
         <TooltipContent>
             <MudText Typo="Typo.body2">Ao iniciar um cronômetro, os demais</MudText>
             <MudText Typo="Typo.body2">cronomêtros abertos são interrompidos.</MudText>
-            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
-            <MudText Typo="Typo.overline" Style="display:inline"> Sim</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão: </MudText>
+            <MudText Typo="Typo.overline" Style="display:inline">@MetodosEstaticos.BooleanoSimNao(PrefereciaPadrao.CronometroApenasUmAtivo)</MudText>
         </TooltipContent>
     </MudTooltip>
     <MudDivider />
-    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info" Class="ml-20">
+    <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom"  Class="ml-20">
         <ChildContent>
-            <MudCheckBox @bind-Value="ExcluirAutomaticamente" Class="my-n2" Label="Excluir cronômetro automaticamente"></MudCheckBox>
+            <MudCheckBox @bind-Value="Preferencias.Cronometro.ExcluirAutomaticamente" Class="my-n2" Label="Excluir cronômetro automaticamente"></MudCheckBox>
         </ChildContent>
         <TooltipContent>
             <MudText Typo="Typo.body2">Ao abandonar ou finalizar um cronômetro,</MudText>
             <MudText Typo="Typo.body2">ele será excluído automaticamente.</MudText>
-            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
-            <MudText Typo="Typo.overline" Style="display:inline"> Sim</MudText>
+            <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão: </MudText>
+            <MudText Typo="Typo.overline" Style="display:inline">@MetodosEstaticos.BooleanoSimNao(PrefereciaPadrao.CronometroExcluirAutomaticamente)</MudText>
         </TooltipContent>
     </MudTooltip>
 </MudPaper>
@@ -31,9 +33,9 @@
 <MudPaper Class="pa-0 ma-3" Elevation="3" MaxWidth="575px">
     <MudText Typo="Typo.h6" Class="pa-0 mx-3 pointer-events-none" Color="Color.Dark">Caminho para exportação do arquivo de tempos</MudText>
     <MudDivider />
-    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info" Class="ml-20">
+    <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom"  Class="ml-20">
         <ChildContent>
-            <MudTextField @bind-Value="CaminhoTempo"
+            <MudTextField @bind-Value="Preferencias.Cronometro.Caminho"
                           AdornmentIcon="@Icons.Material.TwoTone.Folder"
                           Adornment="Adornment.Start"
                           Margin="Margin.Dense"
@@ -53,20 +55,32 @@
 <MudPaper Class="pa-0 pb-1 ma-3" Elevation="3" MaxWidth="575px">
     <MudText Typo="Typo.h6" Class="pa-0 mx-3 pointer-events-none" Color="Color.Dark">Organização</MudText>
     <MudDivider />
-    <MudTooltip Delay="1000" Duration="2000" Placement="Placement.Bottom" Color="Color.Info" Class="ml-20">
+    <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom"  Class="ml-20">
         <ChildContent>
             <MudGrid>
                 <MudItem xl="10" lg="10" md="10" sm="10">
-                    <MudSlider T="int" Min="0" Max="10" Value="@CronometrosSimultaneos" ValueChanged="@(x=>AjustadoPeloSlider(x))" Class="pa-0 mx-3" Size="Size.Medium">Limite de cronômetros simultâneos (0 para ilimitado)</MudSlider>
+                    <MudSlider T="int" Min="0" Max="10" Value="Preferencias.Cronometro.CronometrosSimultaneos" ValueChanged="@(x=>AjustadoPeloSlider(x))" Class="pa-0 mx-3" Size="Size.Medium">Limite de cronômetros simultâneos (0 para ilimitado)</MudSlider>
                 </MudItem>
                 <MudItem xl="2" lg="2" md="2" sm="2">
-                    <MudNumericField Min="0" Max="10" Variant="Variant.Text" @bind-Value="CronometrosSimultaneos" Class="mt-5 mr-4" />
+                    <MudNumericField Min="0" Max="10" Variant="Variant.Text" @bind-Value=@Preferencias.Cronometro.CronometrosSimultaneos Class="mt-5 mr-4" />
                 </MudItem>
             </MudGrid>
         </ChildContent>
         <TooltipContent>
             <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
-            <MudText Typo="Typo.overline" Style="display:inline">@padraoCronometrosSimultaneos s.</MudText>
+            <MudText Typo="Typo.overline" Style="display:inline">"PrefereciaPadrao.CronometrosSimultaneos"</MudText>
         </TooltipContent>
     </MudTooltip>
 </MudPaper>
+
+<MudDivider Class="my-3" />
+<MudButton Class="ma-3 px-3 py-1"
+           Style="float:right"
+           Variant="Variant.Filled"
+           Color="Color.Secondary"
+           OnClick="RestauraPadroes"
+           Disabled="EstaNosPadroes"
+           StartIcon="@Icons.Material.Filled.SettingsBackupRestore"
+           IconColor="Color.Dark">
+    Restaurar padrões
+</MudButton>

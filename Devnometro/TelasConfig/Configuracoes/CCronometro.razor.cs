@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Devnometro.Dominio;
+using Microsoft.AspNetCore.Components;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -13,36 +14,21 @@ public class CCronometroBase : ComponentBase
     [Parameter]
     public required Devnometro.Dominio.Preferencias Preferencias { get; set; }
 
-    #region Constantes
-    protected const int padraoCronometrosSimultaneos = 5;
-    protected const bool padraoExcluirAutomaticamente = true;
-    protected const bool padraoApenasUmAtivo = true;
-    protected const string padraoCaminhoTempo = "";
-    #endregion
-
-    #region Propriedades
-    protected int CronometrosSimultaneos { get; set; } = padraoCronometrosSimultaneos;
-    protected bool ExcluirAutomaticamente { get; set; } = padraoExcluirAutomaticamente;
-    protected bool ApenasUmAtivo { get; set; } = padraoApenasUmAtivo;
-    protected string CaminhoTempo { get; set; } = padraoCaminhoTempo;
-    #endregion
-
     #region Botão Restaurar padrões
     protected void RestauraPadroes()
     {
-        CronometrosSimultaneos = padraoCronometrosSimultaneos;
-        //CaminhoPonto = padraoCaminhoPonto;
-        ExcluirAutomaticamente = padraoExcluirAutomaticamente;
-        ApenasUmAtivo = padraoApenasUmAtivo;
+        Preferencias.Cronometro.CronometrosSimultaneos = PrefereciaPadrao.CronometrosSimultaneos;
+        //Preferencias.Cronometro.Caminho = PrefereciaPadrao.CaminhoCronometro;
+        Preferencias.Cronometro.ExcluirAutomaticamente = PrefereciaPadrao.CronometroExcluirAutomaticamente;
+        Preferencias.Cronometro.ApenasUmAtivo = PrefereciaPadrao.CronometroApenasUmAtivo;
     }
     protected bool EstaNosPadroes
     {
-        get => CronometrosSimultaneos == padraoCronometrosSimultaneos
-            //&& CaminhoPonto == padraoCaminhoPonto
-            && ExcluirAutomaticamente == padraoExcluirAutomaticamente
-            && ApenasUmAtivo == padraoApenasUmAtivo;
+        get => Preferencias.Cronometro.CronometrosSimultaneos == PrefereciaPadrao.CronometrosSimultaneos
+            //&& Preferencias.Cronometro.Caminho == PrefereciaPadrao.CaminhoCronometro
+            && Preferencias.Cronometro.ExcluirAutomaticamente == PrefereciaPadrao.CronometroExcluirAutomaticamente
+            && Preferencias.Cronometro.ApenasUmAtivo == PrefereciaPadrao.CronometroApenasUmAtivo;
     }
-    protected static string BooleanoSimNao(bool valor) => valor ? "Sim" : "Não";
     #endregion
 
     protected void SelecionarPasta()
@@ -50,7 +36,7 @@ public class CCronometroBase : ComponentBase
         var dialog = new OpenFolderDialog();
         var result = dialog.ShowDialog();
         if (result.GetValueOrDefault(false))
-            CaminhoTempo = dialog.FolderName;
+            Preferencias.Cronometro.Caminho = dialog.FolderName;
     }
-    protected void AjustadoPeloSlider(int valor) => CronometrosSimultaneos = valor;
+    protected void AjustadoPeloSlider(int valor) => Preferencias.Cronometro.CronometrosSimultaneos = valor;
 }

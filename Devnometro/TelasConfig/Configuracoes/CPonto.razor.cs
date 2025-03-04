@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using MudBlazor;
+using Devnometro.Dominio;
 
 namespace Devnometro.TelasConfig.Configuracoes;
 
@@ -15,36 +16,21 @@ public class CPontoBase : ComponentBase
     [Parameter]
     public required Devnometro.Dominio.Preferencias Preferencias { get; set; }
 
-    #region Constantes
-    protected const int padraoTempoBatidaRepetida = 60;
-    protected const bool padraoPrimeiroPontoAutomatico = false;
-    protected const bool padraoAutoExportarComecoDoMes = true;
-    protected const string padraoCaminhoPonto = "";
-    #endregion
-
-    #region Propriedades
-    protected int TempoBatidaRepetida { get; set; } = padraoTempoBatidaRepetida;
-    protected bool PrimeiroPontoAutomatico { get; set; } = padraoPrimeiroPontoAutomatico;
-    protected bool AutoExportarComecoDoMes { get; set; } = padraoAutoExportarComecoDoMes;
-    protected string CaminhoPonto { get; set; } = padraoCaminhoPonto;
-    #endregion
-
     #region Botão Restaurar padrões
     protected void RestauraPadroes()
     {
-        TempoBatidaRepetida = padraoTempoBatidaRepetida;
-        PrimeiroPontoAutomatico = padraoPrimeiroPontoAutomatico;
-        AutoExportarComecoDoMes = padraoAutoExportarComecoDoMes;
-        //CaminhoPonto = padraoCaminhoPonto;
+        Preferencias.Ponto.TempoBatidaRepetida = PrefereciaPadrao.PontoTempoBatidaRepetida;
+        Preferencias.Ponto.PrimeiroPontoAutomatico = PrefereciaPadrao.PontoPrimeiroAutomatico;
+        Preferencias.Ponto.AutoExportarComecoDoMes = PrefereciaPadrao.PontoAutoExportarComecoDoMes;
+        //Preferencias.Ponto.Caminho = PrefereciaPadrao.CaminhoPonto;
     }
     protected bool EstaNosPadroes
     {
-        get => TempoBatidaRepetida == padraoTempoBatidaRepetida
-            //&& CaminhoPonto == padraoCaminhoPonto
-            && PrimeiroPontoAutomatico == padraoPrimeiroPontoAutomatico
-            && AutoExportarComecoDoMes == padraoAutoExportarComecoDoMes;
+        get => Preferencias.Ponto.TempoBatidaRepetida == PrefereciaPadrao.PontoTempoBatidaRepetida
+            //&& Preferencias.Ponto.Caminho == PrefereciaPadrao.CaminhoPonto
+            && Preferencias.Ponto.PrimeiroPontoAutomatico == PrefereciaPadrao.PontoPrimeiroAutomatico
+            && Preferencias.Ponto.AutoExportarComecoDoMes == PrefereciaPadrao.PontoAutoExportarComecoDoMes;
     }
-    protected static string BooleanoSimNao(bool valor) => valor ? "Sim" : "Não";
     #endregion
 
     protected void SelecionarPasta()
@@ -52,7 +38,7 @@ public class CPontoBase : ComponentBase
         var dialog = new OpenFolderDialog();
         var result = dialog.ShowDialog();
         if (result.GetValueOrDefault(false))
-            CaminhoPonto = dialog.FolderName;
+            Preferencias.Ponto.Caminho = dialog.FolderName;
     }
-    protected void AjustadoPeloSlider(int valor) => TempoBatidaRepetida = valor;
+    protected void AjustadoPeloSlider(int valor) => Preferencias.Ponto.TempoBatidaRepetida = valor;
 }

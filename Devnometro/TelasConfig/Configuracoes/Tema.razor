@@ -1,4 +1,5 @@
-﻿@inherits TemaBase
+﻿@using Dominio.Enumeradores
+@inherits TemaBase
 
 <MudThemeProvider @bind-IsDarkMode="@Preferencias.TemaNoturno" Theme="@Preferencias.Tema" />
 
@@ -41,14 +42,14 @@
 <MudPaper Class="pa-3 ma-3" Elevation="3" MaxWidth="575px">
     <MudGrid>
         <MudItem xl="1" lg="1" md="1" sm="1">
-            <MudRadioGroup @bind-Value="Selecionado">
-                <MudRadio Value="1" Color="Color.Dark" Size="Size.Large" Class="my-1" />
+            <MudRadioGroup T="ETema" @bind-Value="Preferencias.TemaSelecionado">
+                <MudRadio Value="ETema.TemaPadrao" Color="Color.Dark" Size="Size.Large" Class="my-1" />
                 <MudDivider />
-                <MudRadio Value="2" Color="Color.Dark" Size="Size.Large" Class="my-2" />
+                <MudRadio Value="ETema.TemaMudBlazor" Color="Color.Dark" Size="Size.Large" Class="my-2" />
                 <MudDivider />
-                <MudRadio Value="3" Color="Color.Dark" Size="Size.Large" Class="my-1" />
+                <MudRadio Value="ETema.TemaTeal" Color="Color.Dark" Size="Size.Large" Class="my-1" />
                 <MudDivider />
-                <MudRadio Value="4" Color="Color.Dark" Size="Size.Large" Class="mt-2 mb-n1" />
+                <MudRadio Value="ETema.TemaPersonalizado" Color="Color.Dark" Size="Size.Large" Class="mt-2 mb-n1" />
             </MudRadioGroup>
         </MudItem>
         <MudItem xl="11" lg="11" md="11" sm="11">
@@ -108,40 +109,40 @@
                     <MudItem xl="4" lg="4" md="4" sm="4">
                         <MudText Class="pt-2 pointer-events-none " Typo="Typo.body2" Color="Color.Dark">Tema Personalizado</MudText>
                         <MudPaper Square="true" Class="d-flex justify-space-around">
-                            <MudIcon Class="ml-1 cursor-pointer" Style="font-size: 20px;" Icon="@Icons.Material.Filled.Save" @onclick="SalvarPersonalizado" />
+                            <MudIcon Class="ml-1 cursor-pointer" Style="font-size: 20px;" Icon="@Icons.Material.Filled.Save" @onclick="Preferencias.TemaPersonalizado.AplicarCoresAoTema" />
                             <MudDivider Vertical="true" FlexItem="true" />
                             <MudIcon Class="cursor-pointer" Style="font-size: 20px;" Icon="@Icons.Material.Filled.FileDownload" />
                             <MudDivider Vertical="true" FlexItem="true" />
                             <MudIcon Class="cursor-pointer" Style="font-size: 20px;" Icon="@Icons.Material.Filled.FileUpload" />
                             <MudDivider Vertical="true" FlexItem="true" />
-                            <MudIcon Class="mr-1 cursor-pointer" Style="font-size: 20px;" Icon="@Icons.Material.Filled.SettingsBackupRestore" @onclick="ResetarPersonalizado" />
+                            <MudIcon Class="mr-1 cursor-pointer" Style="font-size: 20px;" Icon="@Icons.Material.Filled.SettingsBackupRestore" @onclick="Preferencias.TemaPersonalizado.RetornarAoPadrao" />
                         </MudPaper>
                     </MudItem>
                     <MudItem xl="8" lg="8" md="8" sm="8">
 
-                        <MudColorPicker Class="cor-clara mr-n1" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="Personalizado.PrimaryLight" Style='@($"color:{Personalizado.PrimaryLight}; background-color:{Personalizado.PrimaryLight};font-size:6.3px")' />
-                        <MudColorPicker Class="cor-escura" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="Personalizado.PrimaryDark" Style='@($"color:{Personalizado.PrimaryDark}; background-color:{Personalizado.PrimaryDark};font-size:6.3px")' />
+                        <MudColorPicker Class="cor-clara mr-n1" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="Preferencias.TemaPersonalizado.PrimaryLight" Style='@($"color:{Preferencias.TemaPersonalizado.PrimaryLight}; background-color:{Preferencias.TemaPersonalizado.PrimaryLight};font-size:6.3px")' />
+                        <MudColorPicker Class="cor-escura" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="Preferencias.TemaPersonalizado.PrimaryDark" Style='@($"color:{Preferencias.TemaPersonalizado.PrimaryDark}; background-color:{Preferencias.TemaPersonalizado.PrimaryDark};font-size:6.3px")' />
 
-                        <MudColorPicker Class="cor-clara mr-n1" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="Personalizado.SecondaryLight" Style='@($"color:{Personalizado.SecondaryLight}; background-color:{Personalizado.SecondaryLight};font-size:6.3px")' />
-                        <MudColorPicker Class="cor-escura" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="Personalizado.SecondaryDark" Style='@($"color:{Personalizado.SecondaryDark}; background-color:{Personalizado.SecondaryDark};font-size:6.3px")' />
+                        <MudColorPicker Class="cor-clara mr-n1" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="Preferencias.TemaPersonalizado.SecondaryLight" Style='@($"color:{Preferencias.TemaPersonalizado.SecondaryLight}; background-color:{Preferencias.TemaPersonalizado.SecondaryLight};font-size:6.3px")' />
+                        <MudColorPicker Class="cor-escura" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="Preferencias.TemaPersonalizado.SecondaryDark" Style='@($"color:{Preferencias.TemaPersonalizado.SecondaryDark}; background-color:{Preferencias.TemaPersonalizado.SecondaryDark};font-size:6.3px")' />
 
-                        <MudColorPicker Class="cor-clara mr-n1" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="Personalizado.TertiaryLight" Style='@($"color:{Personalizado.TertiaryLight}; background-color:{Personalizado.TertiaryLight};font-size:6.3px")' />
-                        <MudColorPicker Class="cor-escura" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="Personalizado.TertiaryDark" Style='@($"color:{Personalizado.TertiaryDark}; background-color:{Personalizado.TertiaryDark};font-size:6.3px")' />
+                        <MudColorPicker Class="cor-clara mr-n1" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="Preferencias.TemaPersonalizado.TertiaryLight" Style='@($"color:{Preferencias.TemaPersonalizado.TertiaryLight}; background-color:{Preferencias.TemaPersonalizado.TertiaryLight};font-size:6.3px")' />
+                        <MudColorPicker Class="cor-escura" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="Preferencias.TemaPersonalizado.TertiaryDark" Style='@($"color:{Preferencias.TemaPersonalizado.TertiaryDark}; background-color:{Preferencias.TemaPersonalizado.TertiaryDark};font-size:6.3px")' />
 
-                        <MudColorPicker Class="cor-clara mr-n1" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="Personalizado.InfoLight" Style='@($"color:{Personalizado.InfoLight}; background-color:{Personalizado.InfoLight};font-size:6.3px")' />
-                        <MudColorPicker Class="cor-escura" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="Personalizado.InfoDark" Style='@($"color:{Personalizado.InfoDark}; background-color:{Personalizado.InfoDark};font-size:6.3px")' />
+                        <MudColorPicker Class="cor-clara mr-n1" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="Preferencias.TemaPersonalizado.InfoLight" Style='@($"color:{Preferencias.TemaPersonalizado.InfoLight}; background-color:{Preferencias.TemaPersonalizado.InfoLight};font-size:6.3px")' />
+                        <MudColorPicker Class="cor-escura" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="Preferencias.TemaPersonalizado.InfoDark" Style='@($"color:{Preferencias.TemaPersonalizado.InfoDark}; background-color:{Preferencias.TemaPersonalizado.InfoDark};font-size:6.3px")' />
 
-                        <MudColorPicker Class="cor-clara mr-n1" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="Personalizado.WarningLight" Style='@($"color:{Personalizado.WarningLight}; background-color:{Personalizado.WarningLight};font-size:6.3px")' />
-                        <MudColorPicker Class="cor-escura" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="Personalizado.WarningDark" Style='@($"color:{Personalizado.WarningDark}; background-color:{Personalizado.WarningDark};font-size:6.3px")' />
+                        <MudColorPicker Class="cor-clara mr-n1" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="Preferencias.TemaPersonalizado.WarningLight" Style='@($"color:{Preferencias.TemaPersonalizado.WarningLight}; background-color:{Preferencias.TemaPersonalizado.WarningLight};font-size:6.3px")' />
+                        <MudColorPicker Class="cor-escura" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="Preferencias.TemaPersonalizado.WarningDark" Style='@($"color:{Preferencias.TemaPersonalizado.WarningDark}; background-color:{Preferencias.TemaPersonalizado.WarningDark};font-size:6.3px")' />
 
-                        <MudColorPicker Class="cor-clara mr-n1" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="Personalizado.ErrorLight" Style='@($"color:{Personalizado.ErrorLight}; background-color:{Personalizado.ErrorLight};font-size:6.3px")' />
-                        <MudColorPicker Class="cor-escura" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="Personalizado.ErrorDark" Style='@($"color:{Personalizado.ErrorDark}; background-color:{Personalizado.ErrorDark};font-size:6.3px")' />
+                        <MudColorPicker Class="cor-clara mr-n1" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="Preferencias.TemaPersonalizado.ErrorLight" Style='@($"color:{Preferencias.TemaPersonalizado.ErrorLight}; background-color:{Preferencias.TemaPersonalizado.ErrorLight};font-size:6.3px")' />
+                        <MudColorPicker Class="cor-escura" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="Preferencias.TemaPersonalizado.ErrorDark" Style='@($"color:{Preferencias.TemaPersonalizado.ErrorDark}; background-color:{Preferencias.TemaPersonalizado.ErrorDark};font-size:6.3px")' />
 
-                        <MudColorPicker Class="cor-clara mr-n1" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="Personalizado.SuccessLight" Style='@($"color:{Personalizado.SuccessLight}; background-color:{Personalizado.SuccessLight};font-size:6.3px")' />
-                        <MudColorPicker Class="cor-escura" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="Personalizado.SuccessDark" Style='@($"color:{Personalizado.SuccessDark}; background-color:{Personalizado.SuccessDark};font-size:6.3px")' />
+                        <MudColorPicker Class="cor-clara mr-n1" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="Preferencias.TemaPersonalizado.SuccessLight" Style='@($"color:{Preferencias.TemaPersonalizado.SuccessLight}; background-color:{Preferencias.TemaPersonalizado.SuccessLight};font-size:6.3px")' />
+                        <MudColorPicker Class="cor-escura" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="Preferencias.TemaPersonalizado.SuccessDark" Style='@($"color:{Preferencias.TemaPersonalizado.SuccessDark}; background-color:{Preferencias.TemaPersonalizado.SuccessDark};font-size:6.3px")' />
 
-                        <MudColorPicker Class="cor-clara mr-n1" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="Personalizado.SurfaceLight" Style='@($"color:{Personalizado.SurfaceLight}; background-color:{Personalizado.SurfaceLight};font-size:6.3px")' />
-                        <MudColorPicker Class="cor-escura" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="Personalizado.SurfaceDark" Style='@($"color:{Personalizado.SurfaceDark}; background-color:{Personalizado.SurfaceDark};font-size:6.3px")' />
+                        <MudColorPicker Class="cor-clara mr-n1" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="Preferencias.TemaPersonalizado.SurfaceLight" Style='@($"color:{Preferencias.TemaPersonalizado.SurfaceLight}; background-color:{Preferencias.TemaPersonalizado.SurfaceLight};font-size:6.3px")' />
+                        <MudColorPicker Class="cor-escura" AdornmentIcon="" ColorPickerView="ColorPickerView.GridCompact" @bind-Text="Preferencias.TemaPersonalizado.SurfaceDark" Style='@($"color:{Preferencias.TemaPersonalizado.SurfaceDark}; background-color:{Preferencias.TemaPersonalizado.SurfaceDark};font-size:6.3px")' />
 
                     </MudItem>
                 </MudGrid>
