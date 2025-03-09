@@ -1,4 +1,5 @@
-﻿@using Dominio.Enumeradores
+﻿@using Devnometro.Dominio
+@using Dominio.Enumeradores
 @inherits TemaBase
 
 <MudThemeProvider @bind-IsDarkMode="@Preferencias.TemaNoturno" Theme="@Preferencias.Tema" />
@@ -109,13 +110,41 @@
                     <MudItem xl="4" lg="4" md="4" sm="4">
                         <MudText Class="pt-2 pointer-events-none " Typo="Typo.body2" Color="Color.Dark">Tema Personalizado</MudText>
                         <MudPaper Square="true" Class="d-flex justify-space-around">
-                            <MudIcon Class="ml-1 cursor-pointer" Style="font-size: 20px;" Icon="@Icons.Material.Filled.Save" @onclick="Preferencias.TemaPersonalizado.AplicarCoresAoTema" />
+                            <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Top" Class="ml-20">
+                                <ChildContent>
+                                    <MudIcon Class="ml-1 cursor-pointer" Style="font-size: 20px;" Icon="@Icons.Material.Filled.Save" @onclick="Preferencias.TemaPersonalizado.AplicarCoresAoTema" />
+                                </ChildContent>
+                                <TooltipContent>
+                                    <MudText Typo="Typo.body2">Salvar tema personalizado</MudText>
+                                </TooltipContent>
+                            </MudTooltip>
                             <MudDivider Vertical="true" FlexItem="true" />
-                            <MudIcon Class="cursor-pointer" Style="font-size: 20px;" Icon="@Icons.Material.Filled.FileDownload" />
+                            <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Top" Class="ml-20">
+                                <ChildContent>
+                                    <MudIcon Class="cursor-pointer" Style="font-size: 20px;" Icon="@Icons.Material.Filled.FileDownload" @onclick="AplicarTemaImportado" />
+                                </ChildContent>
+                                <TooltipContent>
+                                    <MudText Typo="Typo.body2">Importar tema personalizado</MudText>
+                                </TooltipContent>
+                            </MudTooltip>
                             <MudDivider Vertical="true" FlexItem="true" />
-                            <MudIcon Class="cursor-pointer" Style="font-size: 20px;" Icon="@Icons.Material.Filled.FileUpload" />
+                            <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Top" Class="ml-20">
+                                <ChildContent>
+                                    <MudIcon Class="cursor-pointer" Style="font-size: 20px;" Icon="@Icons.Material.Filled.FileUpload" @onclick="() => Manipulador.ExportarTemaPersonalizado(Preferencias.TemaPersonalizado)" />
+                                </ChildContent>
+                                <TooltipContent>
+                                    <MudText Typo="Typo.body2">Exportar tema personalizado</MudText>
+                                </TooltipContent>
+                            </MudTooltip>
                             <MudDivider Vertical="true" FlexItem="true" />
-                            <MudIcon Class="mr-1 cursor-pointer" Style="font-size: 20px;" Icon="@Icons.Material.Filled.SettingsBackupRestore" @onclick="Preferencias.TemaPersonalizado.RetornarAoPadrao" />
+                            <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Top" Class="ml-20">
+                                <ChildContent>
+                                    <MudIcon Class="mr-1 cursor-pointer" Style="font-size: 20px;" Icon="@Icons.Material.Filled.SettingsBackupRestore" @onclick="Preferencias.TemaPersonalizado.RetornarAoPadrao" />
+                                </ChildContent>
+                                <TooltipContent>
+                                    <MudText Typo="Typo.body2">Restaurar cores ao último tema personalizado salvo</MudText>
+                                </TooltipContent>
+                            </MudTooltip>
                         </MudPaper>
                     </MudItem>
                     <MudItem xl="8" lg="8" md="8" sm="8">

@@ -44,7 +44,7 @@
     <MudDivider />
     <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom"  Class="ml-20">
         <ChildContent>
-            <MudCheckBox @bind-Value="Preferencias.AutoSave.Ativo" Class="my-n2" Label="Habilitar salvalmento automático"></MudCheckBox>
+            <MudCheckBox @bind-Value="Preferencias.AutoSave.Ativo" Class="my-n2" Label="Habilitar salvamento automático"></MudCheckBox>
         </ChildContent>
         <TooltipContent>
             <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
@@ -114,6 +114,47 @@
             <MudText Typo="Typo.overline" Style="display:inline">@PrefereciaPadrao.CaminhoDesenvolvimento</MudText>
         </TooltipContent>
     </MudTooltip>
+</MudPaper>
+
+<MudPaper Class="px-0 pt-3 pb-1 ma-3" Elevation="3" MaxWidth="575px">
+    <MudGrid>
+        <MudItem xl="8" lg="8" md="8" sm="8">
+            <MudText Typo="Typo.h6" Class="pa-0 mx-3 pointer-events-none" Color="Color.Dark">Excluir dados</MudText>
+        </MudItem>
+        <MudItem xl="4" lg="4" md="4" sm="4">
+            <MudBadge Content="@ContadorDestravar"
+            Color="@CorContador"
+            Overlap="true"
+            Bordered="false"
+            Class="mx-6 my-4">
+                <MudButton Color="Color.Error" 
+                Variant="Variant.Filled"
+                DropShadow="true" 
+                Size="Size.Small"
+                Class="ma-0 py-0 px-2"
+                Disabled="Destravado"
+                OnClick="Destravar">Destravar</MudButton>
+            </MudBadge>
+        </MudItem>
+    </MudGrid>
+    @if (Destravado)
+    {
+        <MudDivider />
+        <MudPaper Class="pa-0 ma-3" Elevation="3">
+            <MudButton Variant="Variant.Outlined" Color="Color.Warning" FullWidth="true"
+                       OnClick="ExcluirTemaPersonalizado">Excluir Tema Personalizado</MudButton>
+            <MudButton Variant="Variant.Outlined" Color="Color.Warning" FullWidth="true">Excluir Configurações</MudButton>
+            <MudDivider Class="pa-1" />
+            <MudButton Variant="Variant.Outlined" Color="Color.Warning" FullWidth="true">Excluir Histórico de Ponto</MudButton>
+            <MudButton Variant="Variant.Outlined" Color="Color.Warning" FullWidth="true">Excluir Histórico de Tempos</MudButton>
+            <MudButton Variant="Variant.Outlined" Color="Color.Warning" FullWidth="true">Excluir Cronômetros Abertos</MudButton>
+            <MudDivider Class="pa-1" />
+            <MudButton Variant="Variant.Outlined" Color="Color.Warning" FullWidth="true">Excluir Cadastros de Contadores</MudButton>
+            <MudButton Variant="Variant.Outlined" Color="Color.Warning" FullWidth="true">Excluir Cadastros de Padrões</MudButton>
+            <MudButton Variant="Variant.Outlined" Color="Color.Warning" FullWidth="true">Excluir Cadastros de Expressos</MudButton>
+        </MudPaper>
+    }
+    
 </MudPaper>
 
 <MudDivider Class="my-3" />

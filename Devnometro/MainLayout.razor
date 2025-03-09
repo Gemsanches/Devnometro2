@@ -1,6 +1,7 @@
 ﻿@inherits LayoutComponentBase
-@inject Devnometro.Dominio.Preferencias preferencias
+@inject Preferencias preferencias
 @using Devnometro.Dominio
+@using Devnometro.Aplicacao
 
 <MudThemeProvider
 DefaultScrollbar="false"
@@ -17,7 +18,8 @@ Theme="preferencias.Tema" />
                 <ChildContent>
                     <MudIconButton Icon="@Icons.Material.Filled.Save" Size="Size.Small"
                     @onmouseover='() => AplicarMensagem("Salvar")'
-                    @onmouseleave="ResetarMensagem"/>
+                    @onmouseleave="ResetarMensagem"
+                    OnClick="Salvar" />
                 </ChildContent>
                 <TooltipContent>
                     <MudText Typo="Typo.h5"><MudIcon Icon="@Icons.Material.Outlined.Save" /> Salvar <MudIcon Icon="@Icons.Material.Outlined.Save" /></MudText>
@@ -64,7 +66,7 @@ Theme="preferencias.Tema" />
         </MudButtonGroup>
     </MudAppBar>
     <MudMainContent>
-        <MudSwitch @bind-Value="preferencias.TemaNoturno" Color="Color.Primary" Class="ma-4" T="bool" />
+        <MudButton OnClick="Aplicacao.ManipuladorDeArquivo.ExemploSalvar">Teste</MudButton>
         @Body
     </MudMainContent>
 </MudLayout>
@@ -73,18 +75,25 @@ Theme="preferencias.Tema" />
 {
     private string diaDeHoje = string.Empty;
     private string mensagem = string.Empty;
+    private ManipuladorDeArquivo manipulador = new();
 
     MenuWindow janelaMenu = null!;
 
     protected override void OnInitialized()
     {
-        preferencias = new();
-        preferencias.Tema = Devnometro.Dominio.TemaModel.TemaPadrao();
-        preferencias.TemaNoturno = false;
+        preferencias = ManipuladorDeArquivo.CarregarPreferencias();
+        AcordarTema();
         preferencias.OnChanged += StateHasChanged;
         janelaMenu = new(preferencias);
         diaDeHoje = DateTime.Now.ToShortDateString();
         mensagem = diaDeHoje;
+    }
+
+    private void AcordarTema()
+    {
+        var temaTemp = preferencias.TemaSelecionado;
+        preferencias.TemaSelecionado = Dominio.Enumeradores.ETema.TemaPadrao;
+        preferencias.TemaSelecionado = temaTemp;
     }
 
     private void AplicarMensagem(string texto)
@@ -116,6 +125,7 @@ Theme="preferencias.Tema" />
         preferencias.TemaNoturno = !preferencias.TemaNoturno;
         StateHasChanged();
     }
-    //private void RetornoConfiguracoes(object? sender, EventArgs e) { }
+
+    private void Salvar() => manipulador.SalvarPreferencias(preferencias);
 
 }

@@ -14,6 +14,9 @@ namespace Devnometro.TelasConfig.Configuracoes;
 
 public class TemaBase : ComponentBase, IDisposable
 {
+    [Inject]
+    public required Aplicacao.ManipuladorDeArquivo Manipulador { get; set; }
+
     [Parameter]
     public MenuWindow? Janela { get; set; }
 
@@ -28,5 +31,16 @@ public class TemaBase : ComponentBase, IDisposable
     public void Dispose()
     {
         Preferencias.OnChanged -= StateHasChanged;
+    }
+
+    protected void AplicarTemaImportado() 
+    {
+        var temaImportado = Manipulador.ImportarTemaPersonalizado();
+        if (temaImportado is not null)
+        {
+            this.Preferencias.TemaPersonalizado = temaImportado;
+            this.Preferencias.TemaPersonalizado.AplicarCoresAoTema();
+            this.Preferencias.TemaSelecionado = ETema.TemaPersonalizado;
+        }
     }
 }

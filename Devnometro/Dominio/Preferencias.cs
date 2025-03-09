@@ -34,16 +34,32 @@ public class Preferencias
                 ETema.TemaPersonalizado => TemaPersonalizado.Tema,
                 _ => TemaModel.TemaPadrao(),
             };
+            OnChanged?.Invoke();
         }
     }
     private ETema _temaSelecionado = ETema.TemaPadrao;
     #endregion
 
+    #region Dados
     public PreferenciasGerais Geral { get; set; } = new();
     public PreferenciasSalvamentoAutomatico AutoSave { get; set; } = new();
     public PreferenciasComunicacao Comunicacao { get; set; } = new();
     public PreferenciasPonto Ponto { get; set; } = new();
     public PreferenciasCronometro Cronometro { get; set; } = new();
+    #endregion
+
+    #region Métodos Estáticos
+    public static Preferencias PreferenciasPadroes()
+    {
+        var retorno = new Preferencias()
+        {
+            TemaSelecionado = ETema.TemaPadrao,
+            TemaPersonalizado = Aplicacao.ManipuladorDeArquivo.CarregarTemaPersonalizado(),
+        };
+        retorno.TemaPersonalizado.AplicarCoresAoTema();
+        return retorno;
+    }
+    #endregion
 }
 
 public class PreferenciasGerais

@@ -12,6 +12,9 @@ namespace Devnometro;
 
 public class MenuBase : ComponentBase, IDisposable
 {
+    [Inject]
+    public required Aplicacao.ManipuladorDeArquivo Manipulador { get; set; }
+
     [Parameter]
     public required Preferencias Preferencias { get; set; }
 
@@ -20,8 +23,6 @@ public class MenuBase : ComponentBase, IDisposable
 
     public bool expandido = true;
     public void ExpandirRecolherMenu() => expandido = !expandido;
-
-    protected MudTheme TemaSelecionado { get; set; } = new();
 
     public int selecionado;
     public void Selecionar(int i) => selecionado = i;
@@ -53,14 +54,20 @@ public class MenuBase : ComponentBase, IDisposable
 
     protected override void OnInitialized()
     {
-        Preferencias.Tema = Dominio.TemaModel.TemaPadrao();
+        AcordarTema();
         Preferencias.OnChanged += StateHasChanged;
+        Manipulador = new();
+    }
+    private void AcordarTema()
+    {
+        var temaTemp = Preferencias.TemaSelecionado;
+        Preferencias.TemaSelecionado = Dominio.Enumeradores.ETema.TemaPadrao;
+        Preferencias.TemaSelecionado = temaTemp;
     }
 
     public void Teste()
     {
         var adds = Preferencias.Tema.PaletteLight.Primary.ToString();
-        TemaSelecionado = Preferencias.Tema;
         Janela?.Alterar();
     }
 
@@ -68,4 +75,5 @@ public class MenuBase : ComponentBase, IDisposable
     {
         Preferencias.OnChanged -= StateHasChanged;
     }
+
 }

@@ -84,46 +84,44 @@ public class TemaPersonalizado
     public string SurfaceDark { get; set; } = null!;
     #endregion
 
-    public MudTheme Tema { get; private set; } = new ();
+    public MudTheme Tema { get; private set; } = new();
 
     public TemaPersonalizado() => RetornarAoPadrao();
     public void RetornarAoPadrao()
     {
-        PrimaryLight = "#bcbcbc";
-        PrimaryDark = "#bcbcbc";
-        SecondaryLight = "#bcbcbc";
-        SecondaryDark = "#bcbcbc";
-        TertiaryLight = "#bcbcbc";
-        TertiaryDark = "#bcbcbc";
-        InfoLight = "#bcbcbc";
-        InfoDark = "#bcbcbc";
-        WarningLight = "#bcbcbc";
-        WarningDark = "#bcbcbc";
-        ErrorLight = "#bcbcbc";
-        ErrorDark = "#bcbcbc";
-        SuccessLight = "#bcbcbc";
-        SuccessDark = "#bcbcbc";
-        SurfaceLight = "#bcbcbc";
-        SurfaceDark = "#bcbcbc";
+        PrimaryLight = (string)Tema.PaletteLight.Primary;
+        PrimaryDark = (string)Tema.PaletteDark.Primary;
+        SecondaryLight = (string)Tema.PaletteLight.Secondary;
+        SecondaryDark = (string)Tema.PaletteDark.Secondary;
+        TertiaryLight = (string)Tema.PaletteLight.Tertiary;
+        TertiaryDark = (string)Tema.PaletteDark.Tertiary;
+        InfoLight = (string)Tema.PaletteLight.Info;
+        InfoDark = (string)Tema.PaletteDark.Info;
+        WarningLight = (string)Tema.PaletteLight.Warning;
+        WarningDark = (string)Tema.PaletteDark.Warning;
+        ErrorLight = (string)Tema.PaletteLight.Error;
+        ErrorDark = (string)Tema.PaletteDark.Error;
+        SuccessLight = (string)Tema.PaletteLight.Success;
+        SuccessDark = (string)Tema.PaletteDark.Success;
+        SurfaceLight = (string)Tema.PaletteLight.Surface;
+        SurfaceDark = (string)Tema.PaletteDark.Surface;
 
-        //PrimaryLight = "#6e7a73";
-        //PrimaryDark = "#2e4045";
-        //SecondaryLight = "#bfb5b2";
-        //SecondaryDark = "#5e3c58";
-        //TertiaryLight = "#dab600";
-        //TertiaryDark = "#a98600";
-        //InfoLight = "#54afcd";
-        //InfoDark = "#359aca";
-        //WarningLight = "#FF9800";
-        //WarningDark = "#ffa800";
-        //ErrorLight = "#bf0000";
-        //ErrorDark = "#800000";
-        //SuccessLight = "#77ab59";
-        //SuccessDark = "#36802d";
-        //SurfaceLight = "#F3F3FF";
-        //SurfaceDark = "#838996";
-
-        AplicarCoresAoTema();
+        //PrimaryLight = "#bcbcbc";
+        //PrimaryDark = "#bcbcbc";
+        //SecondaryLight = "#bcbcbc";
+        //SecondaryDark = "#bcbcbc";
+        //TertiaryLight = "#bcbcbc";
+        //TertiaryDark = "#bcbcbc";
+        //InfoLight = "#bcbcbc";
+        //InfoDark = "#bcbcbc";
+        //WarningLight = "#bcbcbc";
+        //WarningDark = "#bcbcbc";
+        //ErrorLight = "#bcbcbc";
+        //ErrorDark = "#bcbcbc";
+        //SuccessLight = "#bcbcbc";
+        //SuccessDark = "#bcbcbc";
+        //SurfaceLight = "#bcbcbc";
+        //SurfaceDark = "#bcbcbc";
     }
     public void AplicarCoresAoTema()
     {
@@ -144,4 +142,24 @@ public class TemaPersonalizado
         Tema.PaletteLight.Surface = SurfaceLight;
         Tema.PaletteDark.Surface = SurfaceDark;
     }
+
+    public static TemaPersonalizado CriarTemaPersonalizado() => new()
+    {
+        PrimaryLight = "#bcbcbc",
+        PrimaryDark = "#bcbcbc",
+        SecondaryLight = "#bcbcbc",
+        SecondaryDark = "#bcbcbc",
+        TertiaryLight = "#bcbcbc",
+        TertiaryDark = "#bcbcbc",
+        InfoLight = "#bcbcbc",
+        InfoDark = "#bcbcbc",
+        WarningLight = "#bcbcbc",
+        WarningDark = "#bcbcbc",
+        ErrorLight = "#bcbcbc",
+        ErrorDark = "#bcbcbc",
+        SuccessLight = "#bcbcbc",
+        SuccessDark = "#bcbcbc",
+        SurfaceLight = "#bcbcbc",
+        SurfaceDark = "#bcbcbc"
+    };
 }
