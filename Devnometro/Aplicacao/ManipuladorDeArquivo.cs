@@ -34,7 +34,7 @@ public class ManipuladorDeArquivo
     }
 
     #region Exemplos
-    public static bool ExempoVerificar()
+    public async static Task<bool> ExempoVerificar()
     {
         try
         {
@@ -52,11 +52,11 @@ public class ManipuladorDeArquivo
         }
         catch (Exception ex)
         {
-            MessageBox.Show($"Erro ao verificar o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+            await MetodosEstaticos.Mensagem($"Erro ao verificar o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
             return false;
         }
     }
-    public static void ExemploSalvar()
+    public async static Task ExemploSalvar()
     {
         try
         {
@@ -90,14 +90,14 @@ public class ManipuladorDeArquivo
             // Salva o JSON no arquivo
             File.WriteAllText(filePath, json);
 
-            MessageBox.Show($"Arquivo salvo com sucesso em: {filePath}", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
+            await MetodosEstaticos.Mensagem($"Arquivo salvo com sucesso em: {filePath}", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         catch (Exception ex)
         {
-            MessageBox.Show($"Erro ao salvar o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+            await MetodosEstaticos.Mensagem($"Erro ao salvar o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
-    public static Cliente ExemploCarregar()
+    public async static Task<Cliente> ExemploCarregar()
     {
         try
         {
@@ -113,7 +113,7 @@ public class ManipuladorDeArquivo
             // Verifica se o arquivo existe
             if (!File.Exists(filePath))
             {
-                MessageBox.Show("Arquivo não encontrado.", "Aviso", MessageBoxButton.OK, MessageBoxImage.Warning);
+                await MetodosEstaticos.Mensagem("Arquivo não encontrado.", "Aviso", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return null;
             }
 
@@ -123,16 +123,16 @@ public class ManipuladorDeArquivo
             // Desserializa o JSON para um objeto Cliente
             Cliente cliente = JsonSerializer.Deserialize<Cliente>(json);
 
-            MessageBox.Show("Arquivo carregado com sucesso!", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
+            await MetodosEstaticos.Mensagem("Arquivo carregado com sucesso!", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
             return cliente;
         }
         catch (Exception ex)
         {
-            MessageBox.Show($"Erro ao carregar o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+            await MetodosEstaticos.Mensagem($"Erro ao carregar o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
             return null;
         }
     }
-    public static void ExemploLimpar()
+    public async static Task ExemploLimpar()
     {
         try
         {
@@ -151,19 +151,19 @@ public class ManipuladorDeArquivo
                 // Exclui o arquivo
                 File.Delete(filePath);
 
-                MessageBox.Show("Arquivo excluído com sucesso!", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
+                await MetodosEstaticos.Mensagem("Arquivo excluído com sucesso!", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
-                MessageBox.Show("Arquivo não encontrado.", "Aviso", MessageBoxButton.OK, MessageBoxImage.Warning);
+                await MetodosEstaticos.Mensagem("Arquivo não encontrado.", "Aviso", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
         catch (Exception ex)
         {
-            MessageBox.Show($"Erro ao excluir o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+            await MetodosEstaticos.Mensagem($"Erro ao excluir o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
-    public static void ExemploExportar(Cliente cliente)
+    public async static Task ExemploExportar(Cliente cliente)
     {
         try
         {
@@ -182,15 +182,15 @@ public class ManipuladorDeArquivo
                 // Salva o JSON no local escolhido pelo usuário
                 File.WriteAllText(saveFileDialog.FileName, json);
 
-                MessageBox.Show($"Arquivo salvo com sucesso em: {saveFileDialog.FileName}", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
+                await MetodosEstaticos.Mensagem($"Arquivo salvo com sucesso em: {saveFileDialog.FileName}", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
         catch (Exception ex)
         {
-            MessageBox.Show($"Erro ao exportar o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+            await MetodosEstaticos.Mensagem($"Erro ao exportar o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
-    public static void ExemploImportar()
+    public async static Task ExemploImportar()
     {
         try
         {
@@ -223,17 +223,17 @@ public class ManipuladorDeArquivo
                     // Salva o JSON no diretório do programa
                     File.WriteAllText(filePath, json);
 
-                    MessageBox.Show($"Arquivo importado e salvo com sucesso em: {filePath}", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
+                    await MetodosEstaticos.Mensagem($"Arquivo importado e salvo com sucesso em: {filePath}", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
-                    MessageBox.Show("O arquivo selecionado não é um JSON válido para a classe Cliente.", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                    await MetodosEstaticos.Mensagem("O arquivo selecionado não é um JSON válido para a classe Cliente.", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
         catch (Exception ex)
         {
-            MessageBox.Show($"Erro ao importar o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+            await MetodosEstaticos.Mensagem($"Erro ao importar o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
@@ -273,14 +273,13 @@ public class ManipuladorDeArquivo
                     preferencias.TemaPersonalizado.AplicarCoresAoTema();
                     return preferencias;
                 }
-
             }
         }
         catch {}
 
         return Preferencias.PreferenciasPadroes();
     }
-    public void SalvarPreferencias(Preferencias preferencias)
+    public async Task SalvarPreferencias(Preferencias preferencias)
     {
         try
         {
@@ -289,7 +288,7 @@ public class ManipuladorDeArquivo
 
             File.WriteAllText(filePath, json);
         }
-        catch (Exception ex) { MessageBox.Show($"Erro ao salvar Preferências: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error); }
+        catch (Exception ex) { await MetodosEstaticos.Mensagem($"Erro ao salvar Preferências: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error); }
     }
 
     #region Tema Personalizado
@@ -308,7 +307,7 @@ public class ManipuladorDeArquivo
 
         return TemaPersonalizado.CriarTemaPersonalizado();
     }
-    public void SalvarTemaPersonalizado(TemaPersonalizado temaPersonalizado)
+    public async Task SalvarTemaPersonalizado(TemaPersonalizado temaPersonalizado)
     {
         try
         {
@@ -317,7 +316,7 @@ public class ManipuladorDeArquivo
 
             File.WriteAllText(filePath, json);
         }
-        catch (Exception ex) { MessageBox.Show($"Erro ao salvar Tema personalizado: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error); }
+        catch (Exception ex) { await MetodosEstaticos.Mensagem($"Erro ao salvar Tema personalizado: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error); }
     }
     public static bool LimparTemaPersonalizado()
     {
@@ -330,7 +329,7 @@ public class ManipuladorDeArquivo
         }
         catch { return false; }
     }
-    public TemaPersonalizado? ImportarTemaPersonalizado()
+    public async Task<TemaPersonalizado?> ImportarTemaPersonalizado()
     {
         try
         {
@@ -351,17 +350,17 @@ public class ManipuladorDeArquivo
                     string filePath = Path.Combine(pastaPrograma, arquivoTemaPersonalizado);
                     File.WriteAllText(filePath, json);
 
-                    MessageBox.Show($"Arquivo {openFileDialog.SafeFileName} importado e salvo com sucesso", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
+                    await MetodosEstaticos.Mensagem($"Arquivo {openFileDialog.SafeFileName} importado e salvo com sucesso", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
                     return temaPersonalizado;
                 }
                 else
-                    MessageBox.Show("O arquivo selecionado não é um Tema Personalizado válido.", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                    await MetodosEstaticos.Mensagem("O arquivo selecionado não é um Tema Personalizado válido.", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-        catch (Exception ex) { MessageBox.Show($"Erro ao importar o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error); }
+        catch (Exception ex) { await MetodosEstaticos.Mensagem($"Erro ao importar o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error); }
         return null;
     }
-    public void ExportarTemaPersonalizado(TemaPersonalizado temaPersonalizado)
+    public async Task ExportarTemaPersonalizado(TemaPersonalizado temaPersonalizado)
     {
         try
         {
@@ -377,7 +376,7 @@ public class ManipuladorDeArquivo
             if (saveFileDialog.ShowDialog() == true)
                 File.WriteAllText(saveFileDialog.FileName, json);
         }
-        catch (Exception ex) { MessageBox.Show($"Erro ao exportar o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error); }
+        catch (Exception ex) { await MetodosEstaticos.Mensagem($"Erro ao exportar o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error); }
     }
     #endregion
 

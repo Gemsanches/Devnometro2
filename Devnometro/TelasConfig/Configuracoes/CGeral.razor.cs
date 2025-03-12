@@ -14,8 +14,28 @@ namespace Devnometro.TelasConfig.Configuracoes;
 
 public class CGeralBase : ComponentBase
 {
-    [Parameter]
-    public required Devnometro.Dominio.Preferencias Preferencias { get; set; }
+    [Parameter] public required Devnometro.Dominio.Preferencias Preferencias { get; set; }
+    [Inject] private ManipuladorDeArquivo Manipulador { get; set; } = new();
+
+    #region Nomenclatura
+    private const string tituloPadrao = "Tem certeza?";
+    private const string alertaPadrao = "\n\nEssa ação não pode ser desfeita";
+
+    protected const string excluir = "Excluir";
+    protected const string temaPersonalizado = "Tema Personalizado";
+    protected const string configuracoes = "Configurações";
+    protected const string historicoPonto = "Histórico de Ponto";
+    protected const string historicoTempo = "Histórico de Tempos";
+    protected const string cronometrosAbertos = "Cronômetros Abertos";
+    protected const string cadastrosContadores = "Cadastros de Contadores";
+    protected const string cadastrosPadroes = "Cadastros de Padrões";
+    protected const string cadastrosExpressos = "Cadastros de Expressos";
+    #endregion
+
+    #region Constantes
+    protected const MudBlazor.Variant varianteBotoesExclusao = Variant.Outlined;
+    protected const MudBlazor.Color corBotoesExclusao = Color.Warning;
+    #endregion
 
     #region Botão Restaurar padrões
     protected void RestauraPadroes()
@@ -100,9 +120,9 @@ public class CGeralBase : ComponentBase
     #endregion
 
     #region Exclusões
-    protected void ExcluirTemaPersonalizado()
+    protected async Task ExcluirTemaPersonalizado()
     {
-        var resposta = MessageBox.Show("Excluir Tema Personalizado?", "Tem certeza?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+        var resposta = await MetodosEstaticos.Mensagem($"{excluir} {temaPersonalizado}?{alertaPadrao}", tituloPadrao, MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (resposta != MessageBoxResult.Yes) return;
 
         if (ManipuladorDeArquivo.LimparTemaPersonalizado())
@@ -115,10 +135,57 @@ public class CGeralBase : ComponentBase
             this.Preferencias.TemaSelecionado = ETema.TemaPersonalizado;
             this.Preferencias.TemaSelecionado = temp;
             StateHasChanged();
-            MessageBox.Show("Tema Personalizado excluído com sucesso!", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
+            await MetodosEstaticos.Mensagem($"{temaPersonalizado} excluído com sucesso!", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         else
-            MessageBox.Show("Tema Personalizado não foi excluído!", "Falha", MessageBoxButton.OK, MessageBoxImage.Error);
+            await MetodosEstaticos.Mensagem($"{temaPersonalizado} não foi excluído!", "Falha", MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+    protected async Task ExcluirConfiguracoes()
+    {
+        var resposta = await MetodosEstaticos.Mensagem($"{excluir} {configuracoes}?\n(todas as {configuracoes} retornarão ao padrão)", tituloPadrao, MessageBoxButton.YesNo, MessageBoxImage.Question);
+        if (resposta != MessageBoxResult.Yes) return;
+
+        this.Preferencias = Preferencias.PreferenciasPadroes();
+        Manipulador.SalvarPreferencias(this.Preferencias);
+        StateHasChanged();
+        await MetodosEstaticos.Mensagem($"{configuracoes} excluídas com sucesso!", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
+        
+    }
+    protected async Task ExcluirHistoricoPonto()
+    {
+        var resposta = await MetodosEstaticos.Mensagem($"{excluir} {historicoPonto}?{alertaPadrao}", tituloPadrao, MessageBoxButton.YesNo, MessageBoxImage.Question);
+        if (resposta != MessageBoxResult.Yes) return;
+               
+    }
+    protected async Task ExcluirHistoricoTempo()
+    {
+        var resposta = await MetodosEstaticos.Mensagem($"{excluir} {historicoTempo}?{alertaPadrao}", tituloPadrao, MessageBoxButton.YesNo, MessageBoxImage.Question);
+        if (resposta != MessageBoxResult.Yes) return;
+               
+    }
+    protected async Task ExcluirCronometrosAbertos()
+    {
+        var resposta = await MetodosEstaticos.Mensagem($"{excluir} {cronometrosAbertos}?{alertaPadrao}", tituloPadrao, MessageBoxButton.YesNo, MessageBoxImage.Question);
+        if (resposta != MessageBoxResult.Yes) return;
+               
+    }
+    protected async Task ExcluirCadastrosContadores()
+    {
+        var resposta = await MetodosEstaticos.Mensagem($"{excluir} {cadastrosContadores}?\nIsso excluirá também:\n{cadastrosPadroes}\n{cadastrosExpressos}{alertaPadrao}", tituloPadrao, MessageBoxButton.YesNo, MessageBoxImage.Question);
+        if (resposta != MessageBoxResult.Yes) return;
+               
+    }
+    protected async Task ExcluirCadastrosPadroes()
+    {
+        var resposta = await MetodosEstaticos.Mensagem($"{excluir} {cadastrosPadroes}?{alertaPadrao}", tituloPadrao, MessageBoxButton.YesNo, MessageBoxImage.Question);
+        if (resposta != MessageBoxResult.Yes) return;
+               
+    }
+    protected async Task ExcluirCadastrosExpressos()
+    {
+        var resposta = await MetodosEstaticos.Mensagem($"{excluir} {cadastrosExpressos}?{alertaPadrao}", tituloPadrao, MessageBoxButton.YesNo, MessageBoxImage.Question);
+        if (resposta != MessageBoxResult.Yes) return;
+               
     }
 
     #endregion

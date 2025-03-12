@@ -33,9 +33,9 @@ public class TemaBase : ComponentBase, IDisposable
         Preferencias.OnChanged -= StateHasChanged;
     }
 
-    protected void AplicarTemaImportado() 
+    protected async Task AplicarTemaImportado() 
     {
-        var temaImportado = Manipulador.ImportarTemaPersonalizado();
+        var temaImportado = await Manipulador.ImportarTemaPersonalizado();
         if (temaImportado is not null)
         {
             this.Preferencias.TemaPersonalizado = temaImportado;

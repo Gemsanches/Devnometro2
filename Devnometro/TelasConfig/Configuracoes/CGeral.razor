@@ -73,16 +73,80 @@
         <MudDivider />
         <MudGrid>
             <MudItem xl="6" lg="6" md="6" sm="6">
-                <MudCheckBox @bind-Value="Preferencias.AutoSave.MarcarPonto" Class="my-n2" Label="Marcar ponto"></MudCheckBox>
-                <MudCheckBox @bind-Value="Preferencias.AutoSave.EditarPonto" Class="my-n2" Label="Editar ponto"></MudCheckBox>
-                <MudCheckBox @bind-Value="Preferencias.AutoSave.ExcluirPonto" Class="my-n2" Label="Excluir ponto"></MudCheckBox>
-                <MudCheckBox @bind-Value="Preferencias.AutoSave.AbandonarCronometro" Class="my-n2" Label="Abandonar cronômetro"></MudCheckBox>
+                <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom" Class="ml-20">
+                    <ChildContent>
+                        <MudCheckBox @bind-Value="Preferencias.AutoSave.MarcarPonto" Class="my-n2" Label="Marcar ponto"></MudCheckBox>
+                    </ChildContent>
+                    <TooltipContent>
+                        <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
+                        <MudText Typo="Typo.overline" Style="display:inline">@MetodosEstaticos.BooleanoSimNao(PrefereciaPadrao.AutoSaveMarcarPonto)</MudText>
+                    </TooltipContent>
+                </MudTooltip>
+                <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom" Class="ml-20">
+                    <ChildContent>
+                        <MudCheckBox @bind-Value="Preferencias.AutoSave.EditarPonto" Class="my-n2" Label="Editar ponto"></MudCheckBox>
+                    </ChildContent>
+                    <TooltipContent>
+                        <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
+                        <MudText Typo="Typo.overline" Style="display:inline">@MetodosEstaticos.BooleanoSimNao(PrefereciaPadrao.AutoSaveEditarPonto)</MudText>
+                    </TooltipContent>
+                </MudTooltip>
+                <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom" Class="ml-20">
+                    <ChildContent>
+                        <MudCheckBox @bind-Value="Preferencias.AutoSave.ExcluirPonto" Class="my-n2" Label="Excluir ponto"></MudCheckBox>
+                    </ChildContent>
+                    <TooltipContent>
+                        <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
+                        <MudText Typo="Typo.overline" Style="display:inline">@MetodosEstaticos.BooleanoSimNao(PrefereciaPadrao.AutoSaveExcluirPonto)</MudText>
+                    </TooltipContent>
+                </MudTooltip>
+                <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom" Class="ml-20">
+                    <ChildContent>
+                        <MudCheckBox @bind-Value="Preferencias.AutoSave.AbandonarCronometro" Class="my-n2" Label="Abandonar cronômetro"></MudCheckBox>
+                    </ChildContent>
+                    <TooltipContent>
+                        <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
+                        <MudText Typo="Typo.overline" Style="display:inline">@MetodosEstaticos.BooleanoSimNao(PrefereciaPadrao.AutoSaveAbandonarCronometro)</MudText>
+                    </TooltipContent>
+                </MudTooltip>
             </MudItem>
             <MudItem xl="6" lg="6" md="6" sm="6">
-                <MudCheckBox @bind-Value="Preferencias.AutoSave.CriarCronometro" Class="my-n2" Label="Criar cronômetro"></MudCheckBox>
-                <MudCheckBox @bind-Value="Preferencias.AutoSave.EditarCronometro" Class="my-n2" Label="Editar cronômetro"></MudCheckBox>
-                <MudCheckBox @bind-Value="Preferencias.AutoSave.ExcluirCronometro" Class="my-n2" Label="Excluir cronômetro"></MudCheckBox>
-                <MudCheckBox @bind-Value="Preferencias.AutoSave.FinalizarCronometro" Class="my-n2" Label="Finalizar cronômetro"></MudCheckBox>
+                <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom" Class="ml-20">
+                    <ChildContent>
+                        <MudCheckBox @bind-Value="Preferencias.AutoSave.CriarCronometro" Class="my-n2" Label="Criar cronômetro"></MudCheckBox>
+                    </ChildContent>
+                    <TooltipContent>
+                        <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
+                        <MudText Typo="Typo.overline" Style="display:inline">@MetodosEstaticos.BooleanoSimNao(PrefereciaPadrao.AutoSaveCriarCronometro)</MudText>
+                    </TooltipContent>
+                </MudTooltip>
+                <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom" Class="ml-20">
+                    <ChildContent>
+                        <MudCheckBox @bind-Value="Preferencias.AutoSave.EditarCronometro" Class="my-n2" Label="Editar cronômetro"></MudCheckBox>
+                    </ChildContent>
+                    <TooltipContent>
+                        <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
+                        <MudText Typo="Typo.overline" Style="display:inline">@MetodosEstaticos.BooleanoSimNao(PrefereciaPadrao.AutoSaveEditarCronometro)</MudText>
+                    </TooltipContent>
+                </MudTooltip>
+                <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom" Class="ml-20">
+                    <ChildContent>
+                        <MudCheckBox @bind-Value="Preferencias.AutoSave.ExcluirCronometro" Class="my-n2" Label="Excluir cronômetro"></MudCheckBox>
+                    </ChildContent>
+                    <TooltipContent>
+                        <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
+                        <MudText Typo="Typo.overline" Style="display:inline">@MetodosEstaticos.BooleanoSimNao(PrefereciaPadrao.AutoSaveExcluirCronometro)</MudText>
+                    </TooltipContent>
+                </MudTooltip>
+                <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom" Class="ml-20">
+                    <ChildContent>
+                        <MudCheckBox @bind-Value="Preferencias.AutoSave.FinalizarCronometro" Class="my-n2" Label="Finalizar cronômetro"></MudCheckBox>
+                    </ChildContent>
+                    <TooltipContent>
+                        <MudText Typo="Typo.button" Style="display:inline"> Valor Padrão:</MudText>
+                        <MudText Typo="Typo.overline" Style="display:inline">@MetodosEstaticos.BooleanoSimNao(PrefereciaPadrao.AutoSaveFinalizarCronometro)</MudText>
+                    </TooltipContent>
+                </MudTooltip>
             </MudItem>
         </MudGrid>
     </MudPaper>
@@ -141,17 +205,24 @@
     {
         <MudDivider />
         <MudPaper Class="pa-0 ma-3" Elevation="3">
-            <MudButton Variant="Variant.Outlined" Color="Color.Warning" FullWidth="true"
-                       OnClick="ExcluirTemaPersonalizado">Excluir Tema Personalizado</MudButton>
-            <MudButton Variant="Variant.Outlined" Color="Color.Warning" FullWidth="true">Excluir Configurações</MudButton>
+            <MudButton Variant=varianteBotoesExclusao Color=corBotoesExclusao FullWidth="true"
+                       OnClick="ExcluirTemaPersonalizado">@excluir @temaPersonalizado</MudButton>
+            <MudButton Variant=varianteBotoesExclusao Color=corBotoesExclusao FullWidth="true"
+                       Onclick="ExcluirConfiguracoes">@excluir @configuracoes</MudButton>
             <MudDivider Class="pa-1" />
-            <MudButton Variant="Variant.Outlined" Color="Color.Warning" FullWidth="true">Excluir Histórico de Ponto</MudButton>
-            <MudButton Variant="Variant.Outlined" Color="Color.Warning" FullWidth="true">Excluir Histórico de Tempos</MudButton>
-            <MudButton Variant="Variant.Outlined" Color="Color.Warning" FullWidth="true">Excluir Cronômetros Abertos</MudButton>
+            <MudButton Variant=varianteBotoesExclusao Color=corBotoesExclusao FullWidth="true"
+                       Onclick="ExcluirHistoricoPonto">@excluir @historicoPonto</MudButton>
+            <MudButton Variant=varianteBotoesExclusao Color=corBotoesExclusao FullWidth="true"
+                       Onclick="ExcluirHistoricoTempo">@excluir @historicoTempo</MudButton>
+            <MudButton Variant=varianteBotoesExclusao Color=corBotoesExclusao FullWidth="true"
+                       Onclick="ExcluirCronometrosAbertos">@excluir @cronometrosAbertos</MudButton>
             <MudDivider Class="pa-1" />
-            <MudButton Variant="Variant.Outlined" Color="Color.Warning" FullWidth="true">Excluir Cadastros de Contadores</MudButton>
-            <MudButton Variant="Variant.Outlined" Color="Color.Warning" FullWidth="true">Excluir Cadastros de Padrões</MudButton>
-            <MudButton Variant="Variant.Outlined" Color="Color.Warning" FullWidth="true">Excluir Cadastros de Expressos</MudButton>
+            <MudButton Variant=varianteBotoesExclusao Color=corBotoesExclusao FullWidth="true"
+                       Onclick="ExcluirCadastrosContadores">@excluir @cadastrosContadores</MudButton>
+            <MudButton Variant=varianteBotoesExclusao Color=corBotoesExclusao FullWidth="true"
+                       Onclick="ExcluirCadastrosPadroes">@excluir @cadastrosPadroes</MudButton>
+            <MudButton Variant=varianteBotoesExclusao Color=corBotoesExclusao FullWidth="true"
+                       Onclick="ExcluirCadastrosExpressos">@excluir @cadastrosExpressos</MudButton>
         </MudPaper>
     }
     
