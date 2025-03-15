@@ -10,7 +10,7 @@ namespace Devnometro.Dominio;
 public class IconeDados
 {
     #region Propriedades
-    public string? Descricao { get; set; }
+    public string? Nome { get; set; }
     public MudBlazor.Color Cor { get; set; } = MudBlazor.Color.Dark;
     public string IconeAtual { get; set; } = "";
     public string? IconePadrao { get; set; }
@@ -23,7 +23,7 @@ public class IconeDados
 
     public IconeDados(Color cor, string iconeAtual, string? descricao = null, string? iconePadrao = null)
     {
-        Descricao = descricao;
+        Nome = descricao;
         Cor = cor;
         IconeAtual = iconeAtual;
         IconePadrao = iconePadrao;

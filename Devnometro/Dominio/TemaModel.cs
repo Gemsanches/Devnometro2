@@ -105,23 +105,6 @@ public class TemaPersonalizado
         SuccessDark = (string)Tema.PaletteDark.Success;
         SurfaceLight = (string)Tema.PaletteLight.Surface;
         SurfaceDark = (string)Tema.PaletteDark.Surface;
-
-        //PrimaryLight = "#bcbcbc";
-        //PrimaryDark = "#bcbcbc";
-        //SecondaryLight = "#bcbcbc";
-        //SecondaryDark = "#bcbcbc";
-        //TertiaryLight = "#bcbcbc";
-        //TertiaryDark = "#bcbcbc";
-        //InfoLight = "#bcbcbc";
-        //InfoDark = "#bcbcbc";
-        //WarningLight = "#bcbcbc";
-        //WarningDark = "#bcbcbc";
-        //ErrorLight = "#bcbcbc";
-        //ErrorDark = "#bcbcbc";
-        //SuccessLight = "#bcbcbc";
-        //SuccessDark = "#bcbcbc";
-        //SurfaceLight = "#bcbcbc";
-        //SurfaceDark = "#bcbcbc";
     }
     public void AplicarCoresAoTema()
     {

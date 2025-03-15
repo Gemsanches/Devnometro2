@@ -279,7 +279,7 @@ public class ManipuladorDeArquivo
 
         return Preferencias.PreferenciasPadroes();
     }
-    public async Task SalvarPreferencias(Preferencias preferencias)
+    public async Task<bool> SalvarPreferencias(Preferencias preferencias)
     {
         try
         {
@@ -287,8 +287,9 @@ public class ManipuladorDeArquivo
             string filePath = Path.Combine(pastaPrograma, arquivoPreferencias);
 
             File.WriteAllText(filePath, json);
+            return true;
         }
-        catch (Exception ex) { await MetodosEstaticos.MensagemAsync($"Erro ao salvar Preferências: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error); }
+        catch (Exception ex) { await MetodosEstaticos.MensagemAsync($"Erro ao salvar Preferências: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error); return false; }
     }
 
     #region Tema Personalizado
@@ -312,7 +313,7 @@ public class ManipuladorDeArquivo
         try
         {
             string json = JsonSerializer.Serialize(temaPersonalizado, JSO);
-            string filePath = Path.Combine(pastaPrograma, arquivoPreferencias);
+            string filePath = Path.Combine(pastaPrograma, arquivoTemaPersonalizado);
 
             File.WriteAllText(filePath, json);
         }
@@ -339,8 +340,7 @@ public class ManipuladorDeArquivo
                 Title = "Selecionar Arquivo de Tema Personalizado"
             };
 
-            bool? resposta = await Task.Run(() => {return openFileDialog.ShowDialog();});
-
+            bool? resposta = openFileDialog.ShowDialog();
             if (resposta == true)
             {
                 string json = File.ReadAllText(openFileDialog.FileName);
@@ -375,7 +375,7 @@ public class ManipuladorDeArquivo
                 Title = "Salvar Arquivo de Tema Personalizado"
             };
 
-            bool? resposta = await Task.Run(() => { return saveFileDialog.ShowDialog(); });
+            bool? resposta = saveFileDialog.ShowDialog();
 
             if (resposta == true)
                 File.WriteAllText(saveFileDialog.FileName, json);
@@ -437,13 +437,94 @@ public class ManipuladorDeArquivo
     #region Cadastros
 
     #region Contadores
-    public static void SalvarContadores()
+    public List<Contador> CarregarContadores()
     {
+        try
+        {
+            if (VerificarArquivo(arquivoCadatrosContadores))
+            {
+                string json = File.ReadAllText(Path.Combine(pastaPrograma, arquivoCadatrosContadores));
+                List<Contador>? contadores = JsonSerializer.Deserialize<List<Contador>>(json);
+                return contadores ?? Contador.ListaMocada();
+            }
+        }
+        catch { }
 
+        return Contador.ListaMocada();
     }
-    public static void CarregarContadores()
+    public async Task SalvarContadores(List<Contador> lista)
     {
+        try
+        {
+            string json = JsonSerializer.Serialize(lista, JSO);
+            string filePath = Path.Combine(pastaPrograma, arquivoCadatrosContadores);
 
+            File.WriteAllText(filePath, json);
+        }
+        catch (Exception ex) { await MetodosEstaticos.MensagemAsync($"Erro ao salvar cadastro de Contadores: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error); }
+    }
+    public static bool LimparContadores()
+    {
+        try
+        {
+            string filePath = Path.Combine(pastaPrograma, arquivoCadatrosContadores);
+            if (File.Exists(filePath))
+                File.Delete(filePath);
+            return true;
+        }
+        catch { return false; }
+    }
+    public async Task<List<Contador>?> ImportarContadores()
+    {
+        try
+        {
+            OpenFileDialog openFileDialog = new()
+            {
+                Filter = "Arquivos CNT (*.cnt)|*.cnt",
+                Title = "Selecionar Arquivo de Lista de Contadores"
+            };
+
+            bool? resposta = openFileDialog.ShowDialog();
+
+            if (resposta == true)
+            {
+                string json = File.ReadAllText(openFileDialog.FileName);
+
+                List<Contador> lista = JsonSerializer.Deserialize<List<Contador>>(json);
+
+                if (lista != null)
+                {
+                    string filePath = Path.Combine(pastaPrograma, arquivoCadatrosContadores);
+                    File.WriteAllText(filePath, json);
+
+                    await MetodosEstaticos.MensagemAsync($"Arquivo {openFileDialog.SafeFileName} importado com sucesso", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return lista;
+                }
+                else
+                    await MetodosEstaticos.MensagemAsync("O arquivo selecionado não é uma lista válida de Contadores.", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        catch (Exception ex) { await MetodosEstaticos.MensagemAsync($"Erro ao importar o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error); }
+        return null;
+    }
+    public async Task ExportarContadores(List<Contador> lista)
+    {
+        try
+        {
+            string json = JsonSerializer.Serialize(lista, JSO);
+
+            SaveFileDialog saveFileDialog = new()
+            {
+                Filter = "Arquivos CNT (*.cnt)|*.cnt",
+                DefaultExt = "cnt",
+                Title = "Salvar Lista de Contadores"
+            };
+
+            bool? resposta = saveFileDialog.ShowDialog();
+            if (resposta == true)
+                File.WriteAllText(saveFileDialog.FileName, json);
+        }
+        catch (Exception ex) { await MetodosEstaticos.MensagemAsync($"Erro ao exportar o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error); }
     }
     #endregion
 

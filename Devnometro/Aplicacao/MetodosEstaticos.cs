@@ -1,4 +1,5 @@
 ﻿using Devnometro.Dominio;
+using System.Printing;
 using System.Windows;
 
 namespace Devnometro.Aplicacao;

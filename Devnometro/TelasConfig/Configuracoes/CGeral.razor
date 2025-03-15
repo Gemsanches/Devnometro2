@@ -21,7 +21,7 @@
 
 <MudPaper Class="pa-0 ma-3" Elevation="3" MaxWidth="575px">
     <MudText Typo="Typo.h6" Class="pa-0 mx-3 pointer-events-none" Color="Color.Dark">Exibição</MudText>
-    <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom"  Class="ml-20">
+    <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom" Class="ml-20">
         <ChildContent>
             <MudRadioGroup Class="ml-3 mb-1" @bind-Value="Preferencias.Geral.Exibicao">
                 <MudRadio Value=1 Color="Color.Primary" Size="Size.Small" Dense="true">Compacta</MudRadio>
@@ -42,7 +42,7 @@
 <MudPaper Class="pa-0 pb-1 ma-3" Elevation="3" MaxWidth="575px">
     <MudText Typo="Typo.h6" Class="pa-0 mx-3 pointer-events-none" Color="Color.Dark">Salvamento automático</MudText>
     <MudDivider />
-    <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom"  Class="ml-20">
+    <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom" Class="ml-20">
         <ChildContent>
             <MudCheckBox @bind-Value="Preferencias.AutoSave.Ativo" Class="my-n2" Label="Habilitar salvamento automático"></MudCheckBox>
         </ChildContent>
@@ -52,7 +52,7 @@
         </TooltipContent>
     </MudTooltip>
     <MudDivider />
-    <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom"  Class="ml-20">
+    <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom" Class="ml-20">
         <ChildContent>
             <MudGrid>
                 <MudItem xl="10" lg="10" md="10" sm="10">
@@ -155,7 +155,7 @@
 <MudPaper Class="pa-0 ma-3" Elevation="3" MaxWidth="575px">
     <MudText Typo="Typo.h6" Class="pa-0 mx-3 pointer-events-none" Color="Color.Dark">Caminhos externos</MudText>
     <MudDivider />
-    <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom"  Class="ml-20">
+    <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom" Class="ml-20">
         <ChildContent>
             <MudTextField @bind-Value="Preferencias.Geral.CaminhoAtendimento" Label="Atendimento" AdornmentIcon="@Icons.Material.TwoTone.SupportAgent" Adornment="Adornment.Start" Margin="Margin.Dense" Variant="Variant.Text" Style="width:550px"></MudTextField>
         </ChildContent>
@@ -167,9 +167,15 @@
         </TooltipContent>
     </MudTooltip>
     <MudDivider />
-    <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom"  Class="ml-20">
+    <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom" Class="ml-20">
         <ChildContent>
-            <MudTextField @bind-Value="Preferencias.Geral.CaminhoDesenvolvimento" Label="Desenvolvimento" AdornmentIcon="@Icons.Material.TwoTone.LogoDev" Adornment="Adornment.Start" Margin="Margin.Dense" Variant="Variant.Text" Style="width:550px"></MudTextField>
+            <MudTextField @bind-Value="Preferencias.Geral.CaminhoDesenvolvimento"
+                          Label="Desenvolvimento"
+                          AdornmentIcon="@Icons.Material.TwoTone.LogoDev"
+                          Adornment="Adornment.Start"
+                          Margin="Margin.Dense"
+                          Variant="Variant.Text"
+                          Style="width:550px" />
         </ChildContent>
         <TooltipContent>
             <MudText Typo="Typo.body2">Caminho que precede o número da 'Order of Change'</MudText>
@@ -187,55 +193,75 @@
         </MudItem>
         <MudItem xl="4" lg="4" md="4" sm="4">
             <MudBadge Content="@ContadorDestravar"
-            Color="@CorContador"
-            Overlap="true"
-            Bordered="false"
-            Class="mx-6 my-4">
-                <MudButton Color="Color.Error" 
-                Variant="Variant.Filled"
-                DropShadow="true" 
-                Size="Size.Small"
-                Class="ma-0 py-0 px-2"
-                Disabled="Destravado"
-                OnClick="Destravar">Destravar</MudButton>
+                      Color="@CorContador"
+                      Overlap="true"
+                      Bordered="false"
+                      Class="mx-6 my-4">
+                <MudButton Color="Color.Error"
+                           Variant="Variant.Filled"
+                           DropShadow="true"
+                           Size="Size.Small"
+                           Class="ma-0 py-0 px-2"
+                           Disabled="Destravado"
+                           OnClick="Destravar">Destravar</MudButton>
             </MudBadge>
         </MudItem>
     </MudGrid>
+    @if (ContadorDestravar == 2)
+    {
+        <MudText Typo="Typo.body2" Class="pa-0 mx-3 pointer-events-none" Color="Color.Dark">Cuidado! Você sabe o que tá fazendo?</MudText>
+    }
+    @if (ContadorDestravar == 1)
+    {
+        <MudText Typo="Typo.body2" Class="pa-0 mx-3 pointer-events-none" Color="Color.Dark">Vai destravar mesmo...</MudText>
+    }
+    @if (ContadorDestravar == null && !Destravado)
+    {
+        <MudText Typo="Typo.body2" Class="pa-0 mx-3 pointer-events-none" Color="Color.Dark">Beleza... por sua conta e risco.</MudText>
+    }
     @if (Destravado)
     {
         <MudDivider />
         <MudPaper Class="pa-0 ma-3" Elevation="3">
             <MudButton Variant=varianteBotoesExclusao Color=corBotoesExclusao FullWidth="true"
+                       Disabled="@JahExcluido(temaPersonalizadoJahExcluido)"
                        OnClick="ExcluirTemaPersonalizado">@excluir @temaPersonalizado</MudButton>
             <MudButton Variant=varianteBotoesExclusao Color=corBotoesExclusao FullWidth="true"
+                       Disabled="@JahExcluido(configuracoesJahExcluido)"
                        Onclick="ExcluirConfiguracoes">@excluir @configuracoes</MudButton>
             <MudDivider Class="pa-1" />
             <MudButton Variant=varianteBotoesExclusao Color=corBotoesExclusao FullWidth="true"
+                       Disabled="@JahExcluido(historicoPontoJahExcluido)"
                        Onclick="ExcluirHistoricoPonto">@excluir @historicoPonto</MudButton>
             <MudButton Variant=varianteBotoesExclusao Color=corBotoesExclusao FullWidth="true"
+                       Disabled="@JahExcluido(historicoTempoJahExcluido)"
                        Onclick="ExcluirHistoricoTempo">@excluir @historicoTempo</MudButton>
             <MudButton Variant=varianteBotoesExclusao Color=corBotoesExclusao FullWidth="true"
+                       Disabled="@JahExcluido(cronometrosAbertosJahExcluido)"
                        Onclick="ExcluirCronometrosAbertos">@excluir @cronometrosAbertos</MudButton>
             <MudDivider Class="pa-1" />
             <MudButton Variant=varianteBotoesExclusao Color=corBotoesExclusao FullWidth="true"
+                       Disabled="@JahExcluido(cadastrosContadoresJahExcluido)"
                        Onclick="ExcluirCadastrosContadores">@excluir @cadastrosContadores</MudButton>
             <MudButton Variant=varianteBotoesExclusao Color=corBotoesExclusao FullWidth="true"
+                       Disabled="@JahExcluido(cadastrosPadroesJahExcluido)"
                        Onclick="ExcluirCadastrosPadroes">@excluir @cadastrosPadroes</MudButton>
             <MudButton Variant=varianteBotoesExclusao Color=corBotoesExclusao FullWidth="true"
+                       Disabled="@JahExcluido(cadastrosExpressosJahExcluido)"
                        Onclick="ExcluirCadastrosExpressos">@excluir @cadastrosExpressos</MudButton>
         </MudPaper>
     }
-    
+
 </MudPaper>
 
 <MudDivider Class="my-3" />
 <MudButton Class="ma-3 px-3 py-1"
-Style="float:right"
-Variant="Variant.Filled"
-Color="Color.Secondary"
-OnClick="RestauraPadroes"
-Disabled="EstaNosPadroes"
-StartIcon="@Icons.Material.Filled.SettingsBackupRestore"
-IconColor="Color.Dark">
+           Style="float:right"
+           Variant="Variant.Filled"
+           Color="Color.Secondary"
+           OnClick="RestauraPadroes"
+           Disabled="EstaNosPadroes"
+           StartIcon="@Icons.Material.Filled.SettingsBackupRestore"
+           IconColor="Color.Dark">
     Restaurar padrões
 </MudButton>

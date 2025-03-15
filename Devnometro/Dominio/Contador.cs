@@ -9,23 +9,32 @@ namespace Devnometro.Dominio;
 
 public class Contador
 {
-    public int Id { get; set; }
+    public Contador() {}
+    public Contador(bool mocar)
+    {
+        if (mocar)
+        {
+            Nome = "Novo contador";
+            Descricao = "Explique a atividade que esse contador irá monitorar";
+            Icone = MudBlazor.Icons.Material.Filled.QuestionMark;
+        }
+    }
+
+    public int Seq { get; set; }
     public string Nome { get; set; } = string.Empty;
     public string Descricao { get; set; } = string.Empty;
     public string Icone { get; set; } = string.Empty;
     public MudBlazor.Color CorIcone { get; set; } = MudBlazor.Color.Dark;
+    public bool ContaTempo { get; set; } = true;
 
-    [JsonIgnore]
-    public bool EmAtividade { get; set; }
     public TimeSpan DeltaT { get; set; }
     public DateTime Tzero { get; set; }
 
-    [JsonIgnore]
-    public string ContaTempoString { get => ContaTempo ? "Sim" : "Não"; }
-    public bool ContaTempo { get; set; }
-
-    [JsonIgnore]
-    public Timer? Timer { get; set; }
+    
+    [JsonIgnore] public bool EmAtividade { get; set; }
+    [JsonIgnore] public bool ConfirmacaoPendente { get; set; } = false;
+    [JsonIgnore] public string ContaTempoString { get => ContaTempo ? "Sim" : "Não"; }
+    [JsonIgnore] public Timer? Timer { get; set; }
 
     public static List<Contador> ListaMocada()
     {
@@ -82,7 +91,7 @@ public class Contador
             new Contador
             {
                 Nome = "Aguardando",
-                Descricao = "Descrição",
+                Descricao = "Tempo ocioso enquanto se espera por feedback, aprovações ou resolução de dependências externas.",
                 ContaTempo = false,
                 Icone = MudBlazor.Icons.Material.Filled.AccessTimeFilled,
                 CorIcone = MudBlazor.Color.Warning
@@ -90,7 +99,7 @@ public class Contador
             new Contador
             {
                 Nome = "Aprendendo",
-                Descricao = "Tempo ocioso enquanto se espera por feedback, aprovações ou resolução de dependências externas.",
+                Descricao = "Tempo desenvolvendo o conhecimento ou habilidade necessários para execução da tarefa.",
                 ContaTempo = false,
                 Icone = MudBlazor.Icons.Material.Filled.School,
                 CorIcone = MudBlazor.Color.Info

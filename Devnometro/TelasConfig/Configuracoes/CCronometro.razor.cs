@@ -11,8 +11,7 @@ namespace Devnometro.TelasConfig.Configuracoes;
 
 public class CCronometroBase : ComponentBase
 {
-    [Parameter]
-    public required Devnometro.Dominio.Preferencias Preferencias { get; set; }
+    [Parameter] public required Devnometro.Dominio.Preferencias Preferencias { get; set; }
 
     #region Botão Restaurar padrões
     protected void RestauraPadroes()

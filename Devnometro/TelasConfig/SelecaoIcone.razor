@@ -353,11 +353,8 @@
     private const string descricaoPadrao = "Seleção de Ícone";
     private const string iconePadrao = @Icons.Material.Filled.QuestionMark;
 
-    [CascadingParameter]
-    public required MudDialogInstance Dialog { get; set; }
-
-    [Parameter]
-    public required Dominio.IconeDados Dados { get; set; }
+    [CascadingParameter] public required MudDialogInstance Dialog { get; set; }
+    [Parameter] public required Dominio.IconeDados Dados { get; set; }
 
     private string descricaoExibicao = null!;
     private Color corExibicao = Color.Dark;
@@ -371,7 +368,7 @@
 
     protected override void OnInitialized()
     {
-        descricaoExibicao = string.IsNullOrWhiteSpace(Dados.Descricao) ? descricaoPadrao : Dados.Descricao;
+        descricaoExibicao = string.IsNullOrWhiteSpace(Dados.Nome) ? descricaoPadrao : Dados.Nome;
         iconeExibição = string.IsNullOrEmpty(Dados.IconeAtual) ? iconePadrao : Dados.IconeAtual;
         iconeAnterior = string.IsNullOrEmpty(Dados.IconePadrao) ? iconePadrao : Dados.IconePadrao;
         corExibicao = Dados.Cor;

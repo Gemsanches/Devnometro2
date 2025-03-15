@@ -15,12 +15,8 @@ public class Preferencias
     #region Tema
     public MudTheme Tema { get => _tema; set { _tema = value; OnChanged?.Invoke(); } }
     private MudTheme _tema = new();
-    
     public bool TemaNoturno { get => _temaNoturno; set { _temaNoturno = value; OnChanged?.Invoke(); } }
     private bool _temaNoturno;
-
-    public TemaPersonalizado TemaPersonalizado { get; set; } = new();
-
     public ETema TemaSelecionado
     {
         get => _temaSelecionado;
@@ -38,6 +34,7 @@ public class Preferencias
         }
     }
     private ETema _temaSelecionado = ETema.TemaPadrao;
+    public TemaPersonalizado TemaPersonalizado { get; set; } = new();
     #endregion
 
     #region Dados

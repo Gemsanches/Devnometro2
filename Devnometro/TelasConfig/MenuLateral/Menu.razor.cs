@@ -12,14 +12,9 @@ namespace Devnometro;
 
 public class MenuBase : ComponentBase, IDisposable
 {
-    [Inject]
-    public required Aplicacao.ManipuladorDeArquivo Manipulador { get; set; }
-
-    [Parameter]
-    public required Preferencias Preferencias { get; set; }
-
-    [Parameter]
-    public MenuWindow? Janela { get; set; }
+    [Inject] public required Aplicacao.ManipuladorDeArquivo Manipulador { get; set; }
+    [Parameter] public required Preferencias Preferencias { get; set; }
+    [Parameter] public MenuWindow? Janela { get; set; }
 
     public bool expandido = true;
     public void ExpandirRecolherMenu() => expandido = !expandido;

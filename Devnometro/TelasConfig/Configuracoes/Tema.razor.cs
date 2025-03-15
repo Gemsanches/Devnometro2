@@ -14,14 +14,9 @@ namespace Devnometro.TelasConfig.Configuracoes;
 
 public class TemaBase : ComponentBase, IDisposable
 {
-    [Inject]
-    public required Aplicacao.ManipuladorDeArquivo Manipulador { get; set; }
-
-    [Parameter]
-    public MenuWindow? Janela { get; set; }
-
-    [Parameter]
-    public required Preferencias Preferencias { get; set; }
+    [Inject] public required Aplicacao.ManipuladorDeArquivo Manipulador { get; set; }
+    [Parameter] public MenuWindow? Janela { get; set; }
+    [Parameter] public required Preferencias Preferencias { get; set; }
 
     protected override void OnInitialized()
     {
