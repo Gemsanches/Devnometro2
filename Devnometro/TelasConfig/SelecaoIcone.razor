@@ -51,30 +51,19 @@
             @if (categoria1)/*Tempo*/
             {
                 <MudIconButton Icon="@Icons.Material.Filled.AlarmOn" OnClick=@(e => SetIcone(@Icons.Material.Filled.AlarmOn)) />
-                <MudIconButton Icon="@Icons.Material.Filled.AccessAlarm" OnClick=@(e => SetIcone(@Icons.Material.Filled.AccessAlarm)) />
-                <MudIconButton Icon="@Icons.Material.Filled.AccessTime" OnClick=@(e => SetIcone(@Icons.Material.Filled.AccessTime)) />
-                <MudIconButton Icon="@Icons.Material.Filled.AccessTimeFilled" OnClick=@(e => SetIcone(@Icons.Material.Filled.AccessTimeFilled)) />
                 <MudIconButton Icon="@Icons.Material.Filled.AddAlarm" OnClick=@(e => SetIcone(@Icons.Material.Filled.AddAlarm)) />
                 <MudIconButton Icon="@Icons.Material.Filled.Alarm" OnClick=@(e => SetIcone(@Icons.Material.Filled.Alarm)) />
-                <MudIconButton Icon="@Icons.Material.Filled.AvTimer" OnClick=@(e => SetIcone(@Icons.Material.Filled.AvTimer)) />
+                <MudIconButton Icon="@Icons.Material.Filled.Snooze" OnClick=@(e => SetIcone(@Icons.Material.Filled.Snooze)) />
+                <MudIconButton Icon="@Icons.Material.Filled.Timer" OnClick=@(e => SetIcone(@Icons.Material.Filled.Timer)) />
+                <MudIconButton Icon="@Icons.Material.Filled.AccessTimeFilled" OnClick=@(e => SetIcone(@Icons.Material.Filled.AccessTimeFilled)) />
                 <MudIconButton Icon="@Icons.Material.Filled.BrowseGallery" OnClick=@(e => SetIcone(@Icons.Material.Filled.BrowseGallery)) />
-                <MudIconButton Icon="@Icons.Material.Filled.CircleNotifications" OnClick=@(e => SetIcone(@Icons.Material.Filled.CircleNotifications)) />
-                <MudIconButton Icon="@Icons.Material.Filled.DepartureBoard" OnClick=@(e => SetIcone(@Icons.Material.Filled.DepartureBoard)) />
-                <MudIconButton Icon="@Icons.Material.Filled.Event" OnClick=@(e => SetIcone(@Icons.Material.Filled.Event)) />
-                <MudIconButton Icon="@Icons.Material.Filled.EventAvailable" OnClick=@(e => SetIcone(@Icons.Material.Filled.EventAvailable)) />
-                <MudIconButton Icon="@Icons.Material.Filled.EventBusy" OnClick=@(e => SetIcone(@Icons.Material.Filled.EventBusy)) />
-                <MudIconButton Icon="@Icons.Material.Filled.EventNote" OnClick=@(e => SetIcone(@Icons.Material.Filled.EventNote)) />
-                <MudIconButton Icon="@Icons.Material.Filled.EventRepeat" OnClick=@(e => SetIcone(@Icons.Material.Filled.EventRepeat)) />
-                <MudIconButton Icon="@Icons.Material.Filled.History" OnClick=@(e => SetIcone(@Icons.Material.Filled.History)) />
-                <MudIconButton Icon="@Icons.Material.Filled.HistoryToggleOff" OnClick=@(e => SetIcone(@Icons.Material.Filled.HistoryToggleOff)) />
-                <MudIconButton Icon="@Icons.Material.Filled.HourglassBottom" OnClick=@(e => SetIcone(@Icons.Material.Filled.HourglassBottom)) />
-                <MudIconButton Icon="@Icons.Material.Filled.HourglassDisabled" OnClick=@(e => SetIcone(@Icons.Material.Filled.HourglassDisabled)) />
-                <MudIconButton Icon="@Icons.Material.Filled.HourglassEmpty" OnClick=@(e => SetIcone(@Icons.Material.Filled.HourglassEmpty)) />
-                <MudIconButton Icon="@Icons.Material.Filled.HourglassFull" OnClick=@(e => SetIcone(@Icons.Material.Filled.HourglassFull)) />
-                <MudIconButton Icon="@Icons.Material.Filled.HourglassTop" OnClick=@(e => SetIcone(@Icons.Material.Filled.HourglassTop)) />
-                <MudIconButton Icon="@Icons.Material.Filled.LockClock" OnClick=@(e => SetIcone(@Icons.Material.Filled.LockClock)) />
                 <MudIconButton Icon="@Icons.Material.Filled.ManageHistory" OnClick=@(e => SetIcone(@Icons.Material.Filled.ManageHistory)) />
-                <MudIconButton Icon="@Icons.Material.Filled.MoreTime" OnClick=@(e => SetIcone(@Icons.Material.Filled.MoreTime)) />
+                <MudIconButton Icon="@Icons.Material.Filled.History" OnClick=@(e => SetIcone(@Icons.Material.Filled.History)) />
+                <MudIconButton Icon="@Icons.Material.Filled.Update" OnClick=@(e => SetIcone(@Icons.Material.Filled.Update)) />
+
+                <MudIconButton Icon="@Icons.Material.Filled.AccessTime" OnClick=@(e => SetIcone(@Icons.Material.Filled.AccessTime)) />
+                <MudIconButton Icon="@Icons.Material.Filled.HistoryToggleOff" OnClick=@(e => SetIcone(@Icons.Material.Filled.HistoryToggleOff)) />
+                <MudIconButton Icon="@Icons.Material.Filled.CircleNotifications" OnClick=@(e => SetIcone(@Icons.Material.Filled.CircleNotifications)) />
                 <MudIconButton Icon="@Icons.Material.Filled.NotificationAdd" OnClick=@(e => SetIcone(@Icons.Material.Filled.NotificationAdd)) />
                 <MudIconButton Icon="@Icons.Material.Filled.NotificationImportant" OnClick=@(e => SetIcone(@Icons.Material.Filled.NotificationImportant)) />
                 <MudIconButton Icon="@Icons.Material.Filled.Notifications" OnClick=@(e => SetIcone(@Icons.Material.Filled.Notifications)) />
@@ -82,17 +71,28 @@
                 <MudIconButton Icon="@Icons.Material.Filled.NotificationsNone" OnClick=@(e => SetIcone(@Icons.Material.Filled.NotificationsNone)) />
                 <MudIconButton Icon="@Icons.Material.Filled.NotificationsOff" OnClick=@(e => SetIcone(@Icons.Material.Filled.NotificationsOff)) />
                 <MudIconButton Icon="@Icons.Material.Filled.NotificationsPaused" OnClick=@(e => SetIcone(@Icons.Material.Filled.NotificationsPaused)) />
-                <MudIconButton Icon="@Icons.Material.Filled.PunchClock" OnClick=@(e => SetIcone(@Icons.Material.Filled.PunchClock)) />
-                <MudIconButton Icon="@Icons.Material.Filled.QueryBuilder" OnClick=@(e => SetIcone(@Icons.Material.Filled.QueryBuilder)) />
-                <MudIconButton Icon="@Icons.Material.Filled.Restore" OnClick=@(e => SetIcone(@Icons.Material.Filled.Restore)) />
-                <MudIconButton Icon="@Icons.Material.Filled.SafetyCheck" OnClick=@(e => SetIcone(@Icons.Material.Filled.SafetyCheck)) />
-                <MudIconButton Icon="@Icons.Material.Filled.ScheduleSend" OnClick=@(e => SetIcone(@Icons.Material.Filled.ScheduleSend)) />
-                <MudIconButton Icon="@Icons.Material.Filled.ShutterSpeed" OnClick=@(e => SetIcone(@Icons.Material.Filled.ShutterSpeed)) />
-                <MudIconButton Icon="@Icons.Material.Filled.Snooze" OnClick=@(e => SetIcone(@Icons.Material.Filled.Snooze)) />
+
+                <MudIconButton Icon="@Icons.Material.Filled.HourglassBottom" OnClick=@(e => SetIcone(@Icons.Material.Filled.HourglassBottom)) />
+                <MudIconButton Icon="@Icons.Material.Filled.HourglassDisabled" OnClick=@(e => SetIcone(@Icons.Material.Filled.HourglassDisabled)) />
+                <MudIconButton Icon="@Icons.Material.Filled.HourglassEmpty" OnClick=@(e => SetIcone(@Icons.Material.Filled.HourglassEmpty)) />
+                <MudIconButton Icon="@Icons.Material.Filled.HourglassFull" OnClick=@(e => SetIcone(@Icons.Material.Filled.HourglassFull)) />
+                <MudIconButton Icon="@Icons.Material.Filled.HourglassTop" OnClick=@(e => SetIcone(@Icons.Material.Filled.HourglassTop)) />
+                <MudIconButton Icon="@Icons.Material.Filled.Event" OnClick=@(e => SetIcone(@Icons.Material.Filled.Event)) />
+                <MudIconButton Icon="@Icons.Material.Filled.EventAvailable" OnClick=@(e => SetIcone(@Icons.Material.Filled.EventAvailable)) />
+                <MudIconButton Icon="@Icons.Material.Filled.EventBusy" OnClick=@(e => SetIcone(@Icons.Material.Filled.EventBusy)) />
+                <MudIconButton Icon="@Icons.Material.Filled.EventNote" OnClick=@(e => SetIcone(@Icons.Material.Filled.EventNote)) />
+                <MudIconButton Icon="@Icons.Material.Filled.EventRepeat" OnClick=@(e => SetIcone(@Icons.Material.Filled.EventRepeat)) />
+
+                <MudIconButton Icon="@Icons.Material.Filled.MoreTime" OnClick=@(e => SetIcone(@Icons.Material.Filled.MoreTime)) />
+                <MudIconButton Icon="@Icons.Material.Filled.AvTimer" OnClick=@(e => SetIcone(@Icons.Material.Filled.AvTimer)) />
                 <MudIconButton Icon="@Icons.Material.Filled.Timelapse" OnClick=@(e => SetIcone(@Icons.Material.Filled.Timelapse)) />
-                <MudIconButton Icon="@Icons.Material.Filled.Timer" OnClick=@(e => SetIcone(@Icons.Material.Filled.Timer)) />
-                <MudIconButton Icon="@Icons.Material.Filled.Update" OnClick=@(e => SetIcone(@Icons.Material.Filled.Update)) />
+                <MudIconButton Icon="@Icons.Material.Filled.ShutterSpeed" OnClick=@(e => SetIcone(@Icons.Material.Filled.ShutterSpeed)) />
+                <MudIconButton Icon="@Icons.Material.Filled.SafetyCheck" OnClick=@(e => SetIcone(@Icons.Material.Filled.SafetyCheck)) />
+                <MudIconButton Icon="@Icons.Material.Filled.LockClock" OnClick=@(e => SetIcone(@Icons.Material.Filled.LockClock)) />
+                <MudIconButton Icon="@Icons.Material.Filled.ScheduleSend" OnClick=@(e => SetIcone(@Icons.Material.Filled.ScheduleSend)) />
                 <MudIconButton Icon="@Icons.Material.Filled.WorkHistory" OnClick=@(e => SetIcone(@Icons.Material.Filled.WorkHistory)) />
+                <MudIconButton Icon="@Icons.Material.Filled.PunchClock" OnClick=@(e => SetIcone(@Icons.Material.Filled.PunchClock)) />
+                <MudIconButton Icon="@Icons.Material.Filled.DepartureBoard" OnClick=@(e => SetIcone(@Icons.Material.Filled.DepartureBoard)) />
             }
             @if (categoria2)/*Programação*/
             {
@@ -151,6 +151,16 @@
                 <MudIconButton Icon="@Icons.Material.Filled.Search" OnClick=@(e => SetIcone(@Icons.Material.Filled.Search)) />
                 <MudIconButton Icon="@Icons.Material.Filled.Terminal" OnClick=@(e => SetIcone(@Icons.Material.Filled.Terminal)) />
                 <MudIconButton Icon="@Icons.Material.Filled.Usb" OnClick=@(e => SetIcone(@Icons.Material.Filled.Usb)) />
+                <MudIconButton Icon="@Icons.Material.Filled.AttachEmail" OnClick=@(e => SetIcone(@Icons.Material.Filled.AttachEmail))/>
+                <MudIconButton Icon="@Icons.Material.Filled.BatteryChargingFull" OnClick=@(e => SetIcone(@Icons.Material.Filled.BatteryChargingFull)) />
+                <MudIconButton Icon="@Icons.Material.Filled.BugReport" OnClick=@(e => SetIcone(@Icons.Material.Filled.BugReport)) />
+                <MudIconButton Icon="@Icons.Material.Filled.Commit" OnClick=@(e => SetIcone(@Icons.Material.Filled.Commit))/>
+                <MudIconButton Icon="@Icons.Material.Filled.ContentPasteSearch" Title="Requerimento" OnClick=@(e => SetIcone(@Icons.Material.Filled.ContentPasteSearch))/>
+                <MudIconButton Icon="@Icons.Material.Filled.Drafts" OnClick=@(e => SetIcone(@Icons.Material.Filled.Drafts))/>
+                <MudIconButton Icon="@Icons.Material.Filled.LogoDev" OnClick=@(e => SetIcone(@Icons.Material.Filled.LogoDev)) />
+                <MudIconButton Icon="@Icons.Material.Filled.Mail" OnClick=@(e => SetIcone(@Icons.Material.Filled.Mail)) />
+                <MudIconButton Icon="@Icons.Material.Filled.TableView" OnClick=@(e => SetIcone(@Icons.Material.Filled.TableView))/>
+                <MudIconButton Icon="@Icons.Material.Filled.Web" OnClick=@(e => SetIcone(@Icons.Material.Filled.Web)) />
             }
             @if (categoria3)/*Tarefas diversas*/
             {
@@ -199,6 +209,23 @@
                 <MudIconButton Icon="@Icons.Material.Filled.Science" OnClick=@(e => SetIcone(@Icons.Material.Filled.Science)) />
                 <MudIconButton Icon="@Icons.Material.Filled.SelfImprovement" OnClick=@(e => SetIcone(@Icons.Material.Filled.SelfImprovement)) />
                 <MudIconButton Icon="@Icons.Material.Filled.Sick" OnClick=@(e => SetIcone(@Icons.Material.Filled.Sick)) />
+                <MudIconButton Icon="@Icons.Material.Filled.AirlineSeatIndividualSuite" OnClick=@(e => SetIcone(@Icons.Material.Filled.AirlineSeatIndividualSuite))/>
+                <MudIconButton Icon="@Icons.Material.Filled.Agriculture" OnClick=@(e => SetIcone(@Icons.Material.Filled.Agriculture)) />
+                <MudIconButton Icon="@Icons.Material.Filled.Assignment" OnClick=@(e => SetIcone(@Icons.Material.Filled.Assignment)) />
+                <MudIconButton Icon="@Icons.Material.Filled.Blender" OnClick=@(e => SetIcone(@Icons.Material.Filled.Blender)) />
+                <MudIconButton Icon="@Icons.Material.Filled.DirectionsBus" OnClick=@(e => SetIcone(@Icons.Material.Filled.DirectionsBus))/>
+                <MudIconButton Icon="@Icons.Material.Filled.Diversity3" OnClick=@(e => SetIcone(@Icons.Material.Filled.Diversity3))/>
+                <MudIconButton Icon="@Icons.Material.Filled.EscalatorWarning" OnClick=@(e => SetIcone(@Icons.Material.Filled.EscalatorWarning))/>
+                <MudIconButton Icon="@Icons.Material.Filled.FlightTakeoff" OnClick=@(e => SetIcone(@Icons.Material.Filled.FlightTakeoff))/>
+                <MudIconButton Icon="@Icons.Material.Filled.FollowTheSigns" OnClick=@(e => SetIcone(@Icons.Material.Filled.FollowTheSigns))/>
+                <MudIconButton Icon="@Icons.Material.Filled.Handshake" OnClick=@(e => SetIcone(@Icons.Material.Filled.Handshake)) />
+                <MudIconButton Icon="@Icons.Material.Filled.PrecisionManufacturing" OnClick=@(e => SetIcone(@Icons.Material.Filled.PrecisionManufacturing)) />
+                <MudIconButton Icon="@Icons.Material.Filled.ShoppingBasket" OnClick=@(e => SetIcone(@Icons.Material.Filled.ShoppingBasket)) />
+                <MudIconButton Icon="@Icons.Material.Filled.SportsEsports" OnClick=@(e => SetIcone(@Icons.Material.Filled.SportsEsports))/>
+                <MudIconButton Icon="@Icons.Material.Filled.Subscriptions" OnClick=@(e => SetIcone(@Icons.Material.Filled.Subscriptions))/>
+                <MudIconButton Icon="@Icons.Material.Filled.Traffic" OnClick=@(e => SetIcone(@Icons.Material.Filled.Traffic))/>
+                <MudIconButton Icon="@Icons.Material.Filled.Train" OnClick=@(e => SetIcone(@Icons.Material.Filled.Train))/>
+                <MudIconButton Icon="@Icons.Material.Filled.Work" OnClick=@(e => SetIcone(@Icons.Material.Filled.Work))/>
             }
             @if (categoria4)/*Símbolos e Miscelânea*/
             {
@@ -283,6 +310,39 @@
                 <MudIconButton Icon="@Icons.Material.Filled.ThumbUp" OnClick=@(e => SetIcone(@Icons.Material.Filled.ThumbUp)) />
                 <MudIconButton Icon="@Icons.Material.Filled.Vaccines" OnClick=@(e => SetIcone(@Icons.Material.Filled.Vaccines)) />
                 <MudIconButton Icon="@Icons.Material.Filled.Warning" OnClick=@(e => SetIcone(@Icons.Material.Filled.Warning)) />
+                <MudIconButton Icon="@Icons.Material.Filled.AllInclusive" OnClick=@(e => SetIcone(@Icons.Material.Filled.AllInclusive))/>
+                <MudIconButton Icon="@Icons.Material.Filled.Campaign" OnClick=@(e => SetIcone(@Icons.Material.Filled.Campaign)) />
+                <MudIconButton Icon="@Icons.Material.Filled.Category" OnClick=@(e => SetIcone(@Icons.Material.Filled.Category))/>
+                <MudIconButton Icon="@Icons.Material.Filled.Delete" OnClick=@(e => SetIcone(@Icons.Material.Filled.Delete))/>
+                <MudIconButton Icon="@Icons.Material.Filled.ElectricalServices" OnClick=@(e => SetIcone(@Icons.Material.Filled.ElectricalServices)) />
+                <MudIconButton Icon="@Icons.Material.Filled.Factory" OnClick=@(e => SetIcone(@Icons.Material.Filled.Factory))/>
+                <MudIconButton Icon="@Icons.Material.Filled.Feedback" OnClick=@(e => SetIcone(@Icons.Material.Filled.Feedback))/>
+                <MudIconButton Icon="@Icons.Material.Filled.HistoryEdu" OnClick=@(e => SetIcone(@Icons.Material.Filled.HistoryEdu)) />
+                <MudIconButton Icon="@Icons.Material.Filled.Https" OnClick=@(e => SetIcone(@Icons.Material.Filled.Https)) />
+                <MudIconButton Icon="@Icons.Material.Filled.Key" OnClick=@(e => SetIcone(@Icons.Material.Filled.Key)) />
+                <MudIconButton Icon="@Icons.Material.Filled.KeyboardVoice" OnClick=@(e => SetIcone(@Icons.Material.Filled.KeyboardVoice)) />
+                <MudIconButton Icon="@Icons.Material.Filled.Mediation" OnClick=@(e => SetIcone(@Icons.Material.Filled.Mediation)) />
+                <MudIconButton Icon="@Icons.Material.Filled.MeetingRoom" OnClick=@(e => SetIcone(@Icons.Material.Filled.MeetingRoom))/>
+                <MudIconButton Icon="@Icons.Material.Filled.MiscellaneousServices" OnClick=@(e => SetIcone(@Icons.Material.Filled.MiscellaneousServices))/>
+                <MudIconButton Icon="@Icons.Material.Filled.MonitorHeart" OnClick=@(e => SetIcone(@Icons.Material.Filled.MonitorHeart))/>
+                <MudIconButton Icon="@Icons.Material.Filled.MusicNote" OnClick=@(e => SetIcone(@Icons.Material.Filled.MusicNote))/>
+                <MudIconButton Icon="@Icons.Material.Filled.Piano" OnClick=@(e => SetIcone(@Icons.Material.Filled.Piano))/>
+                <MudIconButton Icon="@Icons.Material.Filled.PlaylistAddCheckCircle" OnClick=@(e => SetIcone(@Icons.Material.Filled.PlaylistAddCheckCircle)) />
+                <MudIconButton Icon="@Icons.Material.Filled.RemoveRedEye" OnClick=@(e => SetIcone(@Icons.Material.Filled.RemoveRedEye))/>
+                <MudIconButton Icon="@Icons.Material.Filled.RocketLaunch" OnClick=@(e => SetIcone(@Icons.Material.Filled.RocketLaunch))/>
+                <MudIconButton Icon="@Icons.Material.Filled.RoomService" OnClick=@(e => SetIcone(@Icons.Material.Filled.RoomService))/>
+                <MudIconButton Icon="@Icons.Material.Filled.SafetyDivider" OnClick=@(e => SetIcone(@Icons.Material.Filled.SafetyDivider))/>
+                <MudIconButton Icon="@Icons.Material.Filled.Scoreboard" OnClick=@(e => SetIcone(@Icons.Material.Filled.Scoreboard))/>
+                <MudIconButton Icon="@Icons.Material.Filled.SentimentSatisfiedAlt" OnClick=@(e => SetIcone(@Icons.Material.Filled.SentimentSatisfiedAlt))/>
+                <MudIconButton Icon="@Icons.Material.Filled.SentimentNeutral" OnClick=@(e => SetIcone(@Icons.Material.Filled.SentimentNeutral))/>
+                <MudIconButton Icon="@Icons.Material.Filled.SentimentVeryDissatisfied" OnClick=@(e => SetIcone(@Icons.Material.Filled.SentimentVeryDissatisfied))/>
+                <MudIconButton Icon="@Icons.Material.Filled.TheaterComedy" OnClick=@(e => SetIcone(@Icons.Material.Filled.TheaterComedy))/>
+                <MudIconButton Icon="@Icons.Material.Filled.Verified" OnClick=@(e => SetIcone(@Icons.Material.Filled.Verified)) />
+                <MudIconButton Icon="@Icons.Material.Filled.VoiceChat" OnClick=@(e => SetIcone(@Icons.Material.Filled.VoiceChat))/>
+                <MudIconButton Icon="@Icons.Material.Filled.WorkspacePremium" OnClick=@(e => SetIcone(@Icons.Material.Filled.WorkspacePremium)) />
+
+
+
             }
         </MudPaper>
     </DialogContent>
@@ -292,7 +352,7 @@
 @code {
     private const string descricaoPadrao = "Seleção de Ícone";
     private const string iconePadrao = @Icons.Material.Filled.QuestionMark;
-    
+
     [CascadingParameter]
     public required MudDialogInstance Dialog { get; set; }
 
@@ -345,6 +405,6 @@
     }
 
     private void Confirma() => Dialog.Close(new Dominio.IconeDados(cor: corExibicao, iconeAtual: iconeExibição));
-    
+
     private void Cancela() => Dialog.Cancel();
 }

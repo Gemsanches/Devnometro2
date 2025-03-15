@@ -122,7 +122,7 @@ public class CGeralBase : ComponentBase
     #region Exclusões
     protected async Task ExcluirTemaPersonalizado()
     {
-        var resposta = await MetodosEstaticos.Mensagem($"{excluir} {temaPersonalizado}?{alertaPadrao}", tituloPadrao, MessageBoxButton.YesNo, MessageBoxImage.Question);
+        var resposta = await MetodosEstaticos.MensagemAsync($"{excluir} {temaPersonalizado}?{alertaPadrao}", tituloPadrao, MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (resposta != MessageBoxResult.Yes) return;
 
         if (ManipuladorDeArquivo.LimparTemaPersonalizado())
@@ -135,55 +135,55 @@ public class CGeralBase : ComponentBase
             this.Preferencias.TemaSelecionado = ETema.TemaPersonalizado;
             this.Preferencias.TemaSelecionado = temp;
             StateHasChanged();
-            await MetodosEstaticos.Mensagem($"{temaPersonalizado} excluído com sucesso!", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
+            await MetodosEstaticos.MensagemAsync($"{temaPersonalizado} excluído com sucesso!", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         else
-            await MetodosEstaticos.Mensagem($"{temaPersonalizado} não foi excluído!", "Falha", MessageBoxButton.OK, MessageBoxImage.Error);
+            await MetodosEstaticos.MensagemAsync($"{temaPersonalizado} não foi excluído!", "Falha", MessageBoxButton.OK, MessageBoxImage.Error);
     }
     protected async Task ExcluirConfiguracoes()
     {
-        var resposta = await MetodosEstaticos.Mensagem($"{excluir} {configuracoes}?\n(todas as {configuracoes} retornarão ao padrão)", tituloPadrao, MessageBoxButton.YesNo, MessageBoxImage.Question);
+        var resposta = await MetodosEstaticos.MensagemAsync($"{excluir} {configuracoes}?\n(todas as {configuracoes} retornarão ao padrão)", tituloPadrao, MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (resposta != MessageBoxResult.Yes) return;
 
         this.Preferencias = Preferencias.PreferenciasPadroes();
         Manipulador.SalvarPreferencias(this.Preferencias);
         StateHasChanged();
-        await MetodosEstaticos.Mensagem($"{configuracoes} excluídas com sucesso!", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
+        await MetodosEstaticos.MensagemAsync($"{configuracoes} excluídas com sucesso!", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
         
     }
     protected async Task ExcluirHistoricoPonto()
     {
-        var resposta = await MetodosEstaticos.Mensagem($"{excluir} {historicoPonto}?{alertaPadrao}", tituloPadrao, MessageBoxButton.YesNo, MessageBoxImage.Question);
+        var resposta = await MetodosEstaticos.MensagemAsync($"{excluir} {historicoPonto}?{alertaPadrao}", tituloPadrao, MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (resposta != MessageBoxResult.Yes) return;
                
     }
     protected async Task ExcluirHistoricoTempo()
     {
-        var resposta = await MetodosEstaticos.Mensagem($"{excluir} {historicoTempo}?{alertaPadrao}", tituloPadrao, MessageBoxButton.YesNo, MessageBoxImage.Question);
+        var resposta = await MetodosEstaticos.MensagemAsync($"{excluir} {historicoTempo}?{alertaPadrao}", tituloPadrao, MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (resposta != MessageBoxResult.Yes) return;
                
     }
     protected async Task ExcluirCronometrosAbertos()
     {
-        var resposta = await MetodosEstaticos.Mensagem($"{excluir} {cronometrosAbertos}?{alertaPadrao}", tituloPadrao, MessageBoxButton.YesNo, MessageBoxImage.Question);
+        var resposta = await MetodosEstaticos.MensagemAsync($"{excluir} {cronometrosAbertos}?{alertaPadrao}", tituloPadrao, MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (resposta != MessageBoxResult.Yes) return;
                
     }
     protected async Task ExcluirCadastrosContadores()
     {
-        var resposta = await MetodosEstaticos.Mensagem($"{excluir} {cadastrosContadores}?\nIsso excluirá também:\n{cadastrosPadroes}\n{cadastrosExpressos}{alertaPadrao}", tituloPadrao, MessageBoxButton.YesNo, MessageBoxImage.Question);
+        var resposta = await MetodosEstaticos.MensagemAsync($"{excluir} {cadastrosContadores}?\nIsso excluirá também:\n{cadastrosPadroes}\n{cadastrosExpressos}{alertaPadrao}", tituloPadrao, MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (resposta != MessageBoxResult.Yes) return;
                
     }
     protected async Task ExcluirCadastrosPadroes()
     {
-        var resposta = await MetodosEstaticos.Mensagem($"{excluir} {cadastrosPadroes}?{alertaPadrao}", tituloPadrao, MessageBoxButton.YesNo, MessageBoxImage.Question);
+        var resposta = await MetodosEstaticos.MensagemAsync($"{excluir} {cadastrosPadroes}?{alertaPadrao}", tituloPadrao, MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (resposta != MessageBoxResult.Yes) return;
                
     }
     protected async Task ExcluirCadastrosExpressos()
     {
-        var resposta = await MetodosEstaticos.Mensagem($"{excluir} {cadastrosExpressos}?{alertaPadrao}", tituloPadrao, MessageBoxButton.YesNo, MessageBoxImage.Question);
+        var resposta = await MetodosEstaticos.MensagemAsync($"{excluir} {cadastrosExpressos}?{alertaPadrao}", tituloPadrao, MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (resposta != MessageBoxResult.Yes) return;
                
     }

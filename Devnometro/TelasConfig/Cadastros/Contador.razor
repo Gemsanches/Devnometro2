@@ -1,104 +1,74 @@
-﻿@using Devnometro.Dominio
-@inject IDialogService DialogService
+﻿@inherits ContadorBase
 
-<MudPaper Height="508px">
-    <h3>Contador</h3>
-    <MudIconButton OnClick=@(e=> SelcionarIcone(descricao:"Teste",cor:Color.Error,iconeAtual:@Icons.Material.Filled.Fullscreen)) Icon="@Icons.Material.Filled.Fullscreen" Color="@Color.Primary" ToggledIcon="@Icons.Material.Filled.FullscreenExit" ToggledColor="@Color.Secondary" />
-    <p>CRUD</p>
-    <p>
-        Pré-cadastrados: Requerimento, Desenho, Desenvolvimento, Teste, Documentação, Implantação
-        Aguardando, Aprendendo, AjudandoOutros, TrabalhoParalelo, Natureza, Outros
-        Expresso: daily
-    </p>
-    <p />
-    <MudIconButton Icon="" Title="Selecionado" />
-    <p />
-    <p>
-        <MudIconButton Icon="@Icons.Material.Filled.AirlineSeatIndividualSuite" />
-        <MudIconButton Icon="@Icons.Material.Filled.Agriculture" />
-        <MudIconButton Icon="@Icons.Material.Filled.AllInclusive" Title="Outros" />
-        <MudIconButton Icon="@Icons.Material.Filled.Assignment" />
-        <MudIconButton Icon="@Icons.Material.Filled.AttachEmail" />
-        <MudIconButton Icon="@Icons.Material.Filled.BatteryChargingFull" />
-        <MudIconButton Icon="@Icons.Material.Filled.Blender" />
-        <MudIconButton Icon="@Icons.Material.Filled.BugReport" />
-        <MudIconButton Icon="@Icons.Material.Filled.Campaign" />
-        <MudIconButton Icon="@Icons.Material.Filled.Category" />
-        <MudIconButton Icon="@Icons.Material.Filled.Commit" Title="Implantação" />
-        <MudIconButton Icon="@Icons.Material.Filled.ContentPasteSearch" Title="Requerimento" />
-        <MudIconButton Icon="@Icons.Material.Filled.Delete" />
-        <MudIconButton Icon="@Icons.Material.Filled.DirectionsBus" />
-        <MudIconButton Icon="@Icons.Material.Filled.Diversity3" />
-        <MudIconButton Icon="@Icons.Material.Filled.Drafts" />
-        <MudIconButton Icon="@Icons.Material.Filled.ElectricalServices" />
-        <MudIconButton Icon="@Icons.Material.Filled.EscalatorWarning" Title="Ajudando outros" />
-        <MudIconButton Icon="@Icons.Material.Filled.Factory" />
-        <MudIconButton Icon="@Icons.Material.Filled.Feedback" />
-        <MudIconButton Icon="@Icons.Material.Filled.FlightTakeoff" />
-        <MudIconButton Icon="@Icons.Material.Filled.FollowTheSigns" />
-        <MudIconButton Icon="@Icons.Material.Filled.Handshake" />
-        <MudIconButton Icon="@Icons.Material.Filled.HistoryEdu" />
-        <MudIconButton Icon="@Icons.Material.Filled.Https" />
-        <MudIconButton Icon="@Icons.Material.Filled.Key" />
-        <MudIconButton Icon="@Icons.Material.Filled.KeyboardVoice" />
-        <MudIconButton Icon="@Icons.Material.Filled.LogoDev" />
-        <MudIconButton Icon="@Icons.Material.Filled.Mail" />
-        <MudIconButton Icon="@Icons.Material.Filled.Mediation" />
-        <MudIconButton Icon="@Icons.Material.Filled.MeetingRoom" />
-        <MudIconButton Icon="@Icons.Material.Filled.MiscellaneousServices" />
-        <MudIconButton Icon="@Icons.Material.Filled.MonitorHeart" />
-        <MudIconButton Icon="@Icons.Material.Filled.MusicNote" />
-        <MudIconButton Icon="@Icons.Material.Filled.Piano" />
-        <MudIconButton Icon="@Icons.Material.Filled.PlaylistAddCheckCircle" />
-        <MudIconButton Icon="@Icons.Material.Filled.PrecisionManufacturing" />
-        <MudIconButton Icon="@Icons.Material.Filled.RemoveRedEye" />
-        <MudIconButton Icon="@Icons.Material.Filled.RocketLaunch" />
-        <MudIconButton Icon="@Icons.Material.Filled.RoomService" />
-        <MudIconButton Icon="@Icons.Material.Filled.SafetyDivider" />
-        <MudIconButton Icon="@Icons.Material.Filled.Scoreboard" />
-        <MudIconButton Icon="@Icons.Material.Filled.SentimentSatisfiedAlt" />
-        <MudIconButton Icon="@Icons.Material.Filled.SentimentNeutral" />
-        <MudIconButton Icon="@Icons.Material.Filled.SentimentVeryDissatisfied" />
-        <MudIconButton Icon="@Icons.Material.Filled.ShoppingBasket" />
-        <MudIconButton Icon="@Icons.Material.Filled.SportsEsports" />
-        <MudIconButton Icon="@Icons.Material.Filled.Subscriptions" />
-        <MudIconButton Icon="@Icons.Material.Filled.TableView" />
-        <MudIconButton Icon="@Icons.Material.Filled.TheaterComedy" />
-        <MudIconButton Icon="@Icons.Material.Filled.Traffic" />
-        <MudIconButton Icon="@Icons.Material.Filled.Train" />
-        <MudIconButton Icon="@Icons.Material.Filled.Verified" />
-        <MudIconButton Icon="@Icons.Material.Filled.VoiceChat" />
-        <MudIconButton Icon="@Icons.Material.Filled.Watch" />
-        <MudIconButton Icon="@Icons.Material.Filled.Web" />
-        <MudIconButton Icon="@Icons.Material.Filled.Work" />
-        <MudIconButton Icon="@Icons.Material.Filled.WorkspacePremium" />
-    </p>
+<MudPaper MaxHeight="460px" Class="pt-1">
+    <MudDataGrid T="Dominio.Contador"
+                 MultiSelection="false"
+                 Items="@Model"
+                 SortMode="SortMode.Single"
+                 QuickFilter="@Filtrar"
+                 Dense="true"
+                 Striped="false"
+                 Hover="true"
+                 EditMode="DataGridEditMode.Form"
+                 Filterable="false"
+                 Hideable="false"
+                 Style="min-height:440px">
+        <ToolBarContent>
+            <MudText Typo="Typo.h6" Class="pointer-events-none py-n3">Contadores</MudText>
+            <MudSpacer />
+            <MudTextField @bind-Value="textoConsulta"
+                          Placeholder="Pesquisar"
+                          Adornment="Adornment.Start"
+                          Immediate="true"
+                          AdornmentIcon="@Icons.Material.Filled.Search"
+                          IconSize="Size.Small"
+                          Class="mt-0"></MudTextField>
+        </ToolBarContent>
+        <Columns>
+            <TemplateColumn CellStyle="max-width: 40px;" >
+                <CellTemplate>
+                    <MudIcon Icon="@context.Item.Icone" Color="@context.Item.CorIcone" Class="py-n5 mt-n2 mb-n3" Style="font-size: 30px;" /> @*Style="font-size: 21px;"*@
+                </CellTemplate>
+            </TemplateColumn>
+            <PropertyColumn Property="x => x.Nome" Title="Contador" CellStyle="min-width: 324px; max-width: 324px; overflow-x: hidden; white-space: nowrap;" />
+            <PropertyColumn Property="x => x.ContaTempoString" Title="Atividade" Sortable="false" Filterable="false" />
+            <TemplateColumn>
+                <CellTemplate>
+                    <MudStack Row>
+                        <MudIconButton Size="@Size.Small"
+                                       Icon="@Icons.Material.TwoTone.RemoveRedEye"
+                                       Color="@Color.Dark" />
+                        <MudIconButton Size="@Size.Small"
+                                       Icon="@Icons.Material.TwoTone.Edit"
+                                       Color="@Color.Dark" />
+                        <MudIconButton Size="@Size.Small"
+                                       Icon="@Icons.Material.TwoTone.Delete"
+                                       Color="@Color.Dark" />
+                    </MudStack>
+                </CellTemplate>
+            </TemplateColumn>
+        </Columns>
+        <PagerContent>
+            <MudStack Row>
+                <MudIconButton Size="@Size.Small"
+                               Icon="@Icons.Material.TwoTone.Add"
+                               Color="@Color.Dark" 
+                               Class="px-4" />
+                <MudSwitch @bind-Value="@drawerAberto" Size="Size.Medium" />
 
+                <MudSpacer />
+                <MudDataGridPager T="Dominio.Contador"
+                                  InfoFormat="{first_item}..{last_item} / {all_items}" 
+                                  PageSizeOptions=[7]
+                                  PageSizeSelector="false" />
+            </MudStack>
+        </PagerContent>
+    </MudDataGrid>
 </MudPaper>
 
-@code {
-    [Parameter]
-    public required Devnometro.Dominio.Preferencias Preferencias { get; set; }
-
-    private async Task SelcionarIcone(string descricao, Color cor, string iconeAtual, string iconePadrao = "")
-    {
-        var dadosEnvio = new IconeDados(descricao: descricao,
-                                        cor: cor,
-                                        iconeAtual: iconeAtual,
-                                        iconePadrao: iconePadrao);
-        var dialogo = await DialogService.ShowAsync<Devnometro.TelasConfig.SelecaoIcone>("",
-                            new DialogParameters { { "Dados", dadosEnvio } },
-                            new DialogOptions { CloseOnEscapeKey = true });
-        var resultado = await dialogo.Result;
-        
-        if (resultado == null) return;
-        if (!resultado.Canceled)
-        {
-            var dadosRetorno = resultado.Data as IconeDados;
-            dadosRetorno ??= new();
-
-            cor = dadosRetorno.Cor;
-            iconeAtual = dadosRetorno.IconeAtual;
-        }
-    }
-}
+<MudDrawer @bind-Open="@drawerAberto" Anchor="Anchor.Bottom" Height="400px" Elevation="1" Variant="@DrawerVariant.Temporary" OverlayAutoClose="true">
+    <MudDrawerHeader>
+        <MudText Typo="Typo.h6">My App</MudText>
+    </MudDrawerHeader>
+    <MudIconButton OnClick=@(e=> SelcionarIcone(descricao:"Teste",cor:Color.Error,iconeAtual:@Icons.Material.Filled.Fullscreen)) Icon="@Icons.Material.Filled.Fullscreen" Color="@Color.Primary" ToggledIcon="@Icons.Material.Filled.FullscreenExit" ToggledColor="@Color.Secondary" />
+</MudDrawer>
