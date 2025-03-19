@@ -126,6 +126,6 @@ Theme="preferencias.Tema" />
         StateHasChanged();
     }
 
-    private void Salvar() => manipulador.SalvarPreferencias(preferencias);
+    private async Task Salvar() => await manipulador.SalvarPreferenciasAsync(preferencias);
 
 }

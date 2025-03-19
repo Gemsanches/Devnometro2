@@ -2,7 +2,7 @@
 
 <MudPaper MaxHeight="460px" Class="pt-1">
 
-    <MudDataGrid T="Dominio.Contador"
+    <MudDataGrid T="Dominio.ContadorModel"
     MultiSelection="false"
     Items="@Model"
     SortMode="SortMode.Single"
@@ -90,7 +90,7 @@
                                    Color="@Color.Dark" Class="px-3" />
                 </MudButtonGroup>
                 <MudSpacer />
-                <MudDataGridPager T="Dominio.Contador"
+                <MudDataGridPager T="Dominio.ContadorModel"
                                   InfoFormat="{first_item}..{last_item} / {all_items}" 
                                   PageSizeOptions=[7]
                                   PageSizeSelector="false" />
@@ -125,7 +125,7 @@
                       Overlap="true"
                       Origin="Origin.TopCenter"
                       Class="px-3">
-                <MudButton OnClick=@(e=> SelcionarIcone(descricao:itemSelecionado.Nome ,cor:itemSelecionado.CorIcone,iconeAtual:itemSelecionado.Icone))
+                <MudButton OnClick=@(e=> SelcionarIcone(itemSelecionado.Nome, itemSelecionado.CorIcone, itemSelecionado.Icone))
                            Variant="Variant.Outlined"
                            Class="py-3">
                     <MudIcon Icon=@itemSelecionado.Icone

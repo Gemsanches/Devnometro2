@@ -97,7 +97,7 @@ public class ManipuladorDeArquivo
             await MetodosEstaticos.MensagemAsync($"Erro ao salvar o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
-    public async static Task<Cliente> ExemploCarregar()
+    public async static Task<Cliente?> ExemploCarregar()
     {
         try
         {
@@ -121,7 +121,7 @@ public class ManipuladorDeArquivo
             string json = File.ReadAllText(filePath);
 
             // Desserializa o JSON para um objeto Cliente
-            Cliente cliente = JsonSerializer.Deserialize<Cliente>(json);
+            Cliente? cliente = JsonSerializer.Deserialize<Cliente>(json);
 
             await MetodosEstaticos.MensagemAsync("Arquivo carregado com sucesso!", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
             return cliente;
@@ -206,7 +206,7 @@ public class ManipuladorDeArquivo
                 string json = File.ReadAllText(openFileDialog.FileName);
 
                 // Tenta desserializar o JSON para um objeto Cliente
-                Cliente cliente = JsonSerializer.Deserialize<Cliente>(json);
+                Cliente? cliente = JsonSerializer.Deserialize<Cliente>(json);
 
                 // Se a desserialização for bem-sucedida, salva o arquivo no diretório do programa
                 if (cliente != null)
@@ -241,15 +241,15 @@ public class ManipuladorDeArquivo
     {
         public bool EhVip { get; set; }
         public int PontosAcumulados { get; set; }
-        public string Nome { get; set; }
-        public string CPF { get; set; }
+        public string Nome { get; set; } = "";
+        public string CPF { get; set; } = "";
         public DateTime Nascimento { get; set; }
-        public List<Produto> ProdutosComprados { get; set; }
+        public List<Produto> ProdutosComprados { get; set; } = [];
     }
 
     public class Produto
     {
-        public string Descricao { get; set; }
+        public string Descricao { get; set; } = "";
         public double Preco { get; set; }
         public int Quantidade { get; set; }
     }
@@ -279,7 +279,7 @@ public class ManipuladorDeArquivo
 
         return Preferencias.PreferenciasPadroes();
     }
-    public async Task<bool> SalvarPreferencias(Preferencias preferencias)
+    public async Task<bool> SalvarPreferenciasAsync(Preferencias preferencias)
     {
         try
         {
@@ -308,7 +308,7 @@ public class ManipuladorDeArquivo
 
         return TemaPersonalizado.CriarTemaPersonalizado();
     }
-    public async Task SalvarTemaPersonalizado(TemaPersonalizado temaPersonalizado)
+    public async Task SalvarTemaPersonalizadoAsync(TemaPersonalizado temaPersonalizado)
     {
         try
         {
@@ -330,7 +330,7 @@ public class ManipuladorDeArquivo
         }
         catch { return false; }
     }
-    public async Task<TemaPersonalizado?> ImportarTemaPersonalizado()
+    public async Task<TemaPersonalizado?> ImportarTemaPersonalizadoAsync()
     {
         try
         {
@@ -345,7 +345,7 @@ public class ManipuladorDeArquivo
             {
                 string json = File.ReadAllText(openFileDialog.FileName);
 
-                TemaPersonalizado temaPersonalizado = JsonSerializer.Deserialize<TemaPersonalizado>(json);
+                TemaPersonalizado? temaPersonalizado = JsonSerializer.Deserialize<TemaPersonalizado>(json);
 
                 if (temaPersonalizado != null)
                 {
@@ -362,7 +362,7 @@ public class ManipuladorDeArquivo
         catch (Exception ex) { await MetodosEstaticos.MensagemAsync($"Erro ao importar o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error); }
         return null;
     }
-    public async Task ExportarTemaPersonalizado(TemaPersonalizado temaPersonalizado)
+    public async Task ExportarTemaPersonalizadoAsync(TemaPersonalizado temaPersonalizado)
     {
         try
         {
@@ -437,22 +437,22 @@ public class ManipuladorDeArquivo
     #region Cadastros
 
     #region Contadores
-    public List<Contador> CarregarContadores()
+    public List<ContadorModel> CarregarContadores()
     {
         try
         {
             if (VerificarArquivo(arquivoCadatrosContadores))
             {
                 string json = File.ReadAllText(Path.Combine(pastaPrograma, arquivoCadatrosContadores));
-                List<Contador>? contadores = JsonSerializer.Deserialize<List<Contador>>(json);
-                return contadores ?? Contador.ListaMocada();
+                List<ContadorModel>? contadores = JsonSerializer.Deserialize<List<ContadorModel>>(json);
+                return contadores ?? ContadorModel.ListaMocada();
             }
         }
         catch { }
 
-        return Contador.ListaMocada();
+        return ContadorModel.ListaMocada();
     }
-    public async Task SalvarContadores(List<Contador> lista)
+    public async Task SalvarContadoresAsync(List<ContadorModel> lista)
     {
         try
         {
@@ -474,7 +474,7 @@ public class ManipuladorDeArquivo
         }
         catch { return false; }
     }
-    public async Task<List<Contador>?> ImportarContadores()
+    public async Task<List<ContadorModel>?> ImportarContadoresAsync()
     {
         try
         {
@@ -490,7 +490,7 @@ public class ManipuladorDeArquivo
             {
                 string json = File.ReadAllText(openFileDialog.FileName);
 
-                List<Contador> lista = JsonSerializer.Deserialize<List<Contador>>(json);
+                List<ContadorModel>? lista = JsonSerializer.Deserialize<List<ContadorModel>>(json);
 
                 if (lista != null)
                 {
@@ -507,7 +507,7 @@ public class ManipuladorDeArquivo
         catch (Exception ex) { await MetodosEstaticos.MensagemAsync($"Erro ao importar o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error); }
         return null;
     }
-    public async Task ExportarContadores(List<Contador> lista)
+    public async Task ExportarContadoresAsync(List<ContadorModel> lista)
     {
         try
         {
@@ -529,24 +529,186 @@ public class ManipuladorDeArquivo
     #endregion
 
     #region Padrões de Cronômetros
-    public static void SalvarPadroes()
+    public List<PadraoDeCronometroModel> CarregarPadroesCronometros()
     {
+        try
+        {
+            if (VerificarArquivo(arquivoCadatrosPadraoCronometros))
+            {
+                string json = File.ReadAllText(Path.Combine(pastaPrograma, arquivoCadatrosPadraoCronometros));
+                List<PadraoDeCronometroModel>? padroes = JsonSerializer.Deserialize<List<PadraoDeCronometroModel>>(json);
+                return padroes ?? PadraoDeCronometroModel.ListaMocada();
+            }
+        }
+        catch { }
 
+        return PadraoDeCronometroModel.ListaMocada();
     }
-    public static void CarregarPadroes()
+    public async Task SalvarPadroesCronometrosAsync(List<PadraoDeCronometroModel> lista)
     {
+        try
+        {
+            string json = JsonSerializer.Serialize(lista, JSO);
+            string filePath = Path.Combine(pastaPrograma, arquivoCadatrosPadraoCronometros);
 
+            File.WriteAllText(filePath, json);
+        }
+        catch (Exception ex) { await MetodosEstaticos.MensagemAsync($"Erro ao salvar cadastro de Padrões de Cronômetro: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error); }
+    }
+    public static bool LimparPadroesCronometros()
+    {
+        try
+        {
+            string filePath = Path.Combine(pastaPrograma, arquivoCadatrosPadraoCronometros);
+            if (File.Exists(filePath))
+                File.Delete(filePath);
+            return true;
+        }
+        catch { return false; }
+    }
+    public async Task<List<PadraoDeCronometroModel>?> ImportarPadroesCronometrosAsync()
+    {
+        try
+        {
+            OpenFileDialog openFileDialog = new()
+            {
+                Filter = "Arquivos PCR (*.pcr)|*.pcr",
+                Title = "Selecionar Arquivo de Lista de Padrões de Cronômetro"
+            };
+
+            bool? resposta = openFileDialog.ShowDialog();
+
+            if (resposta == true)
+            {
+                string json = File.ReadAllText(openFileDialog.FileName);
+
+                List<PadraoDeCronometroModel>? lista = JsonSerializer.Deserialize<List<PadraoDeCronometroModel>>(json);
+
+                if (lista != null)
+                {
+                    string filePath = Path.Combine(pastaPrograma, arquivoCadatrosPadraoCronometros);
+                    File.WriteAllText(filePath, json);
+
+                    await MetodosEstaticos.MensagemAsync($"Arquivo {openFileDialog.SafeFileName} importado com sucesso", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return lista;
+                }
+                else
+                    await MetodosEstaticos.MensagemAsync("O arquivo selecionado não é uma lista válida de Padrões de Cronômetro.", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        catch (Exception ex) { await MetodosEstaticos.MensagemAsync($"Erro ao importar o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error); }
+        return null;
+    }
+    public async Task ExportarPadroesCronometrosAsync(List<PadraoDeCronometroModel> lista)
+    {
+        try
+        {
+            string json = JsonSerializer.Serialize(lista, JSO);
+
+            SaveFileDialog saveFileDialog = new()
+            {
+                Filter = "Arquivos PCR (*.pcr)|*.pcr",
+                DefaultExt = "pcr",
+                Title = "Salvar Lista de Padrões de Cronômetro"
+            };
+
+            bool? resposta = saveFileDialog.ShowDialog();
+            if (resposta == true)
+                File.WriteAllText(saveFileDialog.FileName, json);
+        }
+        catch (Exception ex) { await MetodosEstaticos.MensagemAsync($"Erro ao exportar o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error); }
     }
     #endregion
 
     #region Cronômetros Expressos
-    public static void SalvarExpressos()
+    public List<ExpressoModel> CarregarExpressos()
     {
+        try
+        {
+            if (VerificarArquivo(arquivoCadatrosExpressos))
+            {
+                string json = File.ReadAllText(Path.Combine(pastaPrograma, arquivoCadatrosExpressos));
+                List<ExpressoModel>? expressos = JsonSerializer.Deserialize<List<ExpressoModel>>(json);
+                return expressos ?? ExpressoModel.ListaMocada();
+            }
+        }
+        catch { }
 
+        return ExpressoModel.ListaMocada();
     }
-    public static void CarregarExpressos()
+    public async Task SalvarExpressosAsync(List<ExpressoModel> lista)
     {
+        try
+        {
+            string json = JsonSerializer.Serialize(lista, JSO);
+            string filePath = Path.Combine(pastaPrograma, arquivoCadatrosExpressos);
 
+            File.WriteAllText(filePath, json);
+        }
+        catch (Exception ex) { await MetodosEstaticos.MensagemAsync($"Erro ao salvar cadastro de Cronômetros Expressos: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error); }
+    }
+    public static bool LimparExpressos()
+    {
+        try
+        {
+            string filePath = Path.Combine(pastaPrograma, arquivoCadatrosExpressos);
+            if (File.Exists(filePath))
+                File.Delete(filePath);
+            return true;
+        }
+        catch { return false; }
+    }
+    public async Task<List<ExpressoModel>?> ImportarExpressosAsync()
+    {
+        try
+        {
+            OpenFileDialog openFileDialog = new()
+            {
+                Filter = "Arquivos CREX (*.crex)|*.crex",
+                Title = "Selecionar Arquivo de Lista de Cronômetros Expressos"
+            };
+
+            bool? resposta = openFileDialog.ShowDialog();
+
+            if (resposta == true)
+            {
+                string json = File.ReadAllText(openFileDialog.FileName);
+
+                List<ExpressoModel>? lista = JsonSerializer.Deserialize<List<ExpressoModel>>(json);
+
+                if (lista != null)
+                {
+                    string filePath = Path.Combine(pastaPrograma, arquivoCadatrosExpressos);
+                    File.WriteAllText(filePath, json);
+
+                    await MetodosEstaticos.MensagemAsync($"Arquivo {openFileDialog.SafeFileName} importado com sucesso", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return lista;
+                }
+                else
+                    await MetodosEstaticos.MensagemAsync("O arquivo selecionado não é uma lista válida de Cronômetros Expressos.", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        catch (Exception ex) { await MetodosEstaticos.MensagemAsync($"Erro ao importar o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error); }
+        return null;
+    }
+    public async Task ExportarExpressosAsync(List<ExpressoModel> lista)
+    {
+        try
+        {
+            string json = JsonSerializer.Serialize(lista, JSO);
+
+            SaveFileDialog saveFileDialog = new()
+            {
+                Filter = "Arquivos CREX (*.crex)|*.crex",
+                DefaultExt = "crex",
+                Title = "Salvar Lista de Cronômetros Expressos"
+            };
+
+            bool? resposta = saveFileDialog.ShowDialog();
+            if (resposta == true)
+                File.WriteAllText(saveFileDialog.FileName, json);
+        }
+        catch (Exception ex) { await MetodosEstaticos.MensagemAsync($"Erro ao exportar o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error); }
     }
     #endregion
 

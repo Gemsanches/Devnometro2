@@ -33,7 +33,7 @@
                     </MudBadge>
                     <MudBadge Icon="@Icons.Material.Rounded.KeyboardBackspace" Color="Color.Primary" Overlap="true" Bordered="true" Class="pa-0 ma-0">
                         <MudPaper Elevation="1" Class="d-flex align-content-center justify-center" Width="56px" Height="56px">
-                            <MudIconButton Icon=@iconeAnterior Size="Size.Large" Color="Color.Dark" Class="ma-n1" OnClick="VoltaIcone" />
+                            <MudIconButton Icon=@iconeAnterior Size="Size.Large" Color=@corAnterior Class="ma-n1" OnClick="VoltaIcone" />
                         </MudPaper>
                     </MudBadge>
                     <MudBadge Icon="@Icons.Material.Rounded.Category" Color="Color.Primary" Overlap="true" Bordered="true" Class="pa-0 ma-0">
@@ -352,14 +352,16 @@
 @code {
     private const string descricaoPadrao = "Seleção de Ícone";
     private const string iconePadrao = @Icons.Material.Filled.QuestionMark;
+    private const Color corPadrao = Color.Dark;
 
     [CascadingParameter] public required MudDialogInstance Dialog { get; set; }
     [Parameter] public required Dominio.IconeDados Dados { get; set; }
 
     private string descricaoExibicao = null!;
-    private Color corExibicao = Color.Dark;
     private string iconeExibição = "";
     private string iconeAnterior = "";
+    private Color corExibicao = corPadrao;
+    private Color corAnterior = corPadrao;
 
     private bool categoria1 = true;
     private bool categoria2 = true;
@@ -369,15 +371,15 @@
     protected override void OnInitialized()
     {
         descricaoExibicao = string.IsNullOrWhiteSpace(Dados.Nome) ? descricaoPadrao : Dados.Nome;
-        iconeExibição = string.IsNullOrEmpty(Dados.IconeAtual) ? iconePadrao : Dados.IconeAtual;
-        iconeAnterior = string.IsNullOrEmpty(Dados.IconePadrao) ? iconePadrao : Dados.IconePadrao;
+        iconeExibição = string.IsNullOrEmpty(Dados.Icone) ? iconePadrao : Dados.Icone;
+        iconeAnterior = string.IsNullOrEmpty(Dados.Icone) ? iconePadrao : Dados.Icone;
         corExibicao = Dados.Cor;
+        corAnterior = Dados.Cor;
     }
 
     private void SetCor(Color cor)
     {
         if (corExibicao == cor) return;
-
         corExibicao = cor;
         StateHasChanged();
     }
@@ -385,23 +387,18 @@
     private void SetIcone(string icone)
     {
         if (iconeExibição == icone) return;
-
-        if (Dados.SemPadrao)
-            iconeAnterior = iconeExibição;
         iconeExibição = icone;
         StateHasChanged();
     }
 
     private void VoltaIcone()
     {
-        var temp = iconeAnterior;
-        if (Dados.SemPadrao)
-            iconeAnterior = iconeExibição;
-        iconeExibição = temp;
+        iconeExibição = iconeAnterior;
+        corExibicao = corAnterior;
         StateHasChanged();
     }
 
-    private void Confirma() => Dialog.Close(new Dominio.IconeDados(cor: corExibicao, iconeAtual: iconeExibição));
+    private void Confirma() => Dialog.Close(new Dominio.IconeDados(cor: corExibicao, icone: iconeExibição));
 
     private void Cancela() => Dialog.Cancel();
 }

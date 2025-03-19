@@ -162,7 +162,7 @@ public class CGeralBase : ComponentBase
         if (resposta != MessageBoxResult.Yes) return;
 
         this.Preferencias = Preferencias.PreferenciasPadroes();
-        if (await Manipulador.SalvarPreferencias(this.Preferencias))
+        if (await Manipulador.SalvarPreferenciasAsync(this.Preferencias))
         {
             StateHasChanged();
             await MetodosEstaticos.MensagemAsync($"{configuracoes} excluídas com sucesso!", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);

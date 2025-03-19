@@ -30,7 +30,7 @@ public class TemaBase : ComponentBase, IDisposable
 
     protected async Task AplicarTemaImportado() 
     {
-        var temaImportado = await Manipulador.ImportarTemaPersonalizado();
+        var temaImportado = await Manipulador.ImportarTemaPersonalizadoAsync();
         if (temaImportado is not null)
         {
             this.Preferencias.TemaPersonalizado = temaImportado;

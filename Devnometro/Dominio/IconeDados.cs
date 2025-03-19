@@ -12,21 +12,17 @@ public class IconeDados
     #region Propriedades
     public string? Nome { get; set; }
     public MudBlazor.Color Cor { get; set; } = MudBlazor.Color.Dark;
-    public string IconeAtual { get; set; } = "";
-    public string? IconePadrao { get; set; }
-
-    public bool SemPadrao { get => string.IsNullOrEmpty(IconePadrao); }
+    public string Icone { get; set; } = "";
     #endregion
 
     #region Construtores
     public IconeDados() {}
 
-    public IconeDados(Color cor, string iconeAtual, string? descricao = null, string? iconePadrao = null)
+    public IconeDados(Color cor, string icone, string? nome = null)
     {
-        Nome = descricao;
+        Nome = nome;
         Cor = cor;
-        IconeAtual = iconeAtual;
-        IconePadrao = iconePadrao;
+        Icone = icone;
     }
     #endregion
 }

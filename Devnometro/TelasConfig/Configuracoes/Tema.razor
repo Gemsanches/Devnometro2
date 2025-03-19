@@ -130,7 +130,7 @@
                             <MudDivider Vertical="true" FlexItem="true" />
                             <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Top" Class="ml-20">
                                 <ChildContent>
-                                    <MudIcon Class="cursor-pointer" Style="font-size: 20px;" Icon="@Icons.Material.Filled.FileUpload" @onclick="() => Manipulador.ExportarTemaPersonalizado(Preferencias.TemaPersonalizado)" />
+                                    <MudIcon Class="cursor-pointer" Style="font-size: 20px;" Icon="@Icons.Material.Filled.FileUpload" @onclick="() => Manipulador.ExportarTemaPersonalizadoAsync(Preferencias.TemaPersonalizado)" />
                                 </ChildContent>
                                 <TooltipContent>
                                     <MudText Typo="Typo.body2">Exportar tema personalizado</MudText>

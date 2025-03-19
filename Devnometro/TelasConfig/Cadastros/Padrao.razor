@@ -1,4 +1,6 @@
-﻿<MudPaper Height="508px">
+﻿@inherits PadraoBase
+
+<MudPaper Height="508px">
 <h3>Padrão de Cronometros</h3>
 
 <p>CRUD</p>
@@ -12,6 +14,3 @@
 <p>conta tempo: vem marcado se for de trabalho, desmarcado se for de interrupção, mas permite trocar</p>
 
 </MudPaper>
-@code {
-    [Parameter] public required Devnometro.Dominio.Preferencias Preferencias { get; set; }
-}

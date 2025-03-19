@@ -14,7 +14,7 @@ namespace Devnometro.TelasConfig.Cadastros;
 
 public class ContadorBase : ComponentBase
 {
-    [Parameter] public required Devnometro.Dominio.Preferencias Preferencias { get; set; }
+    [Parameter] public required Preferencias Preferencias { get; set; }
     [Inject] IDialogService DialogService { get; set; } = null!;
 
     private readonly ManipuladorDeArquivo manipulador = new();
@@ -24,15 +24,15 @@ public class ContadorBase : ComponentBase
         Model = manipulador.CarregarContadores();
     }
 
-    protected List<Dominio.Contador> Model { get; set; } = [];
-    protected Dominio.Contador itemSelecionado = new();
-    protected Dominio.Contador? novoItem;
+    protected List<ContadorModel> Model { get; set; } = [];
+    protected ContadorModel itemSelecionado = new();
+    protected ContadorModel? novoItem;
     
     #region Consulta
     protected string textoConsulta = "";
     protected bool nadaPraSalvar = true;
     
-    protected Func<Dominio.Contador, bool> Filtrar => x =>
+    protected Func<ContadorModel, bool> Filtrar => x =>
     {
         if (string.IsNullOrWhiteSpace(textoConsulta))
             return true;
@@ -46,7 +46,7 @@ public class ContadorBase : ComponentBase
     {
         if (salvando) return;
         salvando = true;
-        await manipulador.SalvarContadores(Model);
+        await manipulador.SalvarContadoresAsync(Model);
         nadaPraSalvar = true;
         salvando = false;
     }
@@ -56,7 +56,7 @@ public class ContadorBase : ComponentBase
     {
         if (exportando) return;
         exportando = true;
-        await manipulador.ExportarContadores(Model);
+        await manipulador.ExportarContadoresAsync(Model);
         exportando = false;
     }
     protected bool exportando = false;
@@ -64,7 +64,7 @@ public class ContadorBase : ComponentBase
     {
         if (importando) return;
         importando = true;
-        var lista = await manipulador.ImportarContadores();
+        var lista = await manipulador.ImportarContadoresAsync();
         if (lista != null)
         {
             Model = lista;
@@ -87,7 +87,7 @@ public class ContadorBase : ComponentBase
 
         if (ManipuladorDeArquivo.LimparContadores())
         {
-            Model = Dominio.Contador.ListaMocada();
+            Model = ContadorModel.ListaMocada();
             nadaPraSalvar = true;
             StateHasChanged();
         }
@@ -107,7 +107,7 @@ public class ContadorBase : ComponentBase
             _drawerAberto = value;
             if (!value && novoItem != null)
             {
-                var contadorZerado = new Dominio.Contador(true);
+                var contadorZerado = new ContadorModel(true);
                 if (contadorZerado.Nome != novoItem.Nome
                  || contadorZerado.Descricao != novoItem.Descricao
                  || contadorZerado.Icone != novoItem.Icone)
@@ -124,12 +124,9 @@ public class ContadorBase : ComponentBase
     
     protected static string DescricaoContaTempo(bool contaTempo) => string.Concat("Tempo gasto conta como ", contaTempo ? "em atividade" : "interrupção de trabalho.");
 
-    protected async Task SelcionarIcone(string descricao, Color cor, string iconeAtual, string iconePadrao = "")
+    protected async Task SelcionarIcone(string nome, Color cor, string icone)
     {
-        var dadosEnvio = new IconeDados(descricao: descricao,
-                                        cor: cor,
-                                        iconeAtual: iconeAtual,
-                                        iconePadrao: iconePadrao);
+        var dadosEnvio = new IconeDados(cor, icone, nome);
         var dialogo = await DialogService.ShowAsync<SelecaoIcone>("",
                             new DialogParameters { { "Dados", dadosEnvio } },
                             new DialogOptions { CloseOnEscapeKey = true });
@@ -142,7 +139,7 @@ public class ContadorBase : ComponentBase
             dadosRetorno ??= new();
 
             itemSelecionado.CorIcone = dadosRetorno.Cor;
-            itemSelecionado.Icone = dadosRetorno.IconeAtual;
+            itemSelecionado.Icone = dadosRetorno.Icone;
         }
     }
     #endregion
@@ -150,12 +147,12 @@ public class ContadorBase : ComponentBase
     #region CRUD
     protected void CriarContador()
     {
-        novoItem = new Dominio.Contador(true);
+        novoItem = new ContadorModel(true);
         itemSelecionado = novoItem;
         DrawerAberto = true;
     }
 
-    protected void EditarContador(Dominio.Contador contador)
+    protected void EditarContador(ContadorModel contador)
     {
         if (contador == null) return;
 
@@ -163,13 +160,13 @@ public class ContadorBase : ComponentBase
         DrawerAberto = true;
     }
 
-    protected async Task ExcluirContador(Dominio.Contador contador)
+    protected async Task ExcluirContador(ContadorModel contador)
     {
         if (contador.ConfirmacaoPendente) return;
         contador.ConfirmacaoPendente = true;
 
         var resposta = await MetodosEstaticos.MensagemAsync($"Excluir [{contador.Nome}]?\nEssa ação não pode ser desfeita.\n\nExcluir um contador não removerá ele de padrões e expressos já criados, nem impedirá tempo já registrado nele de aparecer em relatórios.",
-                                                            "Confirmar exclusão", System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question);
+                                                            "Confirmar exclusão", MessageBoxButton.YesNo, MessageBoxImage.Question);
         contador.ConfirmacaoPendente = false;
         if (resposta != MessageBoxResult.Yes) return;
         Model.Remove(contador);

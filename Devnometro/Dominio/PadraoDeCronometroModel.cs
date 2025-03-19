@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static MudBlazor.Colors;
 
 namespace Devnometro.Dominio;
 
-public class PadraoDeCronometro
+public class PadraoDeCronometroModel
 {
     public string Chamado { get; set; } = string.Empty;
     public string Backlog { get; set; } = string.Empty;
@@ -18,7 +17,7 @@ public class PadraoDeCronometro
     public Timer? TimerTotal { get; set; }
     public TimeSpan DeltaTTotal { get; set; }
     public DateTime TzeroTotal { get; set; }
-    public Contador[] Contadores { get; set; } = [];
+    public ContadorModel[] Contadores { get; set; } = [];
     
     public int IndicePlayPadrao { get; set; }
     public int? IncidePausePadrao { get; set; }
@@ -47,5 +46,6 @@ public class PadraoDeCronometro
         IncideEmAtividade = IncidePausePadrao;
     }
 
-
+    public static List<PadraoDeCronometroModel> ListaMocada() =>
+        [];
 }
