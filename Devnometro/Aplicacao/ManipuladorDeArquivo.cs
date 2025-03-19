@@ -15,247 +15,124 @@ public class ManipuladorDeArquivo
 {
     private JsonSerializerOptions JSO { get; set; } = new JsonSerializerOptions { WriteIndented = true };
 
+    #region Constantes
+    private static readonly string tipoArquivoTemaPersonalizado = "tema";
+    private static readonly string tipoArquivoCadatrosContadores = "cnt";
+    private static readonly string tipoArquivoPadraoCronometros = "pcr";
+    private static readonly string tipoArquivoExpressos = "crex";
+    private static readonly string cadastro = "cadastro de";
+    private static readonly string descricaoCadatrosContadores = "Lista de Contadores";
+    private static readonly string descricaoPadraoCronometros = "Lista de Padrões de Cronômetro";
+    private static readonly string descricaoExpressos = "Lista de Cronômetros Expressos";
 
-    #region Caminhos e arquivos
     private static readonly string pastaPrograma = AppDomain.CurrentDomain.BaseDirectory;
     private static readonly string arquivoPreferencias = "Preferencias.json";
-    private static readonly string arquivoTemaPersonalizado = "Tema.tema";
+    private static readonly string arquivoTemaPersonalizado = $"Tema.{tipoArquivoTemaPersonalizado}";
     private static readonly string arquivoPonto = "HistoricoPonto.json";
     private static readonly string arquivoCronometros = "HistoricoTempo.json";
     private static readonly string arquivoCronometrosAbertos = "Tempo.json";
-    private static readonly string arquivoCadatrosContadores = "CadContadores.json";
-    private static readonly string arquivoCadatrosPadraoCronometros = "CadPadroes.json";
-    private static readonly string arquivoCadatrosExpressos = "CadExpressos.json";
+    private static readonly string arquivoCadatrosContadores = $"CadContadores.{tipoArquivoCadatrosContadores}";
+    private static readonly string arquivoCadatrosPadraoCronometros = $"CadPadroes.{tipoArquivoPadraoCronometros}";
+    private static readonly string arquivoCadatrosExpressos = $"CadExpressos.{tipoArquivoExpressos}";
     #endregion
+
+    #region Métodos privados
     private static bool VerificarArquivo(string arquivo)
     {
         try { return File.Exists(Path.Combine(pastaPrograma, arquivo)); }
         catch { return false; }
     }
-
-    #region Exemplos
-    public async static Task<bool> ExempoVerificar()
+    public static bool Limpar(string caminhoArquivo)
     {
         try
         {
-            // Caminho para o diretório do executável
-            string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-
-            // Nome do arquivo
-            string fileName = "cliente.json";
-
-            // Caminho completo do arquivo
-            string filePath = Path.Combine(appDirectory, fileName);
-
-            // Verifica se o arquivo existe
-            return File.Exists(filePath);
+            string filePath = Path.Combine(pastaPrograma, caminhoArquivo);
+            if (File.Exists(filePath))
+                File.Delete(filePath);
+            return true;
         }
-        catch (Exception ex)
-        {
-            await MetodosEstaticos.MensagemAsync($"Erro ao verificar o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
-            return false;
-        }
+        catch { return false; }
     }
-    public async static Task ExemploSalvar()
+
+    private List<T> Carregar<T>(string caminhoArquivo, List<T> listaReserva)
     {
         try
         {
-            // Cria um objeto Cliente de exemplo
-            var cliente = new Cliente
+            if (VerificarArquivo(caminhoArquivo))
             {
-                EhVip = true,
-                PontosAcumulados = 1000,
-                Nome = "João Silva",
-                CPF = "123.456.789-00",
-                Nascimento = new DateTime(1985, 5, 15),
-                ProdutosComprados = new List<Produto>
-                    {
-                        new Produto { Descricao = "Notebook", Preco = 3500.00, Quantidade = 1 },
-                        new Produto { Descricao = "Mouse", Preco = 50.00, Quantidade = 2 }
-                    }
+                string json = File.ReadAllText(Path.Combine(pastaPrograma, caminhoArquivo));
+                List<T>? lista = JsonSerializer.Deserialize<List<T>>(json);
+                return lista ?? listaReserva;
+            }
+        }
+        catch { }
+
+        return listaReserva;
+    }
+    public async Task SalvarAsync<T>(List<T> lista, string caminhoArquivo, string descricao)
+    {
+        try
+        {
+            string json = JsonSerializer.Serialize(lista, JSO);
+            string filePath = Path.Combine(pastaPrograma, caminhoArquivo);
+
+            File.WriteAllText(filePath, json);
+        }
+        catch (Exception ex) { await MetodosEstaticos.MensagemAsync($"Erro ao salvar {descricao}: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error); }
+    }
+    public async Task<List<T>?> ImportarAsync<T>(string caminhoArquivo, string tipoArquivo, string descricao)
+    {
+        try
+        {
+            OpenFileDialog openFileDialog = new()
+            {
+                Filter = $"Arquivos {tipoArquivo.ToUpper()} (*.{tipoArquivo.ToLower()})|*.{tipoArquivo.ToLower()}",
+                Title = $"Selecionar Arquivo de {descricao}"
             };
 
-            // Serializa o objeto Cliente para JSON
-            string json = JsonSerializer.Serialize(cliente, new JsonSerializerOptions { WriteIndented = true });
+            bool? resposta = openFileDialog.ShowDialog();
 
-            // Caminho para o diretório do executável
-            string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-
-            // Nome do arquivo
-            string fileName = "cliente.json";
-
-            // Caminho completo do arquivo
-            string filePath = Path.Combine(appDirectory, fileName);
-
-            // Salva o JSON no arquivo
-            File.WriteAllText(filePath, json);
-
-            await MetodosEstaticos.MensagemAsync($"Arquivo salvo com sucesso em: {filePath}", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-        catch (Exception ex)
-        {
-            await MetodosEstaticos.MensagemAsync($"Erro ao salvar o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-    }
-    public async static Task<Cliente?> ExemploCarregar()
-    {
-        try
-        {
-            // Caminho para o diretório do executável
-            string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-
-            // Nome do arquivo
-            string fileName = "cliente.json";
-
-            // Caminho completo do arquivo
-            string filePath = Path.Combine(appDirectory, fileName);
-
-            // Verifica se o arquivo existe
-            if (!File.Exists(filePath))
+            if (resposta == true)
             {
-                await MetodosEstaticos.MensagemAsync("Arquivo não encontrado.", "Aviso", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return null;
-            }
-
-            // Lê o conteúdo do arquivo JSON
-            string json = File.ReadAllText(filePath);
-
-            // Desserializa o JSON para um objeto Cliente
-            Cliente? cliente = JsonSerializer.Deserialize<Cliente>(json);
-
-            await MetodosEstaticos.MensagemAsync("Arquivo carregado com sucesso!", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
-            return cliente;
-        }
-        catch (Exception ex)
-        {
-            await MetodosEstaticos.MensagemAsync($"Erro ao carregar o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
-            return null;
-        }
-    }
-    public async static Task ExemploLimpar()
-    {
-        try
-        {
-            // Caminho para o diretório do executável
-            string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-
-            // Nome do arquivo
-            string fileName = "cliente.json";
-
-            // Caminho completo do arquivo
-            string filePath = Path.Combine(appDirectory, fileName);
-
-            // Verifica se o arquivo existe
-            if (File.Exists(filePath))
-            {
-                // Exclui o arquivo
-                File.Delete(filePath);
-
-                await MetodosEstaticos.MensagemAsync("Arquivo excluído com sucesso!", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            else
-            {
-                await MetodosEstaticos.MensagemAsync("Arquivo não encontrado.", "Aviso", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
-        }
-        catch (Exception ex)
-        {
-            await MetodosEstaticos.MensagemAsync($"Erro ao excluir o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-    }
-    public async static Task ExemploExportar(Cliente cliente)
-    {
-        try
-        {
-            // Serializa o objeto Cliente para JSON
-            string json = JsonSerializer.Serialize(cliente, new JsonSerializerOptions { WriteIndented = true });
-
-            // Cria uma janela de diálogo para salvar o arquivo
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Arquivos JSON (*.json)|*.json";
-            saveFileDialog.DefaultExt = "json";
-            saveFileDialog.Title = "Salvar Arquivo JSON";
-
-            // Exibe a janela de diálogo e verifica se o usuário confirmou
-            if (saveFileDialog.ShowDialog() == true)
-            {
-                // Salva o JSON no local escolhido pelo usuário
-                File.WriteAllText(saveFileDialog.FileName, json);
-
-                await MetodosEstaticos.MensagemAsync($"Arquivo salvo com sucesso em: {saveFileDialog.FileName}", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-        }
-        catch (Exception ex)
-        {
-            await MetodosEstaticos.MensagemAsync($"Erro ao exportar o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-    }
-    public async static Task ExemploImportar()
-    {
-        try
-        {
-            // Cria uma janela de diálogo para abrir o arquivo
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Arquivos JSON (*.json)|*.json";
-            openFileDialog.Title = "Selecionar Arquivo JSON";
-
-            // Exibe a janela de diálogo e verifica se o usuário confirmou
-            if (openFileDialog.ShowDialog() == true)
-            {
-                // Lê o conteúdo do arquivo JSON selecionado
                 string json = File.ReadAllText(openFileDialog.FileName);
 
-                // Tenta desserializar o JSON para um objeto Cliente
-                Cliente? cliente = JsonSerializer.Deserialize<Cliente>(json);
+                List<T>? lista = JsonSerializer.Deserialize<List<T>>(json);
 
-                // Se a desserialização for bem-sucedida, salva o arquivo no diretório do programa
-                if (cliente != null)
+                if (lista != null)
                 {
-                    // Caminho para o diretório do executável
-                    string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-
-                    // Nome do arquivo
-                    string fileName = "cliente.json";
-
-                    // Caminho completo do arquivo
-                    string filePath = Path.Combine(appDirectory, fileName);
-
-                    // Salva o JSON no diretório do programa
+                    string filePath = Path.Combine(pastaPrograma, caminhoArquivo);
                     File.WriteAllText(filePath, json);
 
-                    await MetodosEstaticos.MensagemAsync($"Arquivo importado e salvo com sucesso em: {filePath}", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
+                    await MetodosEstaticos.MensagemAsync($"Arquivo {openFileDialog.SafeFileName} importado com sucesso", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return lista;
                 }
                 else
-                {
-                    await MetodosEstaticos.MensagemAsync("O arquivo selecionado não é um JSON válido para a classe Cliente.", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                    await MetodosEstaticos.MensagemAsync($"O arquivo selecionado não é {descricao} válida", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-        catch (Exception ex)
+        catch (Exception ex) { await MetodosEstaticos.MensagemAsync($"Erro ao importar o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error); }
+        return null;
+    }
+    public async Task ExportarAsync<T>(List<T> lista, string tipoArquivo, string descricao)
+    {
+        try
         {
-            await MetodosEstaticos.MensagemAsync($"Erro ao importar o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+            string json = JsonSerializer.Serialize(lista, JSO);
+
+            SaveFileDialog saveFileDialog = new()
+            {
+                Filter = $"Arquivos {tipoArquivo.ToUpper()} (*.{tipoArquivo.ToLower()})|*.{tipoArquivo.ToLower()}",
+                DefaultExt = tipoArquivo.ToLower(),
+                Title = $"Salvar {descricao}"
+            };
+
+            bool? resposta = saveFileDialog.ShowDialog();
+            if (resposta == true)
+                File.WriteAllText(saveFileDialog.FileName, json);
         }
-    }
-
-    public class Cliente
-    {
-        public bool EhVip { get; set; }
-        public int PontosAcumulados { get; set; }
-        public string Nome { get; set; } = "";
-        public string CPF { get; set; } = "";
-        public DateTime Nascimento { get; set; }
-        public List<Produto> ProdutosComprados { get; set; } = [];
-    }
-
-    public class Produto
-    {
-        public string Descricao { get; set; } = "";
-        public double Preco { get; set; }
-        public int Quantidade { get; set; }
+        catch (Exception ex) { await MetodosEstaticos.MensagemAsync($"Erro ao exportar o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error); }
     }
     #endregion
-
-
 
     #region Preferências
     public static Preferencias CarregarPreferencias()
@@ -319,24 +196,14 @@ public class ManipuladorDeArquivo
         }
         catch (Exception ex) { await MetodosEstaticos.MensagemAsync($"Erro ao salvar Tema personalizado: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error); }
     }
-    public static bool LimparTemaPersonalizado()
-    {
-        try
-        {
-            string filePath = Path.Combine(pastaPrograma, arquivoTemaPersonalizado);
-            if (File.Exists(filePath))
-                File.Delete(filePath);
-            return true;
-        }
-        catch { return false; }
-    }
+    public static bool LimparTemaPersonalizado() => Limpar(arquivoTemaPersonalizado);
     public async Task<TemaPersonalizado?> ImportarTemaPersonalizadoAsync()
     {
         try
         {
             OpenFileDialog openFileDialog = new()
             {
-                Filter = "Arquivos TEMA (*.tema)|*.tema",
+                Filter = $"Arquivos {tipoArquivoTemaPersonalizado.ToUpper()} (*.{tipoArquivoTemaPersonalizado.ToLower()})|*.{tipoArquivoTemaPersonalizado.ToLower()}",
                 Title = "Selecionar Arquivo de Tema Personalizado"
             };
 
@@ -370,8 +237,8 @@ public class ManipuladorDeArquivo
 
             SaveFileDialog saveFileDialog = new()
             {
-                Filter = "Arquivos TEMA (*.tema)|*.tema",
-                DefaultExt = "tema",
+                Filter = $"Arquivos {tipoArquivoTemaPersonalizado.ToUpper()} (*.{tipoArquivoTemaPersonalizado.ToLower()})|*.{tipoArquivoTemaPersonalizado.ToLower()}",
+                DefaultExt = tipoArquivoTemaPersonalizado.ToLower(),
                 Title = "Salvar Arquivo de Tema Personalizado"
             };
 
@@ -437,279 +304,38 @@ public class ManipuladorDeArquivo
     #region Cadastros
 
     #region Contadores
-    public List<ContadorModel> CarregarContadores()
-    {
-        try
-        {
-            if (VerificarArquivo(arquivoCadatrosContadores))
-            {
-                string json = File.ReadAllText(Path.Combine(pastaPrograma, arquivoCadatrosContadores));
-                List<ContadorModel>? contadores = JsonSerializer.Deserialize<List<ContadorModel>>(json);
-                return contadores ?? ContadorModel.ListaMocada();
-            }
-        }
-        catch { }
-
-        return ContadorModel.ListaMocada();
-    }
-    public async Task SalvarContadoresAsync(List<ContadorModel> lista)
-    {
-        try
-        {
-            string json = JsonSerializer.Serialize(lista, JSO);
-            string filePath = Path.Combine(pastaPrograma, arquivoCadatrosContadores);
-
-            File.WriteAllText(filePath, json);
-        }
-        catch (Exception ex) { await MetodosEstaticos.MensagemAsync($"Erro ao salvar cadastro de Contadores: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error); }
-    }
-    public static bool LimparContadores()
-    {
-        try
-        {
-            string filePath = Path.Combine(pastaPrograma, arquivoCadatrosContadores);
-            if (File.Exists(filePath))
-                File.Delete(filePath);
-            return true;
-        }
-        catch { return false; }
-    }
-    public async Task<List<ContadorModel>?> ImportarContadoresAsync()
-    {
-        try
-        {
-            OpenFileDialog openFileDialog = new()
-            {
-                Filter = "Arquivos CNT (*.cnt)|*.cnt",
-                Title = "Selecionar Arquivo de Lista de Contadores"
-            };
-
-            bool? resposta = openFileDialog.ShowDialog();
-
-            if (resposta == true)
-            {
-                string json = File.ReadAllText(openFileDialog.FileName);
-
-                List<ContadorModel>? lista = JsonSerializer.Deserialize<List<ContadorModel>>(json);
-
-                if (lista != null)
-                {
-                    string filePath = Path.Combine(pastaPrograma, arquivoCadatrosContadores);
-                    File.WriteAllText(filePath, json);
-
-                    await MetodosEstaticos.MensagemAsync($"Arquivo {openFileDialog.SafeFileName} importado com sucesso", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
-                    return lista;
-                }
-                else
-                    await MetodosEstaticos.MensagemAsync("O arquivo selecionado não é uma lista válida de Contadores.", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-        catch (Exception ex) { await MetodosEstaticos.MensagemAsync($"Erro ao importar o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error); }
-        return null;
-    }
-    public async Task ExportarContadoresAsync(List<ContadorModel> lista)
-    {
-        try
-        {
-            string json = JsonSerializer.Serialize(lista, JSO);
-
-            SaveFileDialog saveFileDialog = new()
-            {
-                Filter = "Arquivos CNT (*.cnt)|*.cnt",
-                DefaultExt = "cnt",
-                Title = "Salvar Lista de Contadores"
-            };
-
-            bool? resposta = saveFileDialog.ShowDialog();
-            if (resposta == true)
-                File.WriteAllText(saveFileDialog.FileName, json);
-        }
-        catch (Exception ex) { await MetodosEstaticos.MensagemAsync($"Erro ao exportar o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error); }
-    }
+    public List<ContadorModel> CarregarContadores() => Carregar<ContadorModel>(arquivoCadatrosContadores, ContadorModel.ListaMocada());
+    public async Task SalvarContadoresAsync(List<ContadorModel> lista) =>
+        await SalvarAsync<ContadorModel>(lista, arquivoCadatrosContadores, $"{cadastro} {descricaoCadatrosContadores}");
+    public static bool LimparContadores() => Limpar(arquivoCadatrosContadores);
+    public async Task<List<ContadorModel>?> ImportarContadoresAsync() =>
+        await ImportarAsync<ContadorModel>(arquivoCadatrosContadores, tipoArquivoCadatrosContadores, descricaoCadatrosContadores);
+    public async Task ExportarContadoresAsync(List<ContadorModel> lista) =>
+        await ExportarAsync<ContadorModel>(lista, tipoArquivoCadatrosContadores, descricaoCadatrosContadores);
     #endregion
 
     #region Padrões de Cronômetros
-    public List<PadraoDeCronometroModel> CarregarPadroesCronometros()
-    {
-        try
-        {
-            if (VerificarArquivo(arquivoCadatrosPadraoCronometros))
-            {
-                string json = File.ReadAllText(Path.Combine(pastaPrograma, arquivoCadatrosPadraoCronometros));
-                List<PadraoDeCronometroModel>? padroes = JsonSerializer.Deserialize<List<PadraoDeCronometroModel>>(json);
-                return padroes ?? PadraoDeCronometroModel.ListaMocada();
-            }
-        }
-        catch { }
-
-        return PadraoDeCronometroModel.ListaMocada();
-    }
-    public async Task SalvarPadroesCronometrosAsync(List<PadraoDeCronometroModel> lista)
-    {
-        try
-        {
-            string json = JsonSerializer.Serialize(lista, JSO);
-            string filePath = Path.Combine(pastaPrograma, arquivoCadatrosPadraoCronometros);
-
-            File.WriteAllText(filePath, json);
-        }
-        catch (Exception ex) { await MetodosEstaticos.MensagemAsync($"Erro ao salvar cadastro de Padrões de Cronômetro: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error); }
-    }
-    public static bool LimparPadroesCronometros()
-    {
-        try
-        {
-            string filePath = Path.Combine(pastaPrograma, arquivoCadatrosPadraoCronometros);
-            if (File.Exists(filePath))
-                File.Delete(filePath);
-            return true;
-        }
-        catch { return false; }
-    }
-    public async Task<List<PadraoDeCronometroModel>?> ImportarPadroesCronometrosAsync()
-    {
-        try
-        {
-            OpenFileDialog openFileDialog = new()
-            {
-                Filter = "Arquivos PCR (*.pcr)|*.pcr",
-                Title = "Selecionar Arquivo de Lista de Padrões de Cronômetro"
-            };
-
-            bool? resposta = openFileDialog.ShowDialog();
-
-            if (resposta == true)
-            {
-                string json = File.ReadAllText(openFileDialog.FileName);
-
-                List<PadraoDeCronometroModel>? lista = JsonSerializer.Deserialize<List<PadraoDeCronometroModel>>(json);
-
-                if (lista != null)
-                {
-                    string filePath = Path.Combine(pastaPrograma, arquivoCadatrosPadraoCronometros);
-                    File.WriteAllText(filePath, json);
-
-                    await MetodosEstaticos.MensagemAsync($"Arquivo {openFileDialog.SafeFileName} importado com sucesso", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
-                    return lista;
-                }
-                else
-                    await MetodosEstaticos.MensagemAsync("O arquivo selecionado não é uma lista válida de Padrões de Cronômetro.", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-        catch (Exception ex) { await MetodosEstaticos.MensagemAsync($"Erro ao importar o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error); }
-        return null;
-    }
-    public async Task ExportarPadroesCronometrosAsync(List<PadraoDeCronometroModel> lista)
-    {
-        try
-        {
-            string json = JsonSerializer.Serialize(lista, JSO);
-
-            SaveFileDialog saveFileDialog = new()
-            {
-                Filter = "Arquivos PCR (*.pcr)|*.pcr",
-                DefaultExt = "pcr",
-                Title = "Salvar Lista de Padrões de Cronômetro"
-            };
-
-            bool? resposta = saveFileDialog.ShowDialog();
-            if (resposta == true)
-                File.WriteAllText(saveFileDialog.FileName, json);
-        }
-        catch (Exception ex) { await MetodosEstaticos.MensagemAsync($"Erro ao exportar o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error); }
-    }
+    public List<PadraoDeCronometroModel> CarregarPadroesCronometros() =>
+        Carregar<PadraoDeCronometroModel>(arquivoCadatrosPadraoCronometros, PadraoDeCronometroModel.ListaMocada());
+    public async Task SalvarPadroesCronometrosAsync(List<PadraoDeCronometroModel> lista) =>
+        await SalvarAsync<PadraoDeCronometroModel>(lista, arquivoCadatrosPadraoCronometros, $"{cadastro} {descricaoPadraoCronometros}");
+    public static bool LimparPadroesCronometros() => Limpar(arquivoCadatrosPadraoCronometros);
+    public async Task<List<PadraoDeCronometroModel>?> ImportarPadroesCronometrosAsync() =>
+        await ImportarAsync<PadraoDeCronometroModel>(arquivoCadatrosPadraoCronometros, tipoArquivoPadraoCronometros, descricaoPadraoCronometros);
+    public async Task ExportarPadroesCronometrosAsync(List<PadraoDeCronometroModel> lista) =>
+        await ExportarAsync<PadraoDeCronometroModel>(lista, tipoArquivoPadraoCronometros, descricaoPadraoCronometros);
     #endregion
 
     #region Cronômetros Expressos
-    public List<ExpressoModel> CarregarExpressos()
-    {
-        try
-        {
-            if (VerificarArquivo(arquivoCadatrosExpressos))
-            {
-                string json = File.ReadAllText(Path.Combine(pastaPrograma, arquivoCadatrosExpressos));
-                List<ExpressoModel>? expressos = JsonSerializer.Deserialize<List<ExpressoModel>>(json);
-                return expressos ?? ExpressoModel.ListaMocada();
-            }
-        }
-        catch { }
-
-        return ExpressoModel.ListaMocada();
-    }
-    public async Task SalvarExpressosAsync(List<ExpressoModel> lista)
-    {
-        try
-        {
-            string json = JsonSerializer.Serialize(lista, JSO);
-            string filePath = Path.Combine(pastaPrograma, arquivoCadatrosExpressos);
-
-            File.WriteAllText(filePath, json);
-        }
-        catch (Exception ex) { await MetodosEstaticos.MensagemAsync($"Erro ao salvar cadastro de Cronômetros Expressos: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error); }
-    }
-    public static bool LimparExpressos()
-    {
-        try
-        {
-            string filePath = Path.Combine(pastaPrograma, arquivoCadatrosExpressos);
-            if (File.Exists(filePath))
-                File.Delete(filePath);
-            return true;
-        }
-        catch { return false; }
-    }
-    public async Task<List<ExpressoModel>?> ImportarExpressosAsync()
-    {
-        try
-        {
-            OpenFileDialog openFileDialog = new()
-            {
-                Filter = "Arquivos CREX (*.crex)|*.crex",
-                Title = "Selecionar Arquivo de Lista de Cronômetros Expressos"
-            };
-
-            bool? resposta = openFileDialog.ShowDialog();
-
-            if (resposta == true)
-            {
-                string json = File.ReadAllText(openFileDialog.FileName);
-
-                List<ExpressoModel>? lista = JsonSerializer.Deserialize<List<ExpressoModel>>(json);
-
-                if (lista != null)
-                {
-                    string filePath = Path.Combine(pastaPrograma, arquivoCadatrosExpressos);
-                    File.WriteAllText(filePath, json);
-
-                    await MetodosEstaticos.MensagemAsync($"Arquivo {openFileDialog.SafeFileName} importado com sucesso", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
-                    return lista;
-                }
-                else
-                    await MetodosEstaticos.MensagemAsync("O arquivo selecionado não é uma lista válida de Cronômetros Expressos.", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-        catch (Exception ex) { await MetodosEstaticos.MensagemAsync($"Erro ao importar o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error); }
-        return null;
-    }
-    public async Task ExportarExpressosAsync(List<ExpressoModel> lista)
-    {
-        try
-        {
-            string json = JsonSerializer.Serialize(lista, JSO);
-
-            SaveFileDialog saveFileDialog = new()
-            {
-                Filter = "Arquivos CREX (*.crex)|*.crex",
-                DefaultExt = "crex",
-                Title = "Salvar Lista de Cronômetros Expressos"
-            };
-
-            bool? resposta = saveFileDialog.ShowDialog();
-            if (resposta == true)
-                File.WriteAllText(saveFileDialog.FileName, json);
-        }
-        catch (Exception ex) { await MetodosEstaticos.MensagemAsync($"Erro ao exportar o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error); }
-    }
+    public List<ExpressoModel> CarregarExpressos() =>
+        Carregar<ExpressoModel>(arquivoCadatrosExpressos, ExpressoModel.ListaMocada());
+    public async Task SalvarExpressosAsync(List<ExpressoModel> lista) =>
+        await SalvarAsync<ExpressoModel>(lista, arquivoCadatrosExpressos, $"{cadastro} {descricaoExpressos}");
+    public static bool LimparExpressos() => Limpar(arquivoCadatrosExpressos);
+    public async Task<List<ExpressoModel>?> ImportarExpressosAsync() =>
+        await ImportarAsync<ExpressoModel>(arquivoCadatrosExpressos, tipoArquivoExpressos, descricaoExpressos);
+    public async Task ExportarExpressosAsync(List<ExpressoModel> lista) =>
+        await ExportarAsync<ExpressoModel>(lista, tipoArquivoExpressos, descricaoExpressos);
     #endregion
 
     #endregion
