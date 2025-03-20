@@ -14,21 +14,22 @@ public class ContadorModel
             Icone = MudBlazor.Icons.Material.Filled.QuestionMark;
         }
     }
-
+    
+    public Guid Id { get; set; } = new();
     public int Seq { get; set; }
     public string Nome { get; set; } = string.Empty;
     public string Descricao { get; set; } = string.Empty;
     public string Icone { get; set; } = string.Empty;
     public MudBlazor.Color CorIcone { get; set; } = MudBlazor.Color.Dark;
     public bool ContaTempo { get; set; } = true;
-
-    public TimeSpan DeltaT { get; set; }
-    public DateTime Tzero { get; set; }
-
-    [JsonIgnore] public bool EmAtividade { get; set; }
-    [JsonIgnore] public bool ConfirmacaoPendente { get; set; } = false;
     [JsonIgnore] public string ContaTempoString { get => ContaTempo ? "Sim" : "Não"; }
-    [JsonIgnore] public Timer? Timer { get; set; }
+    [JsonIgnore] public bool ConfirmacaoPendente { get; set; } = false;
+
+    //public TimeSpan DeltaT { get; set; }
+    //public DateTime Tzero { get; set; }
+
+    //[JsonIgnore] public bool EmAtividade { get; set; }
+    //[JsonIgnore] public Timer? Timer { get; set; }
 
     public static List<ContadorModel> ListaMocada() =>
         [

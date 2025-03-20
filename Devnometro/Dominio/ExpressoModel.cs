@@ -18,6 +18,7 @@ public class ExpressoModel
         }
     }
 
+    public Guid Id { get; set; } = new(); 
     public string Nome { get => _nome; set { _nome = string.IsNullOrEmpty(value) ? Contador.Nome : value; } }
     private string _nome = "";
     public ContadorModel Contador { get; set; } = new();

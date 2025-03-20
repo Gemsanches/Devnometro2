@@ -73,10 +73,12 @@ public static class TooltipPadrao
 
 public static class ContadoresPreCadastrados
 {
+    //Guid("00000000-4335-454e-9949-00000000000X")
     public static ContadorModel Requerimento
     {
         get => new()
         {
+            Id = new Guid("00000000-4335-454e-9949-000000000000"),
             Nome = "Requerimento",
             Descricao = "Fase de entendimento e análise dos requisitos do projeto ou tarefa. Inclui reuniões com stakeholders, levantamento de necessidades e definição de escopo.",
             ContaTempo = true,
@@ -88,6 +90,7 @@ public static class ContadoresPreCadastrados
     {
         get => new()
         {
+            Id = new Guid("00000000-4335-454e-9949-000000000001"),
             Nome = "Desenho",
             Descricao = "Criação de diagramas, arquitetura e design da solução. Planejamento de como o sistema ou funcionalidade será implementado.",
             ContaTempo = true,
@@ -99,6 +102,7 @@ public static class ContadoresPreCadastrados
     {
         get => new()
         {
+            Id = new Guid("00000000-4335-454e-9949-000000000002"),
             Nome = "Desenvolvimento",
             Descricao = "Implementação do código, seguindo as especificações e boas práticas. Inclui programação, integração de APIs, e configuração de ferramentas.",
             ContaTempo = false,
@@ -110,6 +114,7 @@ public static class ContadoresPreCadastrados
     {
         get => new()
         {
+            Id = new Guid("00000000-4335-454e-9949-000000000003"),
             Nome = "Testes",
             Descricao = "Verificação da qualidade do código e da funcionalidade implementada. Pode incluir testes unitários, integração, manuais ou automatizados.",
             ContaTempo = false,
@@ -121,6 +126,7 @@ public static class ContadoresPreCadastrados
     {
         get => new()
         {
+            Id = new Guid("00000000-4335-454e-9949-000000000004"),
             Nome = "Documentação",
             Descricao = "Elaboração de documentos técnicos, manuais de uso ou registros de decisões. Importante para manter o conhecimento organizado e acessível.",
             ContaTempo = false,
@@ -132,6 +138,7 @@ public static class ContadoresPreCadastrados
     {
         get => new()
         {
+            Id = new Guid("00000000-4335-454e-9949-000000000005"),
             Nome = "Implantação",
             Descricao = "Publicação da solução em ambiente de produção ou staging. Inclui deploy, configuração de servidores e monitoramento inicial.",
             ContaTempo = false,
@@ -144,6 +151,7 @@ public static class ContadoresPreCadastrados
     {
         get => new()
         {
+            Id = new Guid("00000000-4335-454e-9949-000000000006"),
             Nome = "Aguardando",
             Descricao = "Tempo ocioso enquanto se espera por feedback, aprovações ou resolução de dependências externas.",
             ContaTempo = false,
@@ -155,6 +163,7 @@ public static class ContadoresPreCadastrados
     {
         get => new()
         {
+            Id = new Guid("00000000-4335-454e-9949-000000000007"),
             Nome = "Aprendendo",
             Descricao = "Tempo desenvolvendo o conhecimento ou habilidade necessários para execução da tarefa.",
             ContaTempo = false,
@@ -166,6 +175,7 @@ public static class ContadoresPreCadastrados
     {
         get => new()
         {
+            Id = new Guid("00000000-4335-454e-9949-000000000008"),
             Nome = "Ajudando Outros",
             Descricao = "Tempo dedicado a auxiliar colegas com dúvidas, revisão de código ou resolução de problemas.",
             ContaTempo = false,
@@ -177,6 +187,7 @@ public static class ContadoresPreCadastrados
     {
         get => new()
         {
+            Id = new Guid("00000000-4335-454e-9949-000000000009"),
             Nome = "Trabalho Paralelo",
             Descricao = "Atividades secundárias que não estão diretamente relacionadas ao projeto principal.",
             ContaTempo = false,
@@ -188,6 +199,7 @@ public static class ContadoresPreCadastrados
     {
         get => new()
         {
+            Id = new Guid("00000000-4335-454e-9949-00000000000a"),
             Nome = "Chamado da Natureza",
             Descricao = "Interrupções inevitáveis, como alimentação, manutenção biológica ou emergências pessoais.",
             ContaTempo = false,
@@ -199,6 +211,7 @@ public static class ContadoresPreCadastrados
     {
         get => new()
         {
+            Id = new Guid("00000000-4335-454e-9949-00000000000b"),
             Nome = "Outras Interrupções",
             Descricao = "Qualquer interrupção ou atividade que não se encaixe nas categorias anteriores.",
             ContaTempo = false,
@@ -211,6 +224,7 @@ public static class ContadoresPreCadastrados
     {
         get => new()
         {
+            Id = new Guid("00000000-4335-454e-9949-00000000000c"),
             Nome = "Daily",
             Descricao = "Participação na reunião diária de acompanhamento. Momento para compartilhar progressos, planejar o dia e identificar bloqueios.",
             ContaTempo = false,
@@ -222,6 +236,7 @@ public static class ContadoresPreCadastrados
     {
         get => new()
         {
+            Id = new Guid("00000000-4335-454e-9949-00000000000d"),
             Nome = "Atualizando Banco",
             Descricao = "Atualização ou manutenção do banco de dados, como migrações, backups ou ajustes de schemas.",
             ContaTempo = false,
@@ -233,6 +248,7 @@ public static class ContadoresPreCadastrados
     {
         get => new()
         {
+            Id = new Guid("00000000-4335-454e-9949-00000000000e"),
             Nome = "Subindo versão",
             Descricao = "Publicação de novas versões do software em ambientes de teste ou produção.",
             ContaTempo = false,
@@ -244,10 +260,12 @@ public static class ContadoresPreCadastrados
 
 public static class ExpressosPreCadastrados
 {
+    //Guid("00000000-4335-454e-9949-10000000000X")
     public static ExpressoModel Daily
     {
         get => new()
         {
+            Id = new Guid("00000000-4335-454e-9949-100000000000"),
             Nome = ContadoresPreCadastrados.Daily.Nome,
             Contador = ContadoresPreCadastrados.Daily,
         };
@@ -256,6 +274,7 @@ public static class ExpressosPreCadastrados
     {
         get => new()
         {
+            Id = new Guid("00000000-4335-454e-9949-100000000001"),
             Nome = ContadoresPreCadastrados.AtualizandoBanco.Nome,
             Contador = ContadoresPreCadastrados.AtualizandoBanco,
         };
@@ -264,6 +283,7 @@ public static class ExpressosPreCadastrados
     {
         get => new()
         {
+            Id = new Guid("00000000-4335-454e-9949-100000000002"),
             Nome = ContadoresPreCadastrados.SubindoVersao.Nome,
             Contador = ContadoresPreCadastrados.SubindoVersao,
         };
@@ -272,6 +292,7 @@ public static class ExpressosPreCadastrados
     {
         get => new()
         {
+            Id = new Guid("00000000-4335-454e-9949-100000000003"),
             Nome = ContadoresPreCadastrados.AjudandoOutros.Nome,
             Contador = ContadoresPreCadastrados.AjudandoOutros,
         };
@@ -280,6 +301,7 @@ public static class ExpressosPreCadastrados
     {
         get => new()
         {
+            Id = new Guid("00000000-4335-454e-9949-100000000004"),
             Nome = ContadoresPreCadastrados.ChamadoNatureza.Nome,
             Contador = ContadoresPreCadastrados.ChamadoNatureza,
         };
@@ -288,8 +310,99 @@ public static class ExpressosPreCadastrados
     {
         get => new()
         {
+            Id = new Guid("00000000-4335-454e-9949-10000000000X"),
             Nome = ContadoresPreCadastrados.TrabalhoParalelo.Nome,
             Contador = ContadoresPreCadastrados.TrabalhoParalelo,
+        };
+    }
+}
+
+public static class PadroesCronometroPreCadastrados
+{
+    //Guid("00000000-4335-454e-9949-20000000000X")
+    public static PadraoDeCronometroModel Desenvolvedor
+    {
+        get => new()
+        {
+            Id = new Guid("00000000-4335-454e-9949-200000000000"),
+            Nome = "Desenvolvedor",
+            Contadores = 
+            [
+                ContadoresPreCadastrados.Requerimento,
+                ContadoresPreCadastrados.Desenho,
+                ContadoresPreCadastrados.Desenvolvimento,
+                ContadoresPreCadastrados.Testes,
+                ContadoresPreCadastrados.Documentacao,
+                ContadoresPreCadastrados.Implantacao,
+
+                ContadoresPreCadastrados.Aguardando,
+                ContadoresPreCadastrados.Aprendendo,
+                ContadoresPreCadastrados.OutrasInterrupcoes
+            ],
+            IndicePlayPadrao = 2,
+            IncidePausePadrao = 8
+        };
+    }
+    public static PadraoDeCronometroModel Revisor
+    {
+        get => new()
+        {
+            Id = new Guid("00000000-4335-454e-9949-200000000001"),
+            Nome = "Revisor",
+            Contadores = 
+            [
+                ContadoresPreCadastrados.Requerimento,
+                ContadoresPreCadastrados.Testes,
+                ContadoresPreCadastrados.Documentacao,
+                ContadoresPreCadastrados.Implantacao,
+                ContadoresPreCadastrados.Desenvolvimento,
+
+                ContadoresPreCadastrados.Aguardando,
+                ContadoresPreCadastrados.OutrasInterrupcoes
+            ],
+            IndicePlayPadrao = 1,
+            IncidePausePadrao = 6
+        };
+    }
+    public static PadraoDeCronometroModel Homologador
+    {
+        get => new()
+        {
+            Id = new Guid("00000000-4335-454e-9949-200000000002"),
+            Nome = "Homologador",
+            Contadores =
+            [
+                ContadoresPreCadastrados.Requerimento,
+                ContadoresPreCadastrados.Documentacao,
+                ContadoresPreCadastrados.Implantacao,
+                ContadoresPreCadastrados.Testes,
+                ContadoresPreCadastrados.Desenvolvimento,
+
+                ContadoresPreCadastrados.Aguardando,
+                ContadoresPreCadastrados.OutrasInterrupcoes
+            ],
+            IndicePlayPadrao = 1,
+            IncidePausePadrao = 6
+        };
+    }
+    public static PadraoDeCronometroModel Suporte
+    {
+        get => new()
+        {
+            Id = new Guid("00000000-4335-454e-9949-200000000003"),
+            Nome = "Suporte",
+            Contadores =
+            [
+                ContadoresPreCadastrados.Requerimento,
+                ContadoresPreCadastrados.Testes,
+                ContadoresPreCadastrados.Documentacao,
+
+                ContadoresPreCadastrados.Aguardando,
+                ContadoresPreCadastrados.Aprendendo,
+                ContadoresPreCadastrados.OutrasInterrupcoes
+            ],
+            IndicePlayPadrao = 2,
+            IncidePausePadrao = 5
         };
     }
 }
