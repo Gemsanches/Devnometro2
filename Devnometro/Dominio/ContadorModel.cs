@@ -50,4 +50,6 @@ public class ContadorModel
             ContadoresPreCadastrados.AtualizandoBanco,
             ContadoresPreCadastrados.SubindoVersao,
         ];
+
+    public override string ToString() => this.Nome;
 }

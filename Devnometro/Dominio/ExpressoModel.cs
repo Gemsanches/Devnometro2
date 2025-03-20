@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Devnometro.Dominio;
@@ -17,8 +18,10 @@ public class ExpressoModel
         }
     }
 
-    public string Nome { get; set; } = "";
+    public string Nome { get => _nome; set { _nome = string.IsNullOrEmpty(value) ? Contador.Nome : value; } }
+    private string _nome = "";
     public ContadorModel Contador { get; set; } = new();
+    [JsonIgnore] public bool ConfirmacaoPendente { get; set; } = false;
 
     public static List<ExpressoModel> ListaMocada() =>
         [

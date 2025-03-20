@@ -1,4 +1,168 @@
 ﻿@inherits ExpressoBase
 
-<h3>Expresso</h3>
+<MudPaper MaxHeight="460px" Class="pt-1">
 
+    <MudDataGrid T="Dominio.ExpressoModel"
+                 MultiSelection="false"
+                 Items="@Model"
+                 SortMode="SortMode.Single"
+                 QuickFilter="@Filtrar"
+                 Dense="true"
+                 Striped="false"
+                 Hover="true"
+                 EditMode="DataGridEditMode.Form"
+                 Filterable="false"
+                 Hideable="false"
+                 Style="min-height:440px">
+
+        <ToolBarContent>
+            <MudText Typo="Typo.h6" Class="pointer-events-none py-n3">Tarefas Expressas</MudText>
+            <MudSpacer />
+            <MudTextField @bind-Value="textoConsulta"
+                          Placeholder="Pesquisar (pelo nome)"
+                          Adornment="Adornment.Start"
+                          Immediate="true"
+                          AdornmentIcon="@Icons.Material.Filled.Search"
+                          IconSize="Size.Small"
+                          Class="mt-0"></MudTextField>
+        </ToolBarContent>
+
+        <Columns>
+            <TemplateColumn CellStyle="max-width: 40px;">
+                <CellTemplate>
+                    <MudIcon Icon="@context.Item.Contador.Icone" Color="@context.Item.Contador.CorIcone" Class="py-n5 mt-n2 mb-n3" Style="font-size: 30px;" />
+                </CellTemplate>
+            </TemplateColumn>
+            <PropertyColumn Property="x => x.Nome" Title="Nome" CellStyle="min-width: 324px; max-width: 324px; overflow-x: hidden; white-space: nowrap;" />
+            <TemplateColumn>
+                <CellTemplate>
+                    <MudStack Row>
+                        @if (string.IsNullOrWhiteSpace(context.Item.Contador.Descricao))
+                        {
+                            <MudIconButton Size="@Size.Small"
+                                           Icon="@Icons.Material.TwoTone.TextSnippet"
+                                           Color="@Color.Dark"
+                                           Disabled="true" />
+                        }
+                        else
+                        {
+                            <MudTooltip Text="@(string.Concat(context.Item.Contador.Nome,": ",context.Item.Contador.Descricao))" Arrow="true" Placement="Placement.Left" Style="max-width:324px;">
+                                <MudIconButton Size="@Size.Small"
+                                               Icon="@Icons.Material.TwoTone.TextSnippet"
+                                               Color="@Color.Dark" />
+                            </MudTooltip>
+                        }
+                        <MudIconButton Size="@Size.Small"
+                                       Icon="@Icons.Material.TwoTone.Edit"
+                                       OnClick="() => EditarExpresso(context.Item)"
+                                       Color="@Color.Dark" />
+                        <MudIconButton Size="@Size.Small"
+                                       Icon="@Icons.Material.TwoTone.Delete"
+                                       OnClick="() => ExcluirExpresso(context.Item)"
+                                       Color="@Color.Dark" />
+                    </MudStack>
+                </CellTemplate>
+            </TemplateColumn>
+        </Columns>
+
+        <PagerContent>
+            <MudStack Row Class="px-3 pt-2 pb-0">
+                <MudButtonGroup Variant="Variant.Outlined">
+                    <MudIconButton Icon="@Icons.Material.TwoTone.AddCircle"
+                                   OnClick="CriarExpresso"
+                                   Color="@Color.Dark" Class="px-3" />
+                    <MudIconButton Icon="@Icons.Material.TwoTone.Save"
+                                   OnClick="SalvarCadastro"
+                                   Disabled="@NaoPodeSalvar"
+                                   Color="@Color.Dark" Class="px-3" />
+                    <MudIconButton Icon="@Icons.Material.TwoTone.FileDownload"
+                                   OnClick="ImportarCadastro"
+                                   Disabled="@importando"
+                                   Color="@Color.Dark" Class="px-3" />
+                    <MudIconButton Icon="@Icons.Material.TwoTone.FileUpload"
+                                   OnClick="ExportarCadastro"
+                                   Disabled="@exportando"
+                                   Color="@Color.Dark" Class="px-3" />
+                    <MudIconButton Icon="@Icons.Material.TwoTone.SettingsBackupRestore"
+                                   OnClick="RestaurarCadastro"
+                                   Disabled="@restaurando"
+                                   Color="@Color.Dark" Class="px-3" />
+                </MudButtonGroup>
+                <MudSpacer />
+                <MudDataGridPager T="Dominio.ExpressoModel"
+                                  InfoFormat="{first_item}..{last_item} / {all_items}"
+                                  PageSizeOptions=[7]
+                                  PageSizeSelector="false" />
+            </MudStack>
+        </PagerContent>
+    </MudDataGrid>
+</MudPaper>
+
+<MudDrawer @bind-Open="@DrawerAberto"
+           Anchor="Anchor.Top"
+           Height="320px"
+           Elevation="3"
+           Class="pa-3"
+           Variant="@DrawerVariant.Temporary"
+           OverlayAutoClose="true">
+
+    <MudDrawerHeader>
+        <MudTextField T="string"
+                      @bind-Value="itemSelecionado.Nome"
+                      Label="Nome"
+                      Counter="50"
+                      MaxLength="50"
+                      Immediate="true"
+                      Typo="Typo.h5"></MudTextField>
+    </MudDrawerHeader>
+    <MudSelect @bind-Value="itemSelecionado.Contador"
+               Variant="Variant.Outlined"
+               Label="Contador usado"
+               Placeholder="@itemSelecionado.Contador.Nome"
+               Margin="Margin.None"
+               Dense="true"
+               Clearable="false">
+        @foreach (var contador in Contadores)
+        {
+            <MudSelectItem Value="contador">
+                <MudTextField Value=@contador.Nome
+                              AdornmentIcon=@contador.Icone
+                              AdornmentColor=@contador.CorIcone
+                              Adornment="Adornment.Start"
+                              Margin="Margin.Dense"
+                              Variant="Variant.Text"
+                              ReadOnly="true"
+                              Underline="false"
+                              Class="pa-0 mx-3" />
+            </MudSelectItem>
+        }
+    </MudSelect>
+    <MudPaper Elevation="2" Class="pointer-events-none pa-1 mt-3">
+        <MudGrid>
+            <MudItem xl="3" lg="3" md="3" sm="3">
+                <MudBadge Color="Color.Surface"
+                          BadgeClass="pointer-events-none rounded-0 gray lighten-4 py-n1 ml-n12"
+                          Content=@string.Concat("Ícone","")
+                          Overlap="true"
+                          Origin="Origin.TopCenter"
+                          Class="px-3">
+                    <MudButton Variant="Variant.Outlined"
+                               Class="py-3">
+                        <MudIcon Icon=@itemSelecionado.Contador.Icone
+                                 Color=@itemSelecionado.Contador.CorIcone
+                                 Style="font-size: 86px;" />
+                    </MudButton>
+                </MudBadge>
+            </MudItem>
+            <MudItem xl="9" lg="9" md="9" sm="9">
+                <MudTextField T="string"
+                              Value="@itemSelecionado.Contador.Descricao"
+                              ReadOnly="true"
+                              Label="Descrição"
+                              Lines="4"
+                              Variant="Variant.Outlined"
+                              Class="mt-0 pr-3" />
+            </MudItem>
+        </MudGrid>
+    </MudPaper>
+</MudDrawer>
