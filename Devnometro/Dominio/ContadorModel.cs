@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using Devnometro.Dominio.Enumeradores;
+using System.Text.Json.Serialization;
 
 namespace Devnometro.Dominio;
 
@@ -11,7 +12,6 @@ public class ContadorModel
         {
             Nome = "Novo contador";
             Descricao = "Explique a atividade que esse contador irá monitorar";
-            Icone = MudBlazor.Icons.Material.Filled.QuestionMark;
         }
     }
     
@@ -19,8 +19,9 @@ public class ContadorModel
     public int Seq { get; set; }
     public string Nome { get; set; } = string.Empty;
     public string Descricao { get; set; } = string.Empty;
-    public string Icone { get; set; } = string.Empty;
-    public MudBlazor.Color CorIcone { get; set; } = MudBlazor.Color.Dark;
+    public EIcone Icone { get; set; } = EIcone.QuestionMark;
+    [JsonIgnore] public string IconeDesenho { get => BibliotecaDeIcone.GetPorEnum(Icone); }
+    public MudBlazor.Color IconeCor { get; set; } = MudBlazor.Color.Dark;
     public bool ContaTempo { get; set; } = true;
     [JsonIgnore] public string ContaTempoString { get => ContaTempo ? "Sim" : "Não"; }
     [JsonIgnore] public bool ConfirmacaoPendente { get; set; } = false;

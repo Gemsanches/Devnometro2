@@ -30,7 +30,7 @@
         <Columns>
             <TemplateColumn CellStyle="max-width: 40px;" >
                 <CellTemplate>
-                    <MudIcon Icon="@context.Item.Icone" Color="@context.Item.CorIcone" Class="py-n5 mt-n2 mb-n3" Style="font-size: 30px;" />
+                    <MudIcon Icon="@context.Item.IconeDesenho" Color="@context.Item.IconeCor" Class="py-n5 mt-n2 mb-n3" Style="font-size: 30px;" />
                 </CellTemplate>
             </TemplateColumn>
             <PropertyColumn Property="x => x.Nome" Title="Nome" CellStyle="min-width: 324px; max-width: 324px; overflow-x: hidden; white-space: nowrap;" />
@@ -40,10 +40,10 @@
                     <MudStack Row>
                         @if (string.IsNullOrWhiteSpace(context.Item.Descricao))
                         {
-                            <MudIconButton Size="@Size.Small"
-                                           Icon="@Icons.Material.TwoTone.TextSnippet"
-                                           Color="@Color.Dark"
-                                           Disabled="true" />
+                                <MudIconButton Size="@Size.Small"
+                                               Icon="@Icons.Material.TwoTone.TextSnippet"
+                                               Color="@Color.Dark"
+                                               Disabled="true" />
                         }
                         else
                         {
@@ -125,11 +125,11 @@
                       Overlap="true"
                       Origin="Origin.TopCenter"
                       Class="px-3">
-                <MudButton OnClick=@(e=> SelcionarIcone(itemSelecionado.Nome, itemSelecionado.CorIcone, itemSelecionado.Icone))
+                <MudButton OnClick=@(e=> SelcionarIcone(itemSelecionado.Nome, itemSelecionado.IconeCor, itemSelecionado.Icone))
                            Variant="Variant.Outlined"
                            Class="py-3">
-                    <MudIcon Icon=@itemSelecionado.Icone
-                             Color=@itemSelecionado.CorIcone
+                    <MudIcon Icon=@itemSelecionado.IconeDesenho
+                             Color=@itemSelecionado.IconeCor
                              Style="font-size: 86px;" />
                 </MudButton>
             </MudBadge>
@@ -147,5 +147,5 @@
     <MudSwitch @bind-Value="@itemSelecionado.ContaTempo"
                Label="@DescricaoContaTempo(itemSelecionado.ContaTempo)"
                Class="pa-3"
-               Color=@itemSelecionado.CorIcone />
+               Color=@itemSelecionado.IconeCor />
 </MudDrawer>

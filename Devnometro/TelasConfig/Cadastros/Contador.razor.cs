@@ -1,5 +1,6 @@
 ﻿using Devnometro.Aplicacao;
 using Devnometro.Dominio;
+using Devnometro.Dominio.Enumeradores;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using System;
@@ -124,7 +125,7 @@ public class ContadorBase : ComponentBase
     
     protected static string DescricaoContaTempo(bool contaTempo) => string.Concat("Tempo gasto conta como ", contaTempo ? "em atividade" : "interrupção de trabalho.");
 
-    protected async Task SelcionarIcone(string nome, Color cor, string icone)
+    protected async Task SelcionarIcone(string nome, Color cor, EIcone icone)
     {
         var dadosEnvio = new IconeDados(cor, icone, nome);
         var dialogo = await DialogService.ShowAsync<SelecaoIcone>("",
@@ -138,7 +139,7 @@ public class ContadorBase : ComponentBase
             var dadosRetorno = resultado.Data as IconeDados;
             dadosRetorno ??= new();
 
-            itemSelecionado.CorIcone = dadosRetorno.Cor;
+            itemSelecionado.IconeCor = dadosRetorno.Cor;
             itemSelecionado.Icone = dadosRetorno.Icone;
         }
     }

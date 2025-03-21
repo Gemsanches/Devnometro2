@@ -30,7 +30,7 @@
         <Columns>
             <TemplateColumn CellStyle="max-width: 40px;">
                 <CellTemplate>
-                    <MudIcon Icon="@context.Item.Contador.Icone" Color="@context.Item.Contador.CorIcone" Class="py-n5 mt-n2 mb-n3" Style="font-size: 30px;" />
+                    <MudIcon Icon="@context.Item.Contador.IconeDesenho" Color="@context.Item.Contador.IconeCor" Class="py-n5 mt-n2 mb-n3" Style="font-size: 30px;" />
                 </CellTemplate>
             </TemplateColumn>
             <PropertyColumn Property="x => x.Nome" Title="Nome" CellStyle="min-width: 324px; max-width: 324px; overflow-x: hidden; white-space: nowrap;" />
@@ -126,8 +126,8 @@
         {
             <MudSelectItem Value="contador">
                 <MudTextField Value=@contador.Nome
-                              AdornmentIcon=@contador.Icone
-                              AdornmentColor=@contador.CorIcone
+                              AdornmentIcon=@contador.IconeDesenho
+                              AdornmentColor=@contador.IconeCor
                               Adornment="Adornment.Start"
                               Margin="Margin.Dense"
                               Variant="Variant.Text"
@@ -148,8 +148,8 @@
                           Class="px-3">
                     <MudButton Variant="Variant.Outlined"
                                Class="py-3">
-                        <MudIcon Icon=@itemSelecionado.Contador.Icone
-                                 Color=@itemSelecionado.Contador.CorIcone
+                        <MudIcon Icon=@itemSelecionado.Contador.IconeDesenho
+                                 Color=@itemSelecionado.Contador.IconeCor
                                  Style="font-size: 86px;" />
                     </MudButton>
                 </MudBadge>

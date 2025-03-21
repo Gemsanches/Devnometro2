@@ -1,19 +1,8 @@
 ﻿using Devnometro.Dominio.Enumeradores;
-using MudBlazor;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Diagnostics.PerformanceData;
-using System.DirectoryServices.ActiveDirectory;
-using System.Linq;
-using System.Net.Mail;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+
 namespace Devnometro.Dominio;
 
-public static class Icone
+public static class BibliotecaDeIcone
 {
     public static string GetPorEnum(EIcone nome)
     {
@@ -24,6 +13,7 @@ public static class Icone
 
     private static readonly Dictionary<EIcone, string> dicionarioDeIcones = new()
     {
+        {EIcone.QuestionMark, MudBlazor.Icons.Material.Filled.QuestionMark},
         {EIcone.AlarmOn, MudBlazor.Icons.Material.Filled.AlarmOn},
         {EIcone.AddAlarm, MudBlazor.Icons.Material.Filled.AddAlarm},
         {EIcone.Alarm, MudBlazor.Icons.Material.Filled.Alarm},
