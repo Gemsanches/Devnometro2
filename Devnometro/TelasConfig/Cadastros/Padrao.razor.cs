@@ -144,7 +144,7 @@ public class PadraoBase : ComponentBase
     protected void AdicionarContador()
     {
         contadorSelecionado = new ContadorModel(true);
-        DrawerContadorAberto = true;
+        DrawerNovoAberto = true;
     }
     protected void AdicionarEspaçador()
     {
@@ -303,6 +303,22 @@ public class PadraoBase : ComponentBase
             contadorSelecionado.IconeCor = dadosRetorno.Cor;
             contadorSelecionado.Icone = dadosRetorno.Icone;
         }
+    }
+    #endregion
+
+    #region Drawer Novo Contador
+    protected bool DrawerNovoAberto { get; set; } = false;
+    protected void CancelarDrawerNovo() => DrawerNovoAberto = false;
+    protected void ConfirmarDrawerNovo()
+    {
+        if (contadorSelecionado.EhMocado()) return;
+
+        var novo = new ContadorModel();
+        novo.Update(contadorSelecionado);
+        novo.Seq = itemSelecionado.Contadores.Count + 1;
+        itemSelecionado.Contadores.Add(novo);
+        DrawerNovoAberto = false;
+        StateHasChanged();
     }
     #endregion
 

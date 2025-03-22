@@ -385,3 +385,56 @@
                    Size="Size.Small">Cancelar</MudButton>
     </MudStack>
 </MudDrawer>
+
+<MudDrawer @bind-Open="@DrawerNovoAberto"
+           Anchor="Anchor.Bottom"
+           Height="200px"
+           Elevation="3"
+           Class="pa-3"
+           Variant="@DrawerVariant.Temporary"
+           OverlayAutoClose="false">
+
+    <MudDrawerHeader>
+        <MudText Class="pa-0 pointer-events-none"
+                 Typo="Typo.h6"
+                 Style="height:25px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"
+                 Color="Color.Dark">Selecione o novo contador</MudText>
+    </MudDrawerHeader>
+    <MudSelect @bind-Value="contadorSelecionado"
+               Variant="Variant.Outlined"
+               Label="Contador usado"
+               Placeholder="@contadorSelecionado.Nome"
+               Margin="Margin.None"
+               Dense="true"
+               Class="px-2 py-0 mx-0 my-1"
+               Clearable="false">
+        @foreach (var contador in Contadores)
+        {
+            <MudSelectItem Value="contador">
+                <MudTextField Value=@contador.Nome
+                              AdornmentIcon=@Dominio.BibliotecaDeIcone.GetPorEnum(contador.Icone)
+                              AdornmentColor=@contador.IconeCor
+                              Adornment="Adornment.Start"
+                              Margin="Margin.Dense"
+                              Variant="Variant.Text"
+                              ReadOnly="true"
+                              Underline="false"
+                              Class="pa-0 mx-5 my-0" />
+            </MudSelectItem>
+        }
+    </MudSelect>
+    <MudDivider />
+    <MudStack Row>
+        <MudSpacer />
+        <MudButton Variant="Variant.Filled"
+                   OnClick="ConfirmarDrawerNovo"
+                   StartIcon="@Icons.Material.Filled.Check"
+                   Color="Color.Success"
+                   Size="Size.Small">Confirmar</MudButton>
+        <MudButton Variant="Variant.Filled"
+                   Onclick="CancelarDrawerNovo"
+                   StartIcon="@Icons.Material.Filled.Cancel"
+                   Color="Color.Error"
+                   Size="Size.Small">Cancelar</MudButton>
+    </MudStack>
+</MudDrawer>

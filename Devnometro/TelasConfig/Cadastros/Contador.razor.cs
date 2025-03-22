@@ -98,11 +98,7 @@ public class ContadorBase : ComponentBase
         if (!Model.Any(x => x.Id == itemSelecionado.Id))
         {
             var contadorZerado = new ContadorModel(true);
-            if (contadorZerado.Nome != itemSelecionado.Nome
-             || contadorZerado.Descricao != itemSelecionado.Descricao
-             || contadorZerado.Icone != itemSelecionado.Icone
-             || contadorZerado.IconeCor != itemSelecionado.IconeCor
-             || contadorZerado.ContaTempo != itemSelecionado.ContaTempo)
+            if (!itemSelecionado.EhMocado())
                 Model.Add(itemSelecionado);
         }
         else

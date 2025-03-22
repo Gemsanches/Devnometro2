@@ -91,4 +91,14 @@ public class ContadorModel
         return padrao.Nome;
     }
     public bool EhEspacador() => Padrao && string.IsNullOrEmpty(Nome);
+    public bool EhMocado()
+    {
+        var contadorZerado = new ContadorModel(true);
+
+        return contadorZerado.Nome == this.Nome
+            && contadorZerado.Descricao == this.Descricao
+            && contadorZerado.Icone == this.Icone
+            && contadorZerado.IconeCor == this.IconeCor
+            && contadorZerado.ContaTempo == this.ContaTempo;
+    }
 }
