@@ -70,23 +70,19 @@
                 <MudButtonGroup Variant="Variant.Outlined">
                     <MudIconButton Icon="@Icons.Material.TwoTone.AddCircle"
                                    OnClick="CriarExpresso"
-                                   Color="@Color.Dark" Class="px-3" />
-                    <MudIconButton Icon="@Icons.Material.TwoTone.Save"
-                                   OnClick="SalvarCadastro"
-                                   Disabled="@NaoPodeSalvar"
-                                   Color="@Color.Dark" Class="px-3" />
+                                   Color="@Color.Dark" Class="px-4" />
                     <MudIconButton Icon="@Icons.Material.TwoTone.FileDownload"
                                    OnClick="ImportarCadastro"
                                    Disabled="@importando"
-                                   Color="@Color.Dark" Class="px-3" />
+                                   Color="@Color.Dark" Class="px-4" />
                     <MudIconButton Icon="@Icons.Material.TwoTone.FileUpload"
                                    OnClick="ExportarCadastro"
                                    Disabled="@exportando"
-                                   Color="@Color.Dark" Class="px-3" />
+                                   Color="@Color.Dark" Class="px-4" />
                     <MudIconButton Icon="@Icons.Material.TwoTone.SettingsBackupRestore"
                                    OnClick="RestaurarCadastro"
                                    Disabled="@restaurando"
-                                   Color="@Color.Dark" Class="px-3" />
+                                   Color="@Color.Dark" Class="px-4" />
                 </MudButtonGroup>
                 <MudSpacer />
                 <MudDataGridPager T="Dominio.ExpressoModel"
@@ -100,11 +96,11 @@
 
 <MudDrawer @bind-Open="@DrawerAberto"
            Anchor="Anchor.Top"
-           Height="320px"
+           Height="410px"
            Elevation="3"
            Class="pa-3"
            Variant="@DrawerVariant.Temporary"
-           OverlayAutoClose="true">
+           OverlayAutoClose="false">
 
     <MudDrawerHeader>
         <MudTextField T="string"
@@ -115,12 +111,15 @@
                       Immediate="true"
                       Typo="Typo.h5"></MudTextField>
     </MudDrawerHeader>
+    <MudStack>
+
     <MudSelect @bind-Value="itemSelecionado.Contador"
                Variant="Variant.Outlined"
                Label="Contador usado"
                Placeholder="@itemSelecionado.Contador.Nome"
                Margin="Margin.None"
                Dense="true"
+               Class="px-2 py-0 mx-0 my-1"
                Clearable="false">
         @foreach (var contador in Contadores)
         {
@@ -133,11 +132,11 @@
                               Variant="Variant.Text"
                               ReadOnly="true"
                               Underline="false"
-                              Class="pa-0 mx-3" />
+                              Class="pa-0 mx-5 my-0" />
             </MudSelectItem>
         }
     </MudSelect>
-    <MudPaper Elevation="2" Class="pointer-events-none pa-1 mt-3">
+    <MudPaper Elevation="2" Class="pointer-events-none px-1 pb-2 pt-4 mt-1 mb-3">
         <MudGrid>
             <MudItem xl="3" lg="3" md="3" sm="3">
                 <MudBadge Color="Color.Surface"
@@ -165,4 +164,28 @@
             </MudItem>
         </MudGrid>
     </MudPaper>
+    </MudStack>
+    <MudDivider />
+    <MudStack Row>
+        @if (itemSelecionado?.Padrao ?? false)
+        {
+            <MudButton Variant="Variant.Filled"
+                       OnClick="RestaurarDrawer"
+                       Disabled="@EstaNoPadrao"
+                       StartIcon="@Icons.Material.Filled.SettingsBackupRestore"
+                       Color="Color.Info"
+                       Size="Size.Small">Restaurar ao padrão</MudButton>
+        }
+        <MudSpacer />
+        <MudButton Variant="Variant.Filled"
+                   OnClick="SalvarDrawer"
+                   StartIcon="@Icons.Material.Filled.Save"
+                   Color="Color.Success"
+                   Size="Size.Small">Salvar</MudButton>
+        <MudButton Variant="Variant.Filled"
+                   Onclick="CancelarDrawer"
+                   StartIcon="@Icons.Material.Filled.Cancel"
+                   Color="Color.Error"
+                   Size="Size.Small">Cancelar</MudButton>
+    </MudStack>
 </MudDrawer>

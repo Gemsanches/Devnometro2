@@ -21,18 +21,21 @@ public class ManipuladorDeArquivo
     private static readonly string tipoArquivoCadatrosContadores = "cnt";
     private static readonly string tipoArquivoPadraoCronometros = "pcr";
     private static readonly string tipoArquivoExpressos = "crex";
+
     private static readonly string cadastro = "cadastro de";
+
     private static readonly string descricaoTemaPersonalizado = "Tema Personalizado";
     private static readonly string descricaoCadatrosContadores = "Lista de Contadores";
     private static readonly string descricaoPadraoCronometros = "Lista de Padrões de Cronômetro";
     private static readonly string descricaoExpressos = "Lista de Cronômetros Expressos";
+    private static readonly string descricaoPonto = "Registro de Ponto";
 
     private static readonly string pastaPrograma = AppDomain.CurrentDomain.BaseDirectory;
     private static readonly string arquivoPreferencias = "Preferencias.json";
     private static readonly string arquivoTemaPersonalizado = $"Tema.{tipoArquivoTemaPersonalizado}";
     private static readonly string arquivoPonto = "HistoricoPonto.json";
-    private static readonly string arquivoCronometros = "HistoricoTempo.json";
-    private static readonly string arquivoCronometrosAbertos = "Tempo.json";
+    //private static readonly string arquivoCronometros = "HistoricoTempo.json";
+    //private static readonly string arquivoCronometrosAbertos = "Tempo.json";
     private static readonly string arquivoCadatrosContadores = $"CadContadores.{tipoArquivoCadatrosContadores}";
     private static readonly string arquivoCadatrosPadraoCronometros = $"CadPadroes.{tipoArquivoPadraoCronometros}";
     private static readonly string arquivoCadatrosExpressos = $"CadExpressos.{tipoArquivoExpressos}";
@@ -44,7 +47,7 @@ public class ManipuladorDeArquivo
         try { return File.Exists(Path.Combine(pastaPrograma, arquivo)); }
         catch { return false; }
     }
-    public static bool Limpar(string caminhoArquivo)
+    private static bool Limpar(string caminhoArquivo)
     {
         try
         {
@@ -70,7 +73,7 @@ public class ManipuladorDeArquivo
 
         return itemReserva;
     }
-    public async Task<bool> SalvarAsync<T>(T item, string caminhoArquivo, string descricao)
+    private async Task<bool> SalvarAsync<T>(T item, string caminhoArquivo, string descricao)
     {
         try
         {
@@ -86,7 +89,7 @@ public class ManipuladorDeArquivo
             return false;
         }
     }
-    public async Task<T?> ImportarAsync<T>(string caminhoArquivo, string tipoArquivo, string descricao)
+    private async Task<T?> ImportarAsync<T>(string caminhoArquivo, string tipoArquivo, string descricao)
     {
         try
         {
@@ -134,7 +137,7 @@ public class ManipuladorDeArquivo
         catch (Exception ex) { await MetodosEstaticos.MensagemAsync($"Erro ao importar o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error); }
         return default;
     }
-    public async Task ExportarAsync<T>(T item, string tipoArquivo, string descricao)
+    private async Task ExportarAsync<T>(T item, string tipoArquivo, string descricao)
     {
         try
         {
@@ -156,6 +159,8 @@ public class ManipuladorDeArquivo
         }
         catch (Exception ex) { await MetodosEstaticos.MensagemAsync($"Erro ao exportar o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error); }
     }
+    
+    //private async Task ExportarPlanilhaAsync<T>(List<T> item, string tipoArquivo, string descricao, string filtro) { }
     #endregion
 
     #region Preferências
@@ -180,49 +185,28 @@ public class ManipuladorDeArquivo
 
 
     #region Ponto
-    public static void SalvarPontos()
+    public static void CarregarPontosDoDia() { }
+    public static bool LimparPontos(string? filtro = null)
     {
-
+        //Salvar para arquivo com timestamp antes de excluir
+        if (filtro == null)
+            return Limpar(arquivoPonto);
+        else
+            return false;
     }
-    public static void CarregarPontos()
-    {
+     public static RegistroDePonto CarregarPontos() => Carregar<RegistroDePonto>(arquivoPonto, new RegistroDePonto());
+    public async Task SalvarPontos(List<RegistroDePonto> lista) => await SalvarAsync<List<RegistroDePonto>>(lista, arquivoPonto, descricaoPonto);
+    //public async Task ExportarPontosEmPlanilhaAsync(List<RegistroDePonto> lista) { }
+    //public async Task ExportarPontosEmAfdtAsync(List<RegistroDePonto> lista) { }
 
-    }
-    public static void CarregarPontosDoDia()
-    {
-
-    }
-    public static void LimparPontos(string filtro)
-    {
-
-    }
-    public static void ExportarPontos(string lista)
-    {
-
-    }
     #endregion
 
     #region Cronômetro
-    public static void SalvarCronometros()
-    {
-
-    }
-    public static void CarregarCronometros()
-    {
-
-    }
-    public static void CarregarCronometrosAbertos()
-    {
-
-    }
-    public static void LimparCronometros(string filtro)
-    {
-
-    }
-    public static void ExportarCronometros(string lista)
-    {
-
-    }
+    public static void LimparCronometros(string? filtro = null) {}
+    public static void CarregarCronometros() {}
+    public static void CarregarCronometrosAbertos() {}
+    public static void SalvarCronometros() {}
+    public static void ExportarCronometros(string lista) {}
     #endregion
 
 

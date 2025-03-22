@@ -2,11 +2,6 @@
 using Devnometro.Dominio;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Devnometro.TelasConfig.Cadastros;
@@ -14,25 +9,28 @@ namespace Devnometro.TelasConfig.Cadastros;
 public class ExpressoBase : ComponentBase
 {
     [Parameter] public required Preferencias Preferencias { get; set; }
-    [Inject] IDialogService DialogService { get; set; } = null!;
 
     private readonly ManipuladorDeArquivo manipulador = new();
 
     protected override void OnInitialized()
     {
         Model = manipulador.CarregarExpressos();
+        ModelPadrao = ExpressoModel.ListaMocada();
         Contadores = manipulador.CarregarContadores();
     }
-
+    private async Task SalvaAtualiza()
+    {
+        await manipulador.SalvarExpressosAsync(Model);
+        StateHasChanged();
+    }
     protected List<ExpressoModel> Model { get; set; } = [];
+    protected List<ExpressoModel> ModelPadrao { get; set; } = [];
     protected ExpressoModel itemSelecionado = new();
-    protected ExpressoModel? novoItem;
+    protected ExpressoModel? itemSelecionadoPadrao;
     protected List<ContadorModel> Contadores { get; set; } = [];
 
     #region Consulta
     protected string textoConsulta = "";
-    protected bool nadaPraSalvar = true;
-
     protected Func<ExpressoModel, bool> Filtrar => x =>
     {
         if (string.IsNullOrWhiteSpace(textoConsulta))
@@ -43,16 +41,6 @@ public class ExpressoBase : ComponentBase
 
         return false;
     };
-    protected async Task SalvarCadastro()
-    {
-        if (salvando) return;
-        salvando = true;
-        await manipulador.SalvarExpressosAsync(Model);
-        nadaPraSalvar = true;
-        salvando = false;
-    }
-    protected bool NaoPodeSalvar { get => nadaPraSalvar || salvando; }
-    protected bool salvando = false;
     protected async Task ExportarCadastro()
     {
         if (exportando) return;
@@ -69,8 +57,7 @@ public class ExpressoBase : ComponentBase
         if (lista != null)
         {
             Model = lista;
-            nadaPraSalvar = false;
-            StateHasChanged();
+            await SalvaAtualiza();
         }
         importando = false;
     }
@@ -85,11 +72,11 @@ public class ExpressoBase : ComponentBase
             restaurando = false;
             return;
         }
-
+        await Task.Delay(1000);
         if (ManipuladorDeArquivo.LimparExpressos())
         {
             Model = ExpressoModel.ListaMocada();
-            nadaPraSalvar = true;
+            await SalvaAtualiza();
             StateHasChanged();
         }
         else
@@ -100,47 +87,70 @@ public class ExpressoBase : ComponentBase
     #endregion
 
     #region Drawer
-    protected bool DrawerAberto
+    protected bool DrawerAberto { get; set; }
+    protected void CancelarDrawer() => DrawerAberto = false;
+    protected async Task SalvarDrawer()
     {
-        get => _drawerAberto;
-        set
+        if (!Model.Any(x => x.Id == itemSelecionado.Id))
         {
-            _drawerAberto = value;
-            if (!value && novoItem != null)
-            {
-                var expressoZerado = new ExpressoModel(true);
-                if (expressoZerado.Nome != novoItem.Nome
-                 || expressoZerado.Contador.Nome != novoItem.Contador.Nome
-                 || expressoZerado.Contador.Descricao != novoItem.Contador.Descricao
-                 || expressoZerado.Contador.Icone != novoItem.Contador.Icone)
-                {
-                    Model.Add(novoItem);
-                }
-                novoItem = null;
-            }
-            nadaPraSalvar = false;
-            StateHasChanged();
+            var contadorZerado = new ExpressoModel(true);
+            if (contadorZerado.Nome != itemSelecionado.Nome
+             || contadorZerado.Contador.Id != itemSelecionado.Contador.Id)
+                Model.Add(itemSelecionado);
+        }
+        else
+        {
+            var alterado = Model.First(x => x.Id == itemSelecionado.Id);
+            var index = Model.IndexOf(alterado);
+            Model[index] = itemSelecionado;
+            itemSelecionado = new();
+        }
+        await SalvaAtualiza();
+        DrawerAberto = false;
+    }
+    protected void RestaurarDrawer()
+    {
+        if (itemSelecionadoPadrao == null) return;
+
+        itemSelecionado.Nome = itemSelecionadoPadrao.Nome;
+        var cont = new ContadorModel();
+        cont.Update(Contadores.First(x => x.Id == itemSelecionadoPadrao.Contador.Id));
+        itemSelecionado.Contador = cont;
+    }
+    protected bool EstaNoPadrao
+    {
+        get
+        {
+            if (itemSelecionadoPadrao == null) return true;
+
+            return itemSelecionado.Nome == itemSelecionadoPadrao.Nome
+                && itemSelecionado.Contador.Id == itemSelecionadoPadrao.Contador.Id;
         }
     }
-    private bool _drawerAberto = false;
     #endregion
 
     #region CRUD
     protected void CriarExpresso()
     {
-        novoItem = new ExpressoModel(true);
-        itemSelecionado = novoItem;
+        itemSelecionado = new ExpressoModel(true);
         DrawerAberto = true;
     }
-
     protected void EditarExpresso(ExpressoModel expresso)
     {
         if (expresso == null) return;
 
-        itemSelecionado = expresso;
+        itemSelecionado = new();
+        itemSelecionado.Update(expresso);
+
+        if (itemSelecionado.Padrao)
+        {
+            var padrao = ModelPadrao.First(x => x.Id == itemSelecionado.Id);
+            itemSelecionadoPadrao = new();
+            itemSelecionadoPadrao.Update(padrao);
+        }
+        
         DrawerAberto = true;
     }
-
     protected async Task ExcluirExpresso(ExpressoModel expresso)
     {
         if (expresso.ConfirmacaoPendente) return;
@@ -151,8 +161,7 @@ public class ExpressoBase : ComponentBase
         expresso.ConfirmacaoPendente = false;
         if (resposta != MessageBoxResult.Yes) return;
         Model.Remove(expresso);
-        nadaPraSalvar = false;
-        StateHasChanged();
+        await SalvaAtualiza();
     }
     #endregion
 }

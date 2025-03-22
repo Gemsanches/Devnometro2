@@ -18,6 +18,7 @@ public class PadraoDeCronometroModel
     }
 
     public Guid Id { get; set; } = new();
+    public bool Padrao { get; set; } = false;
     public bool Ativo { get; set; } = true;
     public string Nome { get; set; } = string.Empty;
     public ContadorModel[] Contadores { get; set; } = [];

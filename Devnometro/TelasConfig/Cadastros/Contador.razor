@@ -3,32 +3,32 @@
 <MudPaper MaxHeight="460px" Class="pt-1">
 
     <MudDataGrid T="Dominio.ContadorModel"
-    MultiSelection="false"
-    Items="@Model"
-    SortMode="SortMode.Single"
-    QuickFilter="@Filtrar"
-    Dense="true"
-    Striped="false"
-    Hover="true"
-    EditMode="DataGridEditMode.Form"
-    Filterable="false"
-    Hideable="false"
-    Style="min-height:440px">
+                 MultiSelection="false"
+                 Items="@Model"
+                 SortMode="SortMode.Single"
+                 QuickFilter="@Filtrar"
+                 Dense="true"
+                 Striped="false"
+                 Hover="true"
+                 EditMode="DataGridEditMode.Form"
+                 Filterable="false"
+                 Hideable="false"
+                 Style="min-height:440px">
 
         <ToolBarContent>
             <MudText Typo="Typo.h6" Class="pointer-events-none py-n3">Contadores</MudText>
             <MudSpacer />
             <MudTextField @bind-Value="textoConsulta"
-            Placeholder="Pesquisar (pelo nome)"
-            Adornment="Adornment.Start"
-            Immediate="true"
-            AdornmentIcon="@Icons.Material.Filled.Search"
-            IconSize="Size.Small"
-            Class="mt-0"></MudTextField>
+                          Placeholder="Pesquisar (pelo nome)"
+                          Adornment="Adornment.Start"
+                          Immediate="true"
+                          AdornmentIcon="@Icons.Material.Filled.Search"
+                          IconSize="Size.Small"
+                          Class="mt-0"></MudTextField>
         </ToolBarContent>
 
         <Columns>
-            <TemplateColumn CellStyle="max-width: 40px;" >
+            <TemplateColumn CellStyle="max-width: 40px;">
                 <CellTemplate>
                     <MudIcon Icon="@context.Item.IconeDesenho" Color="@context.Item.IconeCor" Class="py-n5 mt-n2 mb-n3" Style="font-size: 30px;" />
                 </CellTemplate>
@@ -40,10 +40,10 @@
                     <MudStack Row>
                         @if (string.IsNullOrWhiteSpace(context.Item.Descricao))
                         {
-                                <MudIconButton Size="@Size.Small"
-                                               Icon="@Icons.Material.TwoTone.TextSnippet"
-                                               Color="@Color.Dark"
-                                               Disabled="true" />
+                            <MudIconButton Size="@Size.Small"
+                                           Icon="@Icons.Material.TwoTone.TextSnippet"
+                                           Color="@Color.Dark"
+                                           Disabled="true" />
                         }
                         else
                         {
@@ -71,27 +71,23 @@
                 <MudButtonGroup Variant="Variant.Outlined">
                     <MudIconButton Icon="@Icons.Material.TwoTone.AddCircle"
                                    OnClick="CriarContador"
-                                   Color="@Color.Dark" Class="px-3" />
-                    <MudIconButton Icon="@Icons.Material.TwoTone.Save"
-                                   OnClick="SalvarCadastro"
-                                   Disabled="@NaoPodeSalvar"
-                                   Color="@Color.Dark" Class="px-3" />
+                                   Color="@Color.Dark" Class="px-4" />
                     <MudIconButton Icon="@Icons.Material.TwoTone.FileDownload"
                                    OnClick="ImportarCadastro"
                                    Disabled="@importando"
-                                   Color="@Color.Dark" Class="px-3" />
+                                   Color="@Color.Dark" Class="px-4" />
                     <MudIconButton Icon="@Icons.Material.TwoTone.FileUpload"
                                    OnClick="ExportarCadastro"
                                    Disabled="@exportando"
-                                   Color="@Color.Dark" Class="px-3" />
+                                   Color="@Color.Dark" Class="px-4" />
                     <MudIconButton Icon="@Icons.Material.TwoTone.SettingsBackupRestore"
                                    OnClick="RestaurarCadastro"
                                    Disabled="@restaurando"
-                                   Color="@Color.Dark" Class="px-3" />
+                                   Color="@Color.Dark" Class="px-4" />
                 </MudButtonGroup>
                 <MudSpacer />
                 <MudDataGridPager T="Dominio.ContadorModel"
-                                  InfoFormat="{first_item}..{last_item} / {all_items}" 
+                                  InfoFormat="{first_item}..{last_item} / {all_items}"
                                   PageSizeOptions=[7]
                                   PageSizeSelector="false" />
             </MudStack>
@@ -100,12 +96,12 @@
 </MudPaper>
 
 <MudDrawer @bind-Open="@DrawerAberto"
-           Anchor="Anchor.Bottom"
-           Height="320px"
+           Anchor="Anchor.Top"
+           Height="354px"
            Elevation="3"
            Class="pa-3"
            Variant="@DrawerVariant.Temporary"
-           OverlayAutoClose="true">
+           OverlayAutoClose="false">
 
     <MudDrawerHeader>
         <MudTextField T="string"
@@ -118,14 +114,18 @@
     </MudDrawerHeader>
 
     <MudGrid>
-        <MudItem xl="3" lg="3" md="3" sm="3">            
+        <MudItem xl="3" lg="3" md="3" sm="3">
             <MudBadge Color="Color.Surface"
                       BadgeClass="rounded-0 gray lighten-4 py-n1 ml-n12"
                       Content=@string.Concat("Ícone","")
                       Overlap="true"
                       Origin="Origin.TopCenter"
                       Class="px-3">
-                <MudButton OnClick=@(e=> SelcionarIcone(itemSelecionado.Nome, itemSelecionado.IconeCor, itemSelecionado.Icone))
+                <MudButton OnClick=@(e=> SelcionarIcone(itemSelecionado.Nome,
+                                                        itemSelecionado.IconeCor,
+                                                        itemSelecionado.PadraoCor(),
+                                                        itemSelecionado.Icone,
+                                                        itemSelecionado.PadraoIcone()))
                            Variant="Variant.Outlined"
                            Class="py-3">
                     <MudIcon Icon=@itemSelecionado.IconeDesenho
@@ -143,9 +143,30 @@
                           Class="mt-0 pr-3" />
         </MudItem>
     </MudGrid>
-    
+
     <MudSwitch @bind-Value="@itemSelecionado.ContaTempo"
                Label="@DescricaoContaTempo(itemSelecionado.ContaTempo)"
                Class="pa-3"
                Color=@itemSelecionado.IconeCor />
+    <MudDivider />
+    <MudStack Row>
+        @if (itemSelecionado?.Padrao ?? false)
+        {
+            <MudButton Variant="Variant.Filled"
+                       StartIcon="@Icons.Material.Filled.SettingsBackupRestore"
+                       Color="Color.Info"
+                       Size="Size.Small">Restaurar ao padrão</MudButton>
+        }
+        <MudSpacer />
+        <MudButton Variant="Variant.Filled"
+                   OnClick="SalvarDrawer"
+                   StartIcon="@Icons.Material.Filled.Save"
+                   Color="Color.Success"
+                   Size="Size.Small">Salvar</MudButton>
+        <MudButton Variant="Variant.Filled"
+                   Onclick="CancelarDrawer"
+                   StartIcon="@Icons.Material.Filled.Cancel"
+                   Color="Color.Error"
+                   Size="Size.Small">Cancelar</MudButton>
+    </MudStack>
 </MudDrawer>
