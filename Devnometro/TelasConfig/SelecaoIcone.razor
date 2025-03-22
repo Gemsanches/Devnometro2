@@ -17,7 +17,7 @@
     <DialogContent>
         <MudStack Row="true">
             <MudPaper Elevation="2" Width="80px" Height="80px">
-                <MudIcon Icon=@iconeExibição Color=@corExibicao Style="font-size: 80px;" />
+                <MudIcon Icon=@iconeSvgExibição Color=@corExibicao Style="font-size: 80px;" />
             </MudPaper>
             <MudPaper Elevation="2" Class="pa-3 cursor-default mud-theme-primary" Width="460px" Height="80px">
                 <MudStack Row="true">
@@ -35,7 +35,7 @@
                     </MudBadge>
                     <MudBadge Icon="@Icons.Material.Rounded.KeyboardBackspace" Color="Color.Primary" Overlap="true" Bordered="true" Class="pa-0 ma-0">
                         <MudPaper Elevation="1" Class="d-flex align-content-center justify-center" Width="56px" Height="56px">
-                            <MudIconButton Icon=@iconeAnterior Size="Size.Large" Color=@corAnterior Class="ma-n1" OnClick="VoltaIcone" />
+                            <MudIconButton Icon=@iconeSvgAnterior Size="Size.Large" Color=@corAnterior Class="ma-n1" OnClick="VoltaIcone" />
                         </MudPaper>
                     </MudBadge>
                     <MudBadge Icon="@Icons.Material.Rounded.Category" Color="Color.Primary" Overlap="true" Bordered="true" Class="pa-0 ma-0">
@@ -357,11 +357,12 @@
     [Parameter] public required Dominio.IconeDados Dados { get; set; }
 
     private string descricaoExibicao = null!;
-    private string iconeExibição = "";
-    private string iconeAnterior = "";
+    private string iconeSvgExibição = "";
+    private string iconeSvgAnterior = "";
+    private EIcone iconeEnum;
+    private EIcone iconeEnumAnterior;
     private Color corExibicao;
     private Color corAnterior;
-    private EIcone iconeSelecionado;
 
     private bool categoria1 = true;
     private bool categoria2 = true;
@@ -371,8 +372,10 @@
     protected override void OnInitialized()
     {
         descricaoExibicao = string.IsNullOrWhiteSpace(Dados.Nome) ? descricaoPadrao : Dados.Nome;
-        iconeExibição = BibliotecaDeIcone.GetPorEnum(Dados.Icone);
-        iconeAnterior = BibliotecaDeIcone.GetPorEnum(Dados.IconePadrao ?? Dados.Icone);
+        iconeSvgExibição = BibliotecaDeIcone.GetPorEnum(Dados.Icone);
+        iconeSvgAnterior = BibliotecaDeIcone.GetPorEnum(Dados.IconePadrao ?? Dados.Icone);
+        iconeEnum = Dados.Icone;
+        iconeEnumAnterior = Dados.IconePadrao ?? Dados.Icone;
         corExibicao = Dados.Cor;
         corAnterior = Dados.CorPadrao ?? Dados.Cor;
     }
@@ -386,20 +389,21 @@
 
     private void SetIcone(EIcone icone)
     {
-        if (iconeSelecionado == icone) return;
-        iconeSelecionado = icone;
-        iconeExibição = BibliotecaDeIcone.GetPorEnum(icone);
+        if (iconeEnum == icone) return;
+        iconeEnum = icone;
+        iconeSvgExibição = BibliotecaDeIcone.GetPorEnum(icone);
         StateHasChanged();
     }
 
     private void VoltaIcone()
     {
-        iconeExibição = iconeAnterior;
+        iconeSvgExibição = iconeSvgAnterior;
+        iconeEnum = iconeEnumAnterior;
         corExibicao = corAnterior;
         StateHasChanged();
     }
 
-    private void Confirma() => Dialog.Close(new Dominio.IconeDados(cor: corExibicao, icone: iconeSelecionado));
+    private void Confirma() => Dialog.Close(new Dominio.IconeDados(cor: corExibicao, icone: iconeEnum));
 
     private void Cancela() => Dialog.Cancel();
 }

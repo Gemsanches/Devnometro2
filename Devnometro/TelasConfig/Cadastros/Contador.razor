@@ -56,10 +56,12 @@
                         <MudIconButton Size="@Size.Small"
                                        Icon="@Icons.Material.TwoTone.Edit"
                                        OnClick="() => EditarContador(context.Item)"
+                                       Disabled="@context.Item.ConfirmacaoPendente"
                                        Color="@Color.Dark" />
                         <MudIconButton Size="@Size.Small"
                                        Icon="@Icons.Material.TwoTone.Delete"
                                        OnClick="() => ExcluirContador(context.Item)"
+                                       Disabled="@context.Item.ConfirmacaoPendente"
                                        Color="@Color.Dark" />
                     </MudStack>
                 </CellTemplate>
@@ -153,6 +155,8 @@
         @if (itemSelecionado?.Padrao ?? false)
         {
             <MudButton Variant="Variant.Filled"
+                       OnClick="RestaurarDrawer"
+                       Disabled="@EstaNoPadrao"
                        StartIcon="@Icons.Material.Filled.SettingsBackupRestore"
                        Color="Color.Info"
                        Size="Size.Small">Restaurar ao padrão</MudButton>

@@ -55,10 +55,12 @@
                         <MudIconButton Size="@Size.Small"
                                        Icon="@Icons.Material.TwoTone.Edit"
                                        OnClick="() => EditarExpresso(context.Item)"
+                                       Disabled="@context.Item.ConfirmacaoPendente"
                                        Color="@Color.Dark" />
                         <MudIconButton Size="@Size.Small"
                                        Icon="@Icons.Material.TwoTone.Delete"
                                        OnClick="() => ExcluirExpresso(context.Item)"
+                                       Disabled="@context.Item.ConfirmacaoPendente"
                                        Color="@Color.Dark" />
                     </MudStack>
                 </CellTemplate>
