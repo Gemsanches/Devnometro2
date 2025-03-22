@@ -17,12 +17,13 @@ public class ContadorModel
     public void Update(ContadorModel that)
     {
         this.Id = that.Id;
+        this.Seq = that.Seq;
         this.Padrao = that.Padrao;
 
         this.Nome = that.Nome;
-        this.Descricao = that.Descricao;
         this.Icone = that.Icone;
         this.IconeCor = that.IconeCor;
+        this.Descricao = that.Descricao;
         this.ContaTempo = that.ContaTempo;
     }
 
@@ -32,7 +33,6 @@ public class ContadorModel
     public string Nome { get; set; } = string.Empty;
     public string Descricao { get; set; } = string.Empty;
     public EIcone Icone { get; set; } = EIcone.QuestionMark;
-    [JsonIgnore] public string IconeDesenho { get => BibliotecaDeIcone.GetPorEnum(Icone); }
     public MudBlazor.Color IconeCor { get; set; } = MudBlazor.Color.Dark;
     public bool ContaTempo { get; set; } = true;
     [JsonIgnore] public string ContaTempoString { get => ContaTempo ? "Sim" : "Não"; }
@@ -82,4 +82,13 @@ public class ContadorModel
 
         return padrao.IconeCor;
     }
+    public string? PadraoNome()
+    {
+        var padrao = ListaMocada().FirstOrDefault(x => x.Id == this.Id);
+        
+        if (padrao is null) return null;
+
+        return padrao.Nome;
+    }
+    public bool EhEspacador() => Padrao && string.IsNullOrEmpty(Nome);
 }

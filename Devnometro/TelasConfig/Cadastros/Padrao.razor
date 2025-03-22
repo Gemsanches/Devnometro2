@@ -1,16 +1,387 @@
 ﻿@inherits PadraoBase
 
-<MudPaper Height="308px">
-<h3>Padrão de Cronometros</h3>
+<MudPaper MaxHeight="460px" Class="pt-1">
 
-<p>CRUD</p>
+    <MudDataGrid T="Dominio.PadraoDeCronometroModel"
+                 MultiSelection="false"
+                 Items="@Model"
+                 SortMode="SortMode.Single"
+                 QuickFilter="@Filtrar"
+                 Dense="true"
+                 Striped="false"
+                 Hover="true"
+                 EditMode="DataGridEditMode.Form"
+                 Filterable="false"
+                 Hideable="false"
+                 Style="min-height:440px">
 
-<p>pré-cadastrados: DEV, Revisor, Homologador, Suporte?</p>
+        <ToolBarContent>
+            <MudText Typo="Typo.h6" Class="pointer-events-none py-n3">Padrões de Cronometros</MudText>
+            <MudSpacer />
+            <MudTextField @bind-Value="textoConsulta"
+                          Placeholder="Pesquisar (pelo nome)"
+                          Adornment="Adornment.Start"
+                          Immediate="true"
+                          AdornmentIcon="@Icons.Material.Filled.Search"
+                          IconSize="Size.Small"
+                          Class="mt-0"></MudTextField>
+        </ToolBarContent>
 
-<p>comportamentos: play padrão, pause padrão, stop padrão</p>
+        <Columns>
+            <PropertyColumn Property="x => x.Nome" Title="Nome" CellStyle="min-width: 324px; max-width: 324px; overflow-x: hidden; white-space: nowrap;" />
+            <PropertyColumn Property="x => x.Ativo" Title="Exibir" Sortable="false" Filterable="false" />
+            <TemplateColumn>
+                <CellTemplate>
+                    <MudStack Row>
+                        @if (string.IsNullOrWhiteSpace(context.Item.Descricao))
+                        {
+                            <MudIconButton Size="@Size.Small"
+                                           Icon="@Icons.Material.TwoTone.TextSnippet"
+                                           Color="@Color.Dark"
+                                           Disabled="true" />
+                        }
+                        else
+                        {
+                            <MudTooltip Text="@context.Item.Descricao" Arrow="true" Placement="Placement.Left" Style="max-width:324px;">
+                                <MudIconButton Size="@Size.Small"
+                                               Icon="@Icons.Material.TwoTone.TextSnippet"
+                                               Color="@Color.Dark" />
+                            </MudTooltip>
+                        }
+                        <MudIconButton Size="@Size.Small"
+                                       Icon="@Icons.Material.TwoTone.Edit"
+                                       OnClick="() => EditarPadraoDeCronometro(context.Item)"
+                                       Disabled="@context.Item.ConfirmacaoPendente"
+                                       Color="@Color.Dark" />
+                        <MudIconButton Size="@Size.Small"
+                                       Icon="@Icons.Material.TwoTone.Delete"
+                                       OnClick="() => ExcluirPadraoDeCronometro(context.Item)"
+                                       Disabled="@context.Item.ConfirmacaoPendente"
+                                       Color="@Color.Dark" />
+                    </MudStack>
+                </CellTemplate>
+            </TemplateColumn>
+        </Columns>
 
-<p>Contadores: ordem, conta tempo dentrou ou fora, tipoContador, nome</p>
-<p>nome: vem do contador, mas pode alterar</p>
-<p>conta tempo: vem marcado se for de trabalho, desmarcado se for de interrupção, mas permite trocar</p>
-
+        <PagerContent>
+            <MudStack Row Class="px-3 pt-2 pb-0">
+                <MudButtonGroup Variant="Variant.Outlined">
+                    <MudIconButton Icon="@Icons.Material.TwoTone.AddCircle"
+                                   OnClick="CriarPadraoDeCronometro"
+                                   Color="@Color.Dark" Class="px-4" />
+                    <MudIconButton Icon="@Icons.Material.TwoTone.FileDownload"
+                                   OnClick="ImportarCadastro"
+                                   Disabled="@importando"
+                                   Color="@Color.Dark" Class="px-4" />
+                    <MudIconButton Icon="@Icons.Material.TwoTone.FileUpload"
+                                   OnClick="ExportarCadastro"
+                                   Disabled="@exportando"
+                                   Color="@Color.Dark" Class="px-4" />
+                    <MudIconButton Icon="@Icons.Material.TwoTone.SettingsBackupRestore"
+                                   OnClick="RestaurarCadastro"
+                                   Disabled="@restaurando"
+                                   Color="@Color.Dark" Class="px-4" />
+                </MudButtonGroup>
+                <MudSpacer />
+                <MudDataGridPager T="Dominio.PadraoDeCronometroModel"
+                                  InfoFormat="{first_item}..{last_item} / {all_items}"
+                                  PageSizeOptions=[7]
+                                  PageSizeSelector="false" />
+            </MudStack>
+        </PagerContent>
+    </MudDataGrid>
 </MudPaper>
+
+<MudDrawer @bind-Open="@DrawerPadraoAberto"
+           Anchor="Anchor.Top"
+           Height="500px"
+           Elevation="3"
+           Class="pa-3"
+           Variant="@DrawerVariant.Temporary"
+           OverlayAutoClose="false">
+
+    <MudDrawerHeader>
+        <MudTextField T="string"
+                      @bind-Value="itemSelecionado.Nome"
+                      Label="Nome"
+                      Counter="50"
+                      MaxLength="50"
+                      Immediate="true"
+                      Typo="Typo.h5"></MudTextField>
+    </MudDrawerHeader>
+    <MudDivider Class="mt-n2 mb-n6" />
+    <MudContainer Class="pa-1" Style="max-height:320px; min-height:320px; overflow-y:scroll">
+        <MudTextField T="string"
+                      @bind-Value="@itemSelecionado.Descricao"
+                      Label="Descrição"
+                      Lines="3"
+                      Variant="Variant.Outlined"
+                      Class="mt-0 pb-3 px-3" />
+        <MudBadge Color="Color.Surface"
+                  BadgeClass="rounded-0 gray lighten-4 py-n1 pointer-events-none"
+                  Bordered="true"
+                  Content=@string.Concat("Lista de ","contadores")
+                  Overlap="true"
+                  Origin="Origin.TopCenter"
+                  Class="px-3">
+
+            <MudPaper Square="true" Elevation="1" MinWidth="585px">
+                <MudDataGrid T="Dominio.ContadorModel"
+                             MultiSelection="false"
+                             Items="@itemSelecionado.Contadores"
+                             SortMode="SortMode.Single"
+                             Dense="true"
+                             Striped="false"
+                             Hover="true"
+                             EditMode="DataGridEditMode.Form"
+                             Filterable="false"
+                             Hideable="false"
+                             Style="min-height:300px; max-height:300px;">
+
+                    <Columns>
+                        <PropertyColumn Property="x => x.Seq" Title="" CellClass="pointer-events-none" CellStyle="max-width: 30px;" Sortable="false" Filterable="false" />
+                        <TemplateColumn CellStyle="max-width: 70px;">
+                            <CellTemplate>
+                                <MudStack Row>
+                                    <MudStack>
+                                        <MudIconButton Size="@Size.Small"
+                                                       Class="pa-0 my-n2"
+                                                       Icon="@Icons.Material.TwoTone.KeyboardArrowUp"
+                                                       OnClick="() => SubirContador(context.Item)"
+                                                       Disabled="@(context.Item.Seq == 1)"
+                                                       Color="@Color.Dark" />
+                                        <MudIconButton Size="@Size.Small"
+                                                       Class="pa-0 my-n2"
+                                                       Icon="@Icons.Material.TwoTone.KeyboardArrowDown"
+                                                       OnClick="() => DescerContador(context.Item)"
+                                                       Disabled="@(context.Item.Seq == itemSelecionado.Contadores.Count)"
+                                                       Color="@Color.Dark" />
+                                    </MudStack>
+                                    @if (context.Item.EhEspacador())
+                                    {
+                                        <MudIcon Icon="" Color="@context.Item.IconeCor" Class="py-n5 mt-n1 mb-n4" Style="font-size: 30px;" />
+                                    }
+                                    else
+                                    {
+                                        <MudIcon Icon="@Dominio.BibliotecaDeIcone.GetPorEnum(context.Item.Icone)" Color="@context.Item.IconeCor" Class="py-n5 mt-n1 mb-n4" Style="font-size: 30px;" />
+                                    }
+                                </MudStack>
+                            </CellTemplate>
+                        </TemplateColumn>
+                        <PropertyColumn Property="x => x.Nome" Title="Nome" CellStyle="min-width: 242px; max-width: 242px; overflow-x: hidden; white-space: nowrap;" />
+                        <PropertyColumn Property="x => x.ContaTempoString" Title="Atividade" Sortable="false" Filterable="false" />
+                        <TemplateColumn>
+                            <CellTemplate>
+                                <MudStack Row>
+                                    @if (string.IsNullOrWhiteSpace(context.Item.Descricao))
+                                    {
+                                        <MudIconButton Size="@Size.Small"
+                                                       Icon="@Icons.Material.TwoTone.TextSnippet"
+                                                       Color="@Color.Dark"
+                                                       Disabled="true" />
+                                    }
+                                    else
+                                    {
+                                        <MudTooltip Text="@context.Item.Descricao" Arrow="true" Placement="Placement.Left" Style="max-width:324px;">
+                                            <MudIconButton Size="@Size.Small"
+                                                           Icon="@Icons.Material.TwoTone.TextSnippet"
+                                                           Color="@Color.Dark" />
+                                        </MudTooltip>
+                                    }
+                                    <MudIconButton Size="@Size.Small"
+                                                   Icon="@Icons.Material.TwoTone.Edit"
+                                                   OnClick="() => EditarContador(context.Item)"
+                                                   Disabled="@(context.Item.ConfirmacaoPendente || context.Item.EhEspacador())"
+                                                   Color="@Color.Dark" />
+                                    <MudIconButton Size="@Size.Small"
+                                                   Icon="@Icons.Material.TwoTone.Delete"
+                                                   OnClick="() => ExcluirContador(context.Item)"
+                                                   Disabled="@context.Item.ConfirmacaoPendente"
+                                                   Color="@Color.Dark" />
+                                </MudStack>
+                            </CellTemplate>
+                        </TemplateColumn>
+                    </Columns>
+
+                    <PagerContent>
+                        <MudStack Row Class="px-3 pt-2 pb-0">
+                            <MudButtonGroup Variant="Variant.Outlined">
+                                <MudIconButton Icon="@Icons.Material.TwoTone.AddCircle"
+                                               OnClick="AdicionarContador"
+                                               Color="@Color.Dark" Class="px-4" />
+                                <MudIconButton Icon="@Icons.Material.TwoTone.CalendarViewDay"
+                                               OnClick="AdicionarEspaçador"
+                                               Color="@Color.Dark" Class="px-4" />
+                            </MudButtonGroup>
+                            <MudSpacer />
+                            <MudDataGridPager T="Dominio.ContadorModel"
+                                              InfoFormat="{first_item}..{last_item} / {all_items}"
+                                              PageSizeOptions=[5]
+                                              PageSizeSelector="false" />
+                        </MudStack>
+                    </PagerContent>
+                </MudDataGrid>
+
+            </MudPaper>
+        </MudBadge>
+        <MudGrid>
+            <MudItem xl="6" lg="6" md="6" sm="6">
+                <MudSelect @bind-Value="itemSelecionado.IndicePlayPadrao"
+                           Variant="Variant.Outlined"
+                           Label="Play Padrao"
+                           Placeholder="itemSelecionado.Contadores[itemSelecionado.IndicePlayPadrao].Nome"
+                           Margin="Margin.None"
+                           Dense="true"
+                           Class="pa-3 mx-0 mt-2"
+                           Clearable="false">
+                    @foreach (var contador in itemSelecionado.Contadores.Where(x => x.ContaTempo))
+                    {
+                        <MudSelectItem Value="contador.Seq">
+                            <MudTextField Value=@contador
+                                          AdornmentIcon=@Dominio.BibliotecaDeIcone.GetPorEnum(contador.Icone)
+                                          AdornmentColor=@contador.IconeCor
+                                          Adornment="Adornment.Start"
+                                          Margin="Margin.Dense"
+                                          Variant="Variant.Text"
+                                          ReadOnly="true"
+                                          Underline="false"
+                                          Class="pa-0 mx-1 my-0" />
+                        </MudSelectItem>
+                    }
+                </MudSelect>
+            </MudItem>
+            <MudItem xl="6" lg="6" md="6" sm="6">
+                <MudSelect @bind-Value="itemSelecionado.IncidePausePadrao"
+                           Variant="Variant.Outlined"
+                           Label="Pause Padrao"
+                           Placeholder="Não definido"
+                           Margin="Margin.None"
+                           Dense="true"
+                           Class="pa-3 mx-0 mt-2"
+                           Clearable="false">
+                    <MudSelectItem Value="@((int?)null)">
+                        <MudTextField Value="@(string.Concat("[NENHUM]",""))"
+                                      AdornmentIcon="@Icons.Material.TwoTone.DoNotDisturb"
+                                      AdornmentColor="Color.Dark"
+                                      Margin="Margin.Dense"
+                                      Variant="Variant.Text"
+                                      ReadOnly="true"
+                                      Underline="false"
+                                      Class="pa-0 mx-1 my-0" />
+                    </MudSelectItem>
+                    @foreach (var contador in itemSelecionado.Contadores)
+                    {
+                        <MudSelectItem Value="@((int?)contador.Seq)">
+                            <MudTextField Value=@contador
+                                          AdornmentIcon=@Dominio.BibliotecaDeIcone.GetPorEnum(contador.Icone)
+                                          AdornmentColor=@contador.IconeCor
+                                          Adornment="Adornment.Start"
+                                          Margin="Margin.Dense"
+                                          Variant="Variant.Text"
+                                          ReadOnly="true"
+                                          Underline="false"
+                                          Class="pa-0 mx-1 my-0" />
+                        </MudSelectItem>
+                    }
+                </MudSelect>
+            </MudItem>
+        </MudGrid>
+    </MudContainer>
+    <MudDivider />
+    <MudStack Row>
+        @if (itemSelecionado?.Padrao ?? false)
+        {
+            <MudButton Variant="Variant.Filled"
+                       OnClick="RestaurarDrawerPadrao"
+                       Disabled="@EstaNoPadraoPadrao"
+                       StartIcon="@Icons.Material.Filled.SettingsBackupRestore"
+                       Color="Color.Info"
+                       Size="Size.Small">Restaurar ao padrão</MudButton>
+        }
+        <MudSpacer />
+        <MudButton Variant="Variant.Filled"
+                   OnClick="SalvarDrawerPadrao"
+                   StartIcon="@Icons.Material.Filled.Save"
+                   Color="Color.Success"
+                   Size="Size.Small">Salvar</MudButton>
+        <MudButton Variant="Variant.Filled"
+                   Onclick="CancelarDrawerPadrao"
+                   StartIcon="@Icons.Material.Filled.Cancel"
+                   Color="Color.Error"
+                   Size="Size.Small">Cancelar</MudButton>
+    </MudStack>
+</MudDrawer>
+
+<MudDrawer @bind-Open="@DrawerContadorAberto"
+           Anchor="Anchor.Bottom"
+           Height="354px"
+           Elevation="3"
+           Class="pa-3"
+           Variant="@DrawerVariant.Temporary"
+           OverlayAutoClose="false">
+
+    <MudDrawerHeader>
+        <MudTextField T="string"
+                      @bind-Value="contadorSelecionado.Nome"
+                      Label="Nome"
+                      Counter="50"
+                      MaxLength="50"
+                      Immediate="true"
+                      Typo="Typo.h5"></MudTextField>
+    </MudDrawerHeader>
+
+    <MudGrid>
+        <MudItem xl="3" lg="3" md="3" sm="3">
+            <MudBadge Color="Color.Surface"
+                      BadgeClass="rounded-0 gray lighten-4 py-n1 ml-n12"
+                      Content=@string.Concat("Ícone","")
+                      Overlap="true"
+                      Origin="Origin.TopCenter"
+                      Class="px-3">
+                <MudButton OnClick=@(e=> SelcionarIcone(contadorSelecionado))
+                           Variant="Variant.Outlined"
+                           Class="py-3">
+                    <MudIcon Icon=@Dominio.BibliotecaDeIcone.GetPorEnum(contadorSelecionado.Icone)
+                             Color=@contadorSelecionado.IconeCor
+                             Style="font-size: 86px;" />
+                </MudButton>
+            </MudBadge>
+        </MudItem>
+        <MudItem xl="9" lg="9" md="9" sm="9">
+            <MudTextField T="string"
+                          @bind-Value="@contadorSelecionado.Descricao"
+                          Label="Descrição"
+                          Lines="4"
+                          Variant="Variant.Outlined"
+                          Class="mt-0 pr-3" />
+        </MudItem>
+    </MudGrid>
+
+    <MudSwitch @bind-Value="@contadorSelecionado.ContaTempo"
+               Label="@DescricaoContaTempo(contadorSelecionado.ContaTempo)"
+               Class="pa-3"
+               Color=@contadorSelecionado.IconeCor />
+    <MudDivider />
+    <MudStack Row>
+        @if (itemSelecionado?.Padrao ?? false)
+        {
+            <MudButton Variant="Variant.Filled"
+                       OnClick="RestaurarDrawerContador"
+                       Disabled="@EstaNoPadraoContador"
+                       StartIcon="@Icons.Material.Filled.SettingsBackupRestore"
+                       Color="Color.Info"
+                       Size="Size.Small">Restaurar ao padrão</MudButton>
+        }
+        <MudSpacer />
+        <MudButton Variant="Variant.Filled"
+                   OnClick="SalvarDrawerContador"
+                   StartIcon="@Icons.Material.Filled.Save"
+                   Color="Color.Success"
+                   Size="Size.Small">Salvar</MudButton>
+        <MudButton Variant="Variant.Filled"
+                   Onclick="CancelarDrawerContador"
+                   StartIcon="@Icons.Material.Filled.Cancel"
+                   Color="Color.Error"
+                   Size="Size.Small">Cancelar</MudButton>
+    </MudStack>
+</MudDrawer>

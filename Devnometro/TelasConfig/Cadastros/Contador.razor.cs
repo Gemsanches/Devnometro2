@@ -58,6 +58,7 @@ public class ContadorBase : ComponentBase
         var lista = await manipulador.ImportarContadoresAsync();
         if (lista != null)
         {
+            //TODO: Modal mostrando a lista que será importada, com a opção de confirmar ou cancelar
             Model = lista;
             await SalvaAtualiza();
         }

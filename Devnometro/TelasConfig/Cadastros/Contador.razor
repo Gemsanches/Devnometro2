@@ -30,7 +30,7 @@
         <Columns>
             <TemplateColumn CellStyle="max-width: 40px;">
                 <CellTemplate>
-                    <MudIcon Icon="@context.Item.IconeDesenho" Color="@context.Item.IconeCor" Class="py-n5 mt-n2 mb-n3" Style="font-size: 30px;" />
+                    <MudIcon Icon="@Dominio.BibliotecaDeIcone.GetPorEnum(context.Item.Icone)" Color="@context.Item.IconeCor" Class="py-n5 mt-n2 mb-n3" Style="font-size: 30px;" />
                 </CellTemplate>
             </TemplateColumn>
             <PropertyColumn Property="x => x.Nome" Title="Nome" CellStyle="min-width: 324px; max-width: 324px; overflow-x: hidden; white-space: nowrap;" />
@@ -130,7 +130,7 @@
                                                         itemSelecionado.PadraoIcone()))
                            Variant="Variant.Outlined"
                            Class="py-3">
-                    <MudIcon Icon=@itemSelecionado.IconeDesenho
+                    <MudIcon Icon=@Dominio.BibliotecaDeIcone.GetPorEnum(itemSelecionado.Icone)
                              Color=@itemSelecionado.IconeCor
                              Style="font-size: 86px;" />
                 </MudButton>
