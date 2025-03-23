@@ -140,6 +140,33 @@ public class PadraoBase : ComponentBase
         }
     }
 
+    protected bool NaoPodeSalvarPadrao()
+    {
+        if (itemSelecionado is null) return true;
+        if (itemSelecionado.Contadores is null) return true;
+        if (!itemSelecionado.Contadores.Any(x => x.ContaTempo)) return true;
+        if (itemSelecionado.IndicePlayPadrao < 0) return true;
+        if (itemSelecionado.IndicePlayPadrao > itemSelecionado.Contadores.Count) return true;
+        if (!itemSelecionado.Contadores[itemSelecionado.IndicePlayPadrao].ContaTempo) return true;
+        if (itemSelecionado.Nome == "") return true;
+        if (itemSelecionado.Nome == (new PadraoDeCronometroModel(true).Nome)) return true;
+
+        return false;
+    }
+    protected bool NaoHaOpcaoIndicePlayPadrao()
+    {
+        if (itemSelecionado is null) return true;
+        if (itemSelecionado.Contadores is null) return true;
+        if (!itemSelecionado.Contadores.Any(x => x.ContaTempo)) return true;
+
+        if (itemSelecionado.Contadores.Where(x => x.ContaTempo).Count() == 1)
+            itemSelecionado.IndicePlayPadrao = itemSelecionado.Contadores
+                .Where(x => x.ContaTempo).First().Seq;
+
+        return false;
+    }
+    protected string MensagemQuandoNaoHaOpcaoIndicePlayPadrao = "";
+
     #region Lista de contadores
     protected void AdicionarContador()
     {
@@ -149,14 +176,14 @@ public class PadraoBase : ComponentBase
     protected void AdicionarEspaçador()
     {
         var linha = ContadoresPreCadastrados.Espacador;
-        linha.Seq = itemSelecionado.Contadores.Count + 1;
+        linha.Seq = itemSelecionado.Contadores.Count;
         itemSelecionado.Contadores.Add(linha);
         StateHasChanged();
     }
     protected void SubirContador(ContadorModel contador)
     {
         if (contador == null
-         || contador.Seq == 1)
+         || contador.Seq == 0)
             return;
 
         var alvo = itemSelecionado.Contadores.Where(x => x.Seq == contador.Seq - 1).FirstOrDefault();
@@ -170,15 +197,15 @@ public class PadraoBase : ComponentBase
         alvo.Seq++;
         contador.Seq--;
 
-        itemSelecionado.Contadores[alvo.Seq - 1] = alvo;
-        itemSelecionado.Contadores[contador.Seq - 1] = contador;
+        itemSelecionado.Contadores[alvo.Seq] = alvo;
+        itemSelecionado.Contadores[contador.Seq] = contador;
 
         StateHasChanged();
     }
     protected void DescerContador(ContadorModel contador)
     {
         if (contador == null
-         || contador.Seq == itemSelecionado.Contadores.Count + 1)
+         || contador.Seq >= itemSelecionado.Contadores.Count - 1)
             return;
 
         var alvo = itemSelecionado.Contadores.Where(x => x.Seq == contador.Seq + 1).FirstOrDefault();
@@ -192,8 +219,8 @@ public class PadraoBase : ComponentBase
         alvo.Seq--;
         contador.Seq++;
 
-        itemSelecionado.Contadores[contador.Seq - 1] = contador;
-        itemSelecionado.Contadores[alvo.Seq - 1] = alvo;
+        itemSelecionado.Contadores[contador.Seq] = contador;
+        itemSelecionado.Contadores[alvo.Seq] = alvo;
 
         StateHasChanged();
     }
@@ -241,6 +268,17 @@ public class PadraoBase : ComponentBase
     protected void CancelarDrawerContador() => DrawerContadorAberto = false;
     protected async Task SalvarDrawerContador()
     {
+        if (itemSelecionado.IndicePlayPadrao == contadorSelecionado.Seq
+         && !contadorSelecionado.ContaTempo)
+        {
+            int? novoSeq = itemSelecionado.Contadores.Where(x => x.ContaTempo)
+                                          .Select(x => x.Seq).FirstOrDefault();
+            itemSelecionado.IndicePlayPadrao = (novoSeq ?? -1);
+        }
+        if (itemSelecionado.IncidePausePadrao == contadorSelecionado.Seq
+         && contadorSelecionado.ContaTempo)
+            itemSelecionado.IncidePausePadrao = null;
+
         if (!itemSelecionado.Contadores.Any(x => x.Id == contadorSelecionado.Id))
         {
             var padraoZerado = new PadraoDeCronometroModel(true);
@@ -315,7 +353,7 @@ public class PadraoBase : ComponentBase
 
         var novo = new ContadorModel();
         novo.Update(contadorSelecionado);
-        novo.Seq = itemSelecionado.Contadores.Count + 1;
+        novo.Seq = itemSelecionado.Contadores.Count;
         itemSelecionado.Contadores.Add(novo);
         DrawerNovoAberto = false;
         StateHasChanged();

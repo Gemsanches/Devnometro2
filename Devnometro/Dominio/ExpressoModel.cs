@@ -27,7 +27,7 @@ public class ExpressoModel
         this.Contador.Update(that.Contador);
     }
 
-    public Guid Id { get; set; } = new();
+    public Guid Id { get; set; } = Guid.NewGuid();
     public bool Padrao { get; set; } = false;
     public string Nome { get => string.IsNullOrEmpty(_nome) ? Contador.Nome : _nome;
                          set { _nome = string.IsNullOrEmpty(value) ? Contador.Nome : value; } }

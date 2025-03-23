@@ -27,7 +27,7 @@ public class ContadorModel
         this.ContaTempo = that.ContaTempo;
     }
 
-    public Guid Id { get; set; } = new();
+    public Guid Id { get; set; } = Guid.NewGuid();
     public bool Padrao { get; set; } = false;
     public int Seq { get; set; }
     public string Nome { get; set; } = string.Empty;

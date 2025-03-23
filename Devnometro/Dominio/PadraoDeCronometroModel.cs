@@ -27,13 +27,13 @@ public class PadraoDeCronometroModel
         this.TransferirContadores(that.Contadores);
     }
 
-    public Guid Id { get; set; } = new();
+    public Guid Id { get; set; } = Guid.NewGuid();
     public bool Padrao { get; set; } = false;
     public bool Ativo { get; set; } = true;
     public string Nome { get; set; } = string.Empty;
     public string Descricao { get; set; } = string.Empty;
     public List<ContadorModel> Contadores { get; set; } = [];
-    public int IndicePlayPadrao { get; set; }
+    public int IndicePlayPadrao { get; set; } = -1;
     public int? IncidePausePadrao { get; set; }
     [JsonIgnore] public bool ConfirmacaoPendente { get; set; } = false;
 
@@ -85,7 +85,7 @@ public class PadraoDeCronometroModel
         {   
             for (int i = 0; i < padrao.Contadores.Count; i++)
             {
-                padrao.Contadores[i].Seq = i + 1; 
+                padrao.Contadores[i].Seq = i; 
             }
         }
         return retorno;

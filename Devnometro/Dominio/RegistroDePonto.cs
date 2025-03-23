@@ -9,7 +9,7 @@ namespace Devnometro.Dominio;
 
 public class RegistroDePonto
 {
-    public Guid Id { get; set; } = new();
+    public Guid Id { get; set; } = Guid.NewGuid();
     public StatusBatida Status { get; set; }
     public TipoBatida Tipo { get; set; }
     public DateTime Horario { get; set; }

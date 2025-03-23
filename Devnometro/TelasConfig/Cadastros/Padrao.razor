@@ -148,13 +148,13 @@
                                                        Class="pa-0 my-n2"
                                                        Icon="@Icons.Material.TwoTone.KeyboardArrowUp"
                                                        OnClick="() => SubirContador(context.Item)"
-                                                       Disabled="@(context.Item.Seq == 1)"
+                                                       Disabled="@(context.Item.Seq == 0)"
                                                        Color="@Color.Dark" />
                                         <MudIconButton Size="@Size.Small"
                                                        Class="pa-0 my-n2"
                                                        Icon="@Icons.Material.TwoTone.KeyboardArrowDown"
                                                        OnClick="() => DescerContador(context.Item)"
-                                                       Disabled="@(context.Item.Seq == itemSelecionado.Contadores.Count)"
+                                                       Disabled="@(context.Item.Seq >= itemSelecionado.Contadores.Count - 1)"
                                                        Color="@Color.Dark" />
                                     </MudStack>
                                     @if (context.Item.EhEspacador())
@@ -226,29 +226,45 @@
         </MudBadge>
         <MudGrid>
             <MudItem xl="6" lg="6" md="6" sm="6">
-                <MudSelect @bind-Value="itemSelecionado.IndicePlayPadrao"
-                           Variant="Variant.Outlined"
-                           Label="Play Padrao"
-                           Placeholder="itemSelecionado.Contadores[itemSelecionado.IndicePlayPadrao].Nome"
-                           Margin="Margin.None"
-                           Dense="true"
-                           Class="pa-3 mx-0 mt-2"
-                           Clearable="false">
-                    @foreach (var contador in itemSelecionado.Contadores.Where(x => x.ContaTempo))
-                    {
-                        <MudSelectItem Value="contador.Seq">
-                            <MudTextField Value=@contador
-                                          AdornmentIcon=@Dominio.BibliotecaDeIcone.GetPorEnum(contador.Icone)
-                                          AdornmentColor=@contador.IconeCor
-                                          Adornment="Adornment.Start"
-                                          Margin="Margin.Dense"
-                                          Variant="Variant.Text"
-                                          ReadOnly="true"
-                                          Underline="false"
-                                          Class="pa-0 mx-1 my-0" />
-                        </MudSelectItem>
-                    }
-                </MudSelect>
+                @if (NaoHaOpcaoIndicePlayPadrao())
+                {
+                    <MudSelect Value="MensagemQuandoNaoHaOpcaoIndicePlayPadrao"
+                               Disabled="true"
+                               Variant="Variant.Outlined"
+                               Label="Play Padrao"
+                               Placeholder="Adicione uma atividade"
+                               Margin="Margin.None"
+                               Dense="true"
+                               Class="pa-3 mx-0 mt-2"
+                               Clearable="false">
+                    </MudSelect>
+                }
+                else
+                {
+                    <MudSelect @bind-Value="itemSelecionado.IndicePlayPadrao"
+                               Variant="Variant.Outlined"
+                               Label="Play Padrao"
+                               Placeholder="itemSelecionado.Contadores[itemSelecionado.IndicePlayPadrao].Nome"
+                               Margin="Margin.None"
+                               Dense="true"
+                               Class="pa-3 mx-0 mt-2"
+                               Clearable="false">
+                        @foreach (var contador in itemSelecionado.Contadores.Where(x => x.ContaTempo))
+                        {
+                            <MudSelectItem Value="contador.Seq">
+                                <MudTextField Value=@contador
+                                              AdornmentIcon=@Dominio.BibliotecaDeIcone.GetPorEnum(contador.Icone)
+                                              AdornmentColor=@contador.IconeCor
+                                              Adornment="Adornment.Start"
+                                              Margin="Margin.Dense"
+                                              Variant="Variant.Text"
+                                              ReadOnly="true"
+                                              Underline="false"
+                                              Class="pa-0 mx-1 my-0" />
+                            </MudSelectItem>
+                        }
+                    </MudSelect>
+                }
             </MudItem>
             <MudItem xl="6" lg="6" md="6" sm="6">
                 <MudSelect @bind-Value="itemSelecionado.IncidePausePadrao"
@@ -269,7 +285,7 @@
                                       Underline="false"
                                       Class="pa-0 mx-1 my-0" />
                     </MudSelectItem>
-                    @foreach (var contador in itemSelecionado.Contadores)
+                    @foreach (var contador in itemSelecionado.Contadores.Where(x => !x.ContaTempo && !x.EhEspacador()))
                     {
                         <MudSelectItem Value="@((int?)contador.Seq)">
                             <MudTextField Value=@contador
@@ -301,6 +317,7 @@
         <MudSpacer />
         <MudButton Variant="Variant.Filled"
                    OnClick="SalvarDrawerPadrao"
+                   Disabled="@NaoPodeSalvarPadrao()"
                    StartIcon="@Icons.Material.Filled.Save"
                    Color="Color.Success"
                    Size="Size.Small">Salvar</MudButton>
@@ -389,7 +406,7 @@
 <MudDrawer @bind-Open="@DrawerNovoAberto"
            Anchor="Anchor.Bottom"
            Height="200px"
-           Elevation="3"
+           Elevation="5"
            Class="pa-3"
            Variant="@DrawerVariant.Temporary"
            OverlayAutoClose="false">
@@ -419,7 +436,7 @@
                               Variant="Variant.Text"
                               ReadOnly="true"
                               Underline="false"
-                              Class="pa-0 mx-5 my-0" />
+                              Class="pa-0 mx-3 my-0 pointer-events-none " />
             </MudSelectItem>
         }
     </MudSelect>
@@ -428,6 +445,7 @@
         <MudSpacer />
         <MudButton Variant="Variant.Filled"
                    OnClick="ConfirmarDrawerNovo"
+                   Disabled="@contadorSelecionado.EhMocado()"
                    StartIcon="@Icons.Material.Filled.Check"
                    Color="Color.Success"
                    Size="Size.Small">Confirmar</MudButton>
