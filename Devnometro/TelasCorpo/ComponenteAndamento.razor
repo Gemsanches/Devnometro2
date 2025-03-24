@@ -1,24 +1,15 @@
 ﻿@inherits ComponenteAndamentoBase
 
 <MudContainer Class="py-0 px-2 mt-n1"
-              Style="max-height:293px; min-height:293px; overflow-y:scroll; overflow-x:hidden;">
-    <MudPaper Width="274px" MinHeight="293px"
+              Style="max-height:300px; min-height:300px; overflow-y:scroll; overflow-x:hidden;">
+    <MudPaper Width="274px" MinHeight="300px"
               Class="pt-2 px-0 mb-0 mt-0 mx-n2 mud-theme-tertiary rounded-0">
         <MudStack Row>
-            <MudPaper Width="210px" Height="42px" Elevation="3"
-                      Class="pa-0 mt-n1 ml-2 mud-theme-primary">
-                <MudText Class="pa-0 ml-4">CH:102520 | OC:10045</MudText>
+            <MudPaper Width="259px" Height="42px" Elevation="3"
+                      Class="pa-0 mt-n1 ml-2 mud-theme-primary cursor-pointer"
+                      onclick="@(() => {MostrarDrawer = !MostrarDrawer;})">
+                <MudText Class="pa-0 d-flex align-center justify-center">CH:102520 | OC:10045</MudText>
                 <MudText Class="pa-0 mt-n1 ml-1">Título do caso ou descrição</MudText>
-            </MudPaper>
-            <MudPaper Width="32px" Height="42px" Elevation="3"
-                      Class="pa-0 mt-n1 ml-2 mud-theme-primary d-flex justify-center">
-                <MudToggleIconButton @bind-Toggled="MostrarDrawer"
-                                     Class="pa-0 ma-0"
-                                     Size="Size.Large"
-                                     Icon="@Icons.Material.Filled.ArrowDownward"
-                                     Color="@Color.Info"
-                                     ToggledIcon="@Icons.Material.Filled.ArrowUpward"
-                                     ToggledColor="@Color.Info" />
             </MudPaper>
         </MudStack>
     </MudPaper>
@@ -26,7 +17,7 @@
 
 <MudDrawer @bind-Open="@MostrarDrawer"
            Anchor="Anchor.Top"
-           Height="266px"
+           Height="261px"
            Elevation="3"
            Class="pa-2 mud-theme-primary"
            Variant="@DrawerVariant.Temporary"

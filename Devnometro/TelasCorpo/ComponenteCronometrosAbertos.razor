@@ -6,7 +6,8 @@
           Content=@string.Concat("Trabalhos ","em andamento")
           Overlap="true"
           Origin="Origin.TopCenter"
-          Class="pa-0 mt-2">
+          Class="pa-0"
+          Style="margin-top:5px;">
     <MudContainer Style="max-height:59px; min-height:59px; overflow-y:hidden; overflow-x:hidden;">
         <MudPaper Width="267px" Height="50px" Class="pt-2 mb-0 mt-2 mx-n2 mud-theme-secondary">
             <MudStack Row>
@@ -47,7 +48,7 @@
 
 <MudDrawer @bind-Open="@MostrarDrawer"
            Anchor="Anchor.Top"
-           Height="196px"
+           Height="190px"
            Elevation="3"
            Class="pa-2 mud-theme-primary"
            Variant="@DrawerVariant.Temporary"
@@ -57,7 +58,7 @@
 
 <MudDrawer @bind-Open="@MostrarDrawer"
            Anchor="Anchor.Bottom"
-           Height="294px"
+           Height="300px"
            Elevation="3"
            Class="pa-2 mud-theme-primary"
            Variant="@DrawerVariant.Temporary"

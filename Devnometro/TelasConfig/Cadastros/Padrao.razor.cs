@@ -231,7 +231,8 @@ public class PadraoBase : ComponentBase
         contadorSelecionado = new();
         contadorSelecionado.Update(contador);
 
-        var original = itemSelecionado.Contadores.FirstOrDefault(x => x.Id == contadorSelecionado.Id);
+        var original = itemSelecionado.Contadores.FirstOrDefault(x => x.Id == contadorSelecionado.Id
+                                                                   && x.Seq == contadorSelecionado.Seq);
         if (original == null)
             contadorSelecionadoPadrao = null;
         else
@@ -288,7 +289,8 @@ public class PadraoBase : ComponentBase
         }
         else
         {
-            var alterado = itemSelecionado.Contadores.First(x => x.Id == contadorSelecionado.Id);
+            var alterado = itemSelecionado.Contadores.First(x => x.Id == contadorSelecionado.Id
+                                                              && x.Seq == contadorSelecionado.Seq);
             var index = itemSelecionado.Contadores.IndexOf(alterado);
             itemSelecionado.Contadores[index] = contadorSelecionado;
             contadorSelecionado = new();
