@@ -1,18 +1,18 @@
 ﻿@inherits ComponenteTarefasRapidasBase
 
 <MudBadge Color="Color.Secondary"
-          BadgeClass="rounded-3 rounded-b-0 gray lighten-4 py-n1 pointer-events-none"
+          BadgeClass="rounded-3 rounded-t-0 gray lighten-4 py-n1 pointer-events-none"
           Bordered="false"
           Content=@string.Concat("Tarefas ","expressas")
           Overlap="true"
-          Origin="Origin.TopCenter"
-          Class="pa-0 mt-2">
+          Origin="Origin.BottomCenter"
+          Class="pa-0 mt-n1 mb-3">
     <MudContainer Style="max-height:60px; min-height:60px; overflow-y:hidden; overflow-x:hidden;">
-        <MudPaper Width="267px" Height="50px" Class="pt-2 mb-0 mt-2 mx-n2 mud-theme-secondary">
+        <MudPaper Width="267px" Height="50px" Class="pb-2 mt-0 mb-2 mx-n2 mud-theme-secondary">
             <MudStack Row>
 
                 <MudButtonGroup Color="Color.Primary" Variant="Variant.Filled"
-                                Class="pa-0 ml-1 mt-n1"
+                                Class="pa-0 ml-1 mt-1"
                                 Style="max-height:42px; min-height:42px;">
                     <MudIconButton Icon="@Icons.Material.Filled.Filter1"
                                    Class="d-flex justify-center"
@@ -31,7 +31,7 @@
                                    Style="max-width:42px; min-width:42px;" />
                 </MudButtonGroup>
                 <MudPaper Width="32px" Height="42px" Elevation="3"
-                          Class="pa-0 mt-n1 ml-2 mud-theme-primary d-flex justify-center">
+                          Class="pa-0 mt-1 ml-2 mud-theme-primary d-flex justify-center">
                     <MudToggleIconButton @bind-Toggled="MostrarDrawer"
                                          Class="pa-0 ma-0"
                                          Size="Size.Large"
@@ -47,7 +47,7 @@
 
 <MudDrawer @bind-Open="@MostrarDrawer"
            Anchor="Anchor.Top"
-           Height="126px"
+           Height="124px"
            Elevation="3"
            Class="pa-2 mud-theme-primary"
            Variant="@DrawerVariant.Temporary"
@@ -58,7 +58,7 @@
 
 <MudDrawer @bind-Open="@MostrarDrawer"
            Anchor="Anchor.Bottom"
-           Height="362px"
+           Height="364px"
            Elevation="3"
            Class="pa-2 mud-theme-primary"
            Variant="@DrawerVariant.Temporary"

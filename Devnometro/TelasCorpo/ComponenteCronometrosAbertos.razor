@@ -3,11 +3,11 @@
 <MudBadge Color="Color.Secondary"
           BadgeClass="rounded-3 rounded-b-0 gray lighten-4 py-n1 pointer-events-none"
           Bordered="false"
-          Content=@string.Concat("Cronômetros ","abertos")
+          Content=@string.Concat("Trabalhos ","em andamento")
           Overlap="true"
           Origin="Origin.TopCenter"
           Class="pa-0 mt-2">
-    <MudContainer Style="max-height:60px; min-height:60px; overflow-y:hidden; overflow-x:hidden;">
+    <MudContainer Style="max-height:59px; min-height:59px; overflow-y:hidden; overflow-x:hidden;">
         <MudPaper Width="267px" Height="50px" Class="pt-2 mb-0 mt-2 mx-n2 mud-theme-secondary">
             <MudStack Row>
                 <MudPaper Width="202px" Height="42px" Elevation="3"
@@ -47,7 +47,7 @@
 
 <MudDrawer @bind-Open="@MostrarDrawer"
            Anchor="Anchor.Top"
-           Height="200px"
+           Height="196px"
            Elevation="3"
            Class="pa-2 mud-theme-primary"
            Variant="@DrawerVariant.Temporary"
@@ -57,7 +57,7 @@
 
 <MudDrawer @bind-Open="@MostrarDrawer"
            Anchor="Anchor.Bottom"
-           Height="287px"
+           Height="294px"
            Elevation="3"
            Class="pa-2 mud-theme-primary"
            Variant="@DrawerVariant.Temporary"
