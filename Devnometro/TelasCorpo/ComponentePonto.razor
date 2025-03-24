@@ -6,7 +6,7 @@
           Content=@string.Concat("Registro de ","ponto")
           Overlap="true"
           Origin="Origin.TopCenter"
-          Class="pa-0 mt-3">
+          Class="pa-0 mt-4">
     <MudContainer Style="max-height:60px; min-height:60px; overflow-y:hidden; overflow-x:hidden;">
         <MudPaper Width="267px" Height="50px" Class="pt-2 mb-0 mt-2 mx-n2 mud-theme-secondary">
             <MudStack Row>
@@ -37,9 +37,9 @@
                     <MudToggleIconButton @bind-Toggled="MostrarDrawer"
                                          Class="pa-0 ma-0"
                                          Size="Size.Large"
-                                         Icon="@Icons.Material.Filled.ArrowUpward"
+                                         Icon="@Icons.Material.Filled.Compress"
                                          Color="@Color.Info"
-                                         ToggledIcon="@Icons.Material.Filled.ArrowDownward"
+                                         ToggledIcon="@Icons.Material.Filled.Expand"
                                          ToggledColor="@Color.Info" />
                 </MudPaper>
             </MudStack>
@@ -48,17 +48,24 @@
 </MudBadge>
 
 <MudDrawer @bind-Open="@MostrarDrawer"
-           Anchor="Anchor.Bottom"
-           Height="440px"
+           Anchor="Anchor.Top"
+           Height="52px"
            Elevation="3"
            Class="pa-2 mud-theme-primary"
            Variant="@DrawerVariant.Temporary"
            Overlay="false">
     <p>Exportações expressas</p>
+</MudDrawer>
+
+<MudDrawer @bind-Open="@MostrarDrawer"
+           Anchor="Anchor.Bottom"
+           Height="434px"
+           Elevation="3"
+           Class="pa-2 mud-theme-primary"
+           Variant="@DrawerVariant.Temporary"
+           Overlay="false">
     <p>Pontos do dia</p>
     <p>Disclaimer ("Informações legais" => expansion panel)</p>
     <p>Visualização das principais configurações e explicação com caminho para configurações</p>
     <p>Explicação com caminho para exportações complexas</p>
-    
-    
 </MudDrawer>

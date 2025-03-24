@@ -1,0 +1,41 @@
+﻿@inherits ComponenteAndamentoBase
+
+<MudBadge Color="Color.Tertiary"
+          BadgeClass="rounded-3 rounded-b-0 gray lighten-4 py-n1 pointer-events-none"
+          Bordered="false"
+          Content=@string.Concat("Em ","andamento")
+          Overlap="true"
+          Origin="Origin.TopCenter"
+          Class="pa-0 mt-2">
+    <MudContainer Class="py-0 px-2 ma-0"
+                  Style="max-height:269px; min-height:269px; overflow-y:scroll; overflow-x:hidden;">
+        <MudPaper Width="274px" MinHeight="260px"
+                  Class="pt-2 px-0 mb-0 mt-2 mx-n2 mud-theme-tertiary rounded-0">
+            <MudStack Row>
+                <MudPaper Width="210px" Height="42px" Elevation="3"
+                          Class="pa-0 mt-n1 ml-2 mud-theme-primary">
+                </MudPaper>
+                <MudPaper Width="32px" Height="42px" Elevation="3"
+                          Class="pa-0 mt-n1 ml-2 mud-theme-primary d-flex justify-center">
+                    <MudToggleIconButton @bind-Toggled="MostrarDrawer"
+                                         Class="pa-0 ma-0"
+                                         Size="Size.Large"
+                                         Icon="@Icons.Material.Filled.ArrowDownward"
+                                         Color="@Color.Info"
+                                         ToggledIcon="@Icons.Material.Filled.ArrowUpward"
+                                         ToggledColor="@Color.Info" />
+                </MudPaper>
+            </MudStack>
+        </MudPaper>
+    </MudContainer>
+</MudBadge>
+
+<MudDrawer @bind-Open="@MostrarDrawer"
+           Anchor="Anchor.Top"
+           Height="275px"
+           Elevation="3"
+           Class="pa-2 mud-theme-primary"
+           Variant="@DrawerVariant.Temporary"
+           Overlay="false">
+    <p>...</p>
+</MudDrawer>

@@ -3,23 +3,22 @@
 @using Devnometro.Dominio
 @using Devnometro.Aplicacao
 
-<MudThemeProvider
-DefaultScrollbar="false"
-@bind-IsDarkMode="@preferencias.TemaNoturno"
-Theme="preferencias.Tema" />
+<MudThemeProvider DefaultScrollbar="false"
+                  @bind-IsDarkMode="@preferencias.TemaNoturno"
+                  Theme="preferencias.Tema" />
 <MudPopoverProvider />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
 <MudLayout>
-    <MudAppBar  Dense="true" Color="Color.Tertiary" Elevation="2" Class="ma-0">
+    <MudAppBar Dense="true" Color="Color.Tertiary" Elevation="2" Class="ma-0">
         <MudButtonGroup Variant="Variant.Filled" Color="Color.Dark">
             <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom" Class="ml-20">
                 <ChildContent>
                     <MudIconButton Icon="@Icons.Material.Filled.Save" Size="Size.Small"
-                    @onmouseover='() => AplicarMensagem("Salvar")'
-                    @onmouseleave="ResetarMensagem"
-                    OnClick="Salvar" />
+                                   @onmouseover='() => AplicarMensagem("Salvar")'
+                                   @onmouseleave="ResetarMensagem"
+                                   OnClick="Salvar" />
                 </ChildContent>
                 <TooltipContent>
                     <MudText Typo="Typo.h5"><MudIcon Icon="@Icons.Material.Outlined.Save" /> Salvar <MudIcon Icon="@Icons.Material.Outlined.Save" /></MudText>
@@ -32,8 +31,8 @@ Theme="preferencias.Tema" />
             <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom" Class="ml-11">
                 <ChildContent>
                     <MudIconButton Icon="@Icons.Material.Filled.HourglassDisabled" Size="Size.Small"
-                    @onmouseover='() => AplicarMensagem("Parar Tudo")'
-                    @onmouseleave="ResetarMensagem" />
+                                   @onmouseover='() => AplicarMensagem("Parar Tudo")'
+                                   @onmouseleave="ResetarMensagem" />
                 </ChildContent>
                 <TooltipContent>
                     <MudText Typo="Typo.h5"><MudIcon Icon="@Icons.Material.Outlined.HourglassDisabled" /> Parar Tudo <MudIcon Icon="@Icons.Material.Outlined.HourglassDisabled" /></MudText>
@@ -49,10 +48,10 @@ Theme="preferencias.Tema" />
             <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom" Class="ml-n20">
                 <ChildContent>
                     <MudIconButton Icon="@Icons.Material.Filled.Menu"
-                    @onmouseover='() => AplicarMensagem("Menu")'
-                    @onmouseleave="ResetarMensagem"
-                    OnClick="AbrirMenu"
-                    Disabled="@janelaMenu.IsLoaded" />
+                                   @onmouseover='() => AplicarMensagem("Menu")'
+                                   @onmouseleave="ResetarMensagem"
+                                   OnClick="AbrirMenu"
+                                   Disabled="@janelaMenu.IsLoaded" />
                 </ChildContent>
                 <TooltipContent>
                     <MudText Typo="Typo.h5"><MudIcon Icon="@Icons.Material.Outlined.Menu" /> Menu <MudIcon Icon="@Icons.Material.Outlined.Menu" /></MudText>
@@ -66,9 +65,12 @@ Theme="preferencias.Tema" />
         </MudButtonGroup>
     </MudAppBar>
     <MudMainContent>
-        <Devnometro.TelasCorpo.ComponentePonto />
-        Texto de teste
-        @Body
+        <MudPaper Square=true Class="pa-0 ma-0 mud-theme-surface">
+            <Devnometro.TelasCorpo.ComponentePonto />
+            <Devnometro.TelasCorpo.ComponenteTarefasRapidas />
+            <Devnometro.TelasCorpo.ComponenteCronometrosAbertos />
+            <Devnometro.TelasCorpo.ComponenteAndamento />
+        </MudPaper>
     </MudMainContent>
 </MudLayout>
 
@@ -121,7 +123,7 @@ Theme="preferencias.Tema" />
         janelaMenu.AplicaAlteracoes += ReplicaAlteracoes;
         janelaMenu.Show();
     }
-    private void ReplicaAlteracoes(object? sender, EventArgs e) 
+    private void ReplicaAlteracoes(object? sender, EventArgs e)
     {
         preferencias.TemaNoturno = !preferencias.TemaNoturno;
         StateHasChanged();
