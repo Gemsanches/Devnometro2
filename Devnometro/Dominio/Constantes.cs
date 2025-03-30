@@ -451,3 +451,75 @@ public static class PadroesCronometroPreCadastrados
         };
     }
 }
+
+public static class DadosAGD_V1
+{
+    //Cabeçalho
+    public const string R1_1_NSR = "000000000";
+    public const string R1_2_TipoRegistro = "1";
+    public const string R1_3_IdentificadorEmpregador = "1"; //1:CNPJ / 2:CPF
+    public const string R1_4_CnpjCpfEmpregador = "12345678000199";
+    public const string R1_5_CeiEmpregador = "000000000000";
+    public const string R1_6_RazaoSocial = "ARQUIVO SIMULADO - SEM VALIDADE LEGAL                                                                                                                 ";
+    public const string R1_7_Serie = "00000000000000001";
+    public const string R1_8_DataInicio = "ddMMyyyy";
+    public const string R1_9_DataFim = "ddMMyyyy";
+    public const string R1_10_DataHoraGeracao = "ddMMyyyyHHmm";
+
+    //Empresa
+    public const string R2_1_NSR = "000000001";
+    public const string R2_2_TipoRegistro = "2";
+    public const string R2_3_DataHoraGravacao = "ddMMyyyyHHmm";
+    public const string R2_4_IdentificadorEmpregador = R1_3_IdentificadorEmpregador;
+    public const string R2_5_CnpjCpfEmpregador = R1_4_CnpjCpfEmpregador;
+    public const string R2_6_CeiEmpregador = R1_5_CeiEmpregador;
+    public const string R2_7_RazaoSocial = R1_6_RazaoSocial;
+    public const string R2_8_Local = "                                                                                                    ";
+
+    //Registro marcação de ponto
+    public const string R3_1_NsrPrimeiroRegistro = "000000002";
+    public const string R3_2_TipoRegistro = "3";
+    public const string R3_3_DataHora = "ddMMyyyyHHmm";
+    public const string R3_4_Pis = "000000000000";
+
+    //Registro alteração de ponto
+    public const string R4_1_NSR = "00000000X";
+    public const string R4_2_TipoRegistro = "4";
+    public const string R4_3_DataHoraAntes = "ddMMyyyyHHmm";
+    public const string R4_4_DataHoraDepois = "ddMMyyyyHHmm";
+
+    //Registro de inclusão ou alteração ou exclusão de empregado da MT do REP
+    public const string R5_1_NSR = "00000000X";
+    public const string R5_2_TipoRegistro = "5";
+    public const string R5_3_DataHora = "ddMMyyyyHHmm";
+    public const string R5_4_TipoOperacao = "I"; //I:inclusão / A:alteração / E:exclusão
+    public const string R5_5_Pis = R3_4_Pis;
+    public const string R5_6_Empregado = "Lindo usuario do Devnometro                         ";
+
+    //Trailer
+    public const string R6_1_NSR = "999999999";
+    public const string R6_2_QtdeR2 = "000000001";
+    public const string R6_3_QtdeR3 = "00000000X";
+    public const string R6_4_QtdeR4 = "00000000X";
+    public const string R6_5_QtdeR5 = "00000000X";
+    public const string R6_6_TipoRegistro = "9";
+}
+public static class DadosAGD_V3
+{
+    //Cabeçalho
+    public const string Cab1Padrao = "000000000";
+    public const string Cab2TipoRegistro = "1";
+    public const string Cab3IdentificadorEmpregador = "1"; //1:CNPJ / 2:CPF
+    public const string Cab4CnpjCpfEmpregador = "12345678000199";
+    public const string Cab5CnoEmpregador = "00000000000000";
+    public const string Cab6RazaoSocial = "ARQUIVO SIMULADO - SEM VALIDADE LEGAL                                                                                                                 ";
+    public const string Cab7Rep = "99999999999999999";
+    public const string Cab11Versao = "003";
+    public const string Cab12Fab = "2";
+    public const string Cab13CnpjCpf = "00012345678901";
+
+
+    public const int NsrInicial = 1;
+    public const int TipoRegistro = 3;
+    public const string PisPadrao = "000000000000";
+}

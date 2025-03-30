@@ -1,19 +1,22 @@
 ﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Components;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using MudBlazor;
 using Devnometro.Dominio;
+using Devnometro.Aplicacao;
+using System.Threading.Tasks;
 
 namespace Devnometro.TelasConfig.Configuracoes;
 
 public class CPontoBase : ComponentBase
 {
-    [Parameter] public required Devnometro.Dominio.Preferencias Preferencias { get; set; }
+    [Parameter] public required Preferencias Preferencias { get; set; }
+
+    protected bool termoDeAceiteSelecionado = false;
+
+    protected override void OnInitialized()
+    {
+        if (Preferencias.Ponto.AFD_Habilitado)
+            termoDeAceiteSelecionado = true;
+    }
 
     #region Botão Restaurar padrões
     protected void RestauraPadroes()
@@ -40,4 +43,11 @@ public class CPontoBase : ComponentBase
             Preferencias.Ponto.Caminho = dialog.FolderName;
     }
     protected void AjustadoPeloSlider(int valor) => Preferencias.Ponto.TempoBatidaRepetida = valor;
+
+    protected async Task ConfirmarCiencia()
+    {
+        Preferencias.Ponto.AFD_ConfirmacaoDeCiencia = true;
+        Preferencias.Ponto.AFD_DataHoraUltimaConfirmacaoDeCiencia = DateTime.Now;
+        await (new ManipuladorDeArquivo()).SalvarLogAceite(Preferencias);
+    }
 }

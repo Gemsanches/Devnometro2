@@ -11,12 +11,16 @@
 /// </list>
 /// </para>
 /// </summary>
+[Flags]
 public enum TipoBatida
 {
-    SemRegistro,
-    Entrada,
-    Saida,
-    Duplicada
+    SemRegistro = 0,
+    Entrada = 1 << 0,    // 1
+    Saida = 1 << 1,      // 2
+    Duplicada = 1 << 2,  // 4
+
+    Valida = Entrada | Saida,  // 3
+    Registrada = Entrada | Saida | Duplicada  // 7
 }
 
 /// <summary>

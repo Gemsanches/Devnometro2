@@ -4,17 +4,23 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
+using static MudBlazor.CategoryTypes;
 
 namespace Devnometro.Aplicacao;
 
 public class ManipuladorDeArquivo
 {
     private JsonSerializerOptions JSO { get; set; } = new JsonSerializerOptions { WriteIndented = true };
+
+    public ManipuladorDeArquivo() {}
+    public ManipuladorDeArquivo(bool writeIndented) =>
+        JSO = new JsonSerializerOptions { WriteIndented = writeIndented };
 
     #region Constantes
     private static readonly string tipoArquivoTemaPersonalizado = "tema";
@@ -31,7 +37,10 @@ public class ManipuladorDeArquivo
     private static readonly string descricaoPonto = "Registro de Ponto";
 
     private static readonly string pastaPrograma = AppDomain.CurrentDomain.BaseDirectory;
+    private static readonly string pastaBackUp = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Devnometro", "BackupLogs");
     private static readonly string arquivoPreferencias = "Preferencias.json";
+    private static readonly string arquivoMarcadorDeAceite = "Microsoft.Extensions.Logging.Authorazition.dll";
+    private static readonly string arquivoMarcadorDeAceiteOculto = "6ec3a36f206d657865";
     private static readonly string arquivoTemaPersonalizado = $"Tema.{tipoArquivoTemaPersonalizado}";
     private static readonly string arquivoPonto = "HistoricoPonto.json";
     //private static readonly string arquivoCronometros = "HistoricoTempo.json";
@@ -169,6 +178,29 @@ public class ManipuladorDeArquivo
         Preferencias preferencias = Carregar<Preferencias>(arquivoPreferencias, Preferencias.PreferenciasPadroes());
         preferencias.TemaPersonalizado = CarregarTemaPersonalizado();
         preferencias.TemaPersonalizado.AplicarCoresAoTema();
+        if (VerificarArquivo(arquivoMarcadorDeAceite))
+        {
+            preferencias.Ponto.AFD_HabilitarSimulacao = true;
+            preferencias.Ponto.AFD_ConfirmacaoDeCiencia = true;
+            try
+            {
+                string json = File.ReadAllText(Path.Combine(pastaPrograma, arquivoMarcadorDeAceite));
+                DateTime? data = JsonSerializer.Deserialize<DateTime>(json);
+                preferencias.Ponto.AFD_DataHoraUltimaConfirmacaoDeCiencia = data;
+            } catch { }
+        }
+        else if (File.Exists(Path.Combine(pastaBackUp, arquivoMarcadorDeAceiteOculto)))
+        {
+            preferencias.Ponto.AFD_HabilitarSimulacao = true;
+            preferencias.Ponto.AFD_ConfirmacaoDeCiencia = true;
+            try
+            {
+                string json = File.ReadAllText(Path.Combine(pastaBackUp, arquivoMarcadorDeAceiteOculto));
+                DateTime? data = JsonSerializer.Deserialize<DateTime>(json);
+                preferencias.Ponto.AFD_DataHoraUltimaConfirmacaoDeCiencia = data;
+            }
+            catch { }
+        }
         return preferencias;
     }
     public async Task<bool> SalvarPreferenciasAsync(Preferencias preferencias) => await SalvarAsync<Preferencias>(preferencias, arquivoPreferencias, "Preferencias");
@@ -194,10 +226,63 @@ public class ManipuladorDeArquivo
         else
             return false;
     }
-     public static RegistroDePonto CarregarPontos() => Carregar<RegistroDePonto>(arquivoPonto, new RegistroDePonto());
+    public static List<RegistroDePonto> CarregarPontos() => Carregar<List<RegistroDePonto>>(arquivoPonto, []);
     public async Task SalvarPontos(List<RegistroDePonto> lista) => await SalvarAsync<List<RegistroDePonto>>(lista, arquivoPonto, descricaoPonto);
     //public async Task ExportarPontosEmPlanilhaAsync(List<RegistroDePonto> lista) { }
     //public async Task ExportarPontosEmAfdtAsync(List<RegistroDePonto> lista) { }
+    public async Task SalvarLogAceite(Preferencias preferencias)
+    {
+        try
+        {
+            string caminhoArquivo = Path.Combine(pastaPrograma, $"LogAceiteDeTermo {DateTime.Now:yyyy_MM_dd-HH_mm}.txt");
+            string caminhoArquivoOculto = Path.Combine(pastaPrograma, $"_LogAceiteDeTermo_{DateTime.Now:yyyy_MM_dd-HH_mm}.txt");
+            StringBuilder conteudo = new();
+            conteudo.AppendLine("[REGISTRO DE ACEITE]");
+            conteudo.AppendLine($"Em { DateTime.Now} o usuário confirmou o termo de ciência sobre a simulação de AFD, declarando estar ciente de que:");
+            conteudo.AppendLine("-O arquivo gerado não possui validade legal");
+            conteudo.AppendLine("-Não substitui um sistema de registro oficial");
+            conteudo.AppendLine("-O uso é restrito a fins de teste / análise");
+            string texto = conteudo.ToString();
+            try
+            {
+                conteudo.AppendLine("");
+                conteudo.AppendLine($"Usuário Windows: {Environment.UserName}");
+                conteudo.AppendLine($"(Domínio: {Environment.UserDomainName})");
+                conteudo.AppendLine($"Máquina: {Environment.MachineName}");
+                texto = conteudo.ToString();
+            }
+            catch {}
+
+            File.WriteAllText(caminhoArquivo, texto);
+            File.SetAttributes(caminhoArquivo, FileAttributes.ReadOnly);
+
+            File.WriteAllText(caminhoArquivoOculto, texto);
+            File.SetAttributes(caminhoArquivoOculto, FileAttributes.ReadOnly | FileAttributes.Hidden);
+
+            string marcadorDeAceite = Path.Combine(pastaPrograma, arquivoMarcadorDeAceite);
+            string conteudoMarcador = JsonSerializer.Serialize(DateTime.Now, JSO);
+            
+            File.WriteAllText(marcadorDeAceite, conteudoMarcador);
+            File.SetAttributes(marcadorDeAceite, FileAttributes.ReadOnly | FileAttributes.Hidden);
+
+            Directory.CreateDirectory(pastaBackUp);
+
+            string caminhoBackup = Path.Combine(pastaBackUp, $"{DateTime.Now:yyyyMMddHHmmss} LogAceiteDeTermo.txt");
+            File.WriteAllText(caminhoBackup, conteudo.ToString());
+            File.SetAttributes(caminhoBackup, FileAttributes.ReadOnly);
+
+            string caminhoBackupOculto = Path.Combine(pastaBackUp, $"_{DateTime.Now:yyyyMMddHHmmss} LogAceiteDeTermo.txt");
+            File.WriteAllText(caminhoBackupOculto, conteudo.ToString());
+            File.SetAttributes(caminhoBackupOculto, FileAttributes.ReadOnly | FileAttributes.Hidden);
+
+            string marcadorBackup = Path.Combine(pastaBackUp, arquivoMarcadorDeAceiteOculto);
+            File.WriteAllText(marcadorBackup, conteudoMarcador);
+            File.SetAttributes(marcadorBackup, FileAttributes.ReadOnly | FileAttributes.Hidden);
+
+            await SalvarPreferenciasAsync(preferencias);
+        }
+        catch { }
+    }
 
     #endregion
 

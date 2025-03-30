@@ -5,7 +5,7 @@ namespace Devnometro.TelasCorpo;
 
 public class ComponenteCronometrosAbertosBase : ComponentBase
 {
-    [Inject] public required Preferencias Preferencias { get; set; }
+    [Parameter] public required Preferencias Preferencias { get; set; }
 
     protected bool MostrarDrawer { get; set; }
 

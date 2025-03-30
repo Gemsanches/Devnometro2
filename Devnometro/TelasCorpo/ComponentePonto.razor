@@ -14,21 +14,35 @@
                           Class="pa-0 mt-n1 mb-0 ml-1 mr-n2 mud-theme-primary d-flex align-center justify-center">
                     <MudStack>
                         <MudButton Variant="Variant.Filled"
+                                   Disabled="BloquearRegistro"
                                    OnClick="Registrar"
                                    Size="Size.Small"
                                    Color="Color.Info"
                                    Class="py-0 px-2 mt-1">Registrar</MudButton>
-                        <MudText Typo="Typo.subtitle2"
-                                 Color="Color.Secondary"
-                                 Class="pa-0 mt-n3 d-flex justify-center pointer-events-none"
-                                 Style="font-size:12px;">
-                            @ProximoRegistro
-                        </MudText>
+                        @if (BloquearRegistro)
+                        {
+                            <MudText Typo="Typo.subtitle2"
+                                     Color="Color.Secondary"
+                                     Class="pa-0 mt-n3 d-flex justify-center pointer-events-none"
+                                     Style="font-size:12px;">
+                                [ @tempoRemanescente s ]
+                            </MudText>
+                        }
+                        else
+                        {
+                            <MudText Typo="Typo.subtitle2"
+                                     Color="Color.Secondary"
+                                     Class="pa-0 mt-n3 d-flex justify-center pointer-events-none"
+                                     Style="font-size:12px;">
+                                @ProximoRegistro
+                            </MudText>
+                        }
+
                     </MudStack>
                 </MudPaper>
                 <MudPaper Width="104px" Height="42px" Elevation="3"
                           Class="pa-0 ma-0 mt-n1 mud-theme-primary d-flex align-center justify-center pointer-events-none">
-                    <MudText Typo="Typo.h6" Color="Color.Warning">
+                    <MudText Typo="Typo.h6" Color="Color.Warning" Class="pt-1" Style="font-size:22px">
                         @horaAtual
                     </MudText>
                 </MudPaper>
@@ -54,7 +68,31 @@
            Class="pa-2 mud-theme-primary"
            Variant="@DrawerVariant.Temporary"
            Overlay="false">
-    <p>Exportações expressas</p>
+    <MudStack>
+        <MudText Class="d-flex align-center justify-center pointer-events-none py-n2 mb-n3 mt-n1"
+                 Style="font-size:12px"
+                 Typo="Typo.body2">Exportações expressas</MudText>
+        <MudButtonGroup Color="Color.Secondary" Variant="Variant.Outlined" Size="Size.Small" Class="pl-2">
+            <MudTooltip Text="Ontem" Arrow="true" Placement="Placement.Bottom">
+                <MudIconButton Icon="@Icons.Material.TwoTone.Today" Class="py-0 my-0" />
+            </MudTooltip>
+            <MudTooltip Text="Hoje" Arrow="true" Placement="Placement.Bottom">
+                <MudIconButton Icon="@Icons.Material.TwoTone.Event" Class="py-0 my-0" />
+            </MudTooltip>
+            <MudTooltip Text="Mês Passado" Arrow="true" Placement="Placement.Bottom">
+                <MudIconButton Icon="@Icons.Material.TwoTone.CalendarMonth" Class="py-0 my-0" />
+            </MudTooltip>
+            <MudTooltip Text="Mês em andamento" Arrow="true" Placement="Placement.Bottom">
+                <MudIconButton Icon="@Icons.Material.TwoTone.EditCalendar" Class="py-0 my-0" />
+            </MudTooltip>
+            <MudTooltip Text="Esse ano" Arrow="true" Placement="Placement.Bottom">
+                <MudIconButton Icon="@Icons.Material.TwoTone.EventNote" Class="py-0 my-0" />
+            </MudTooltip>
+            <MudTooltip Text="Todo histórico" Arrow="true" Placement="Placement.Bottom">
+                <MudIconButton Icon="@Icons.Material.TwoTone.CalendarToday" Class="py-0 my-0" />
+            </MudTooltip>
+        </MudButtonGroup>
+    </MudStack>
 </MudDrawer>
 
 <MudDrawer @bind-Open="@MostrarDrawer"
@@ -62,10 +100,166 @@
            Height="440px"
            Elevation="3"
            Class="pa-2 mud-theme-primary"
+           Style="overflow-y:scroll; overflow-x:hidden;"
            Variant="@DrawerVariant.Temporary"
            Overlay="false">
-    <p>Pontos do dia</p>
-    <p>Disclaimer ("Informações legais" => expansion panel)</p>
-    <p>Visualização das principais configurações e explicação com caminho para configurações</p>
-    <p>Explicação com caminho para exportações complexas</p>
+    <MudPaper Elevation="3" Class="pa-1 ma-1 mud-theme-secondary">
+        <MudText Typo="Typo.body2" Class=" d-flex align-center justify-center  pointer-events-none">Pontos do dia</MudText>
+        <MudGrid Spacing="1">
+            @foreach (var ponto in @PontosDeHoje)
+            {
+                <MudItem xl="6" lg="6" md="6" sm="6" Class="ma-0">
+                    <MudPaper Width="118px"
+                              onclick="@(() => {EditarRegistro(ponto);})"
+                              Elevation="1"
+                              Class="pt-0 px-1 mx-0 mt-0 mb-0 mud-theme-dark cursor-pointer">
+                        @if (ponto.Status == Dominio.Enumeradores.StatusBatida.Editada)
+                        {
+                            <MudText Typo="Typo.body2" Style="font-size:12px">@ponto.Tipo : [@ponto.Horario.ToString("HH:mm")]</MudText>
+                        }
+                        else
+                        {
+                            <MudText Typo="Typo.body2" Style="font-size:12px">@ponto.Tipo : @ponto.Horario.ToString("HH:mm:ss")</MudText>
+                        }
+                    </MudPaper>
+                </MudItem>
+            }
+        </MudGrid>
+    </MudPaper>
+
+    <MudPopover Open="@abreEdicao" Fixed="true" Class="pa-0 ma-0">
+        <MudPaper Width="268px" Height="268px" Elevation="6" Class="pa-2 mud-theme-secondary">
+            <MudText Typo="Typo.h6" Class="d-flex align-center justify-center">Edição de ponto</MudText>
+            <MudDivider />
+            @if (registroEdicao.Status == Dominio.Enumeradores.StatusBatida.Editada)
+            {
+                <MudTimePicker PickerVariant="PickerVariant.Dialog"
+                               Label="Horário (editado) do Registro"
+                               Adornment="Adornment.Start"
+                               TimeFormat="HH:mm"
+                               Class="py-2"
+                               @bind-Time="horarioEdicao" />
+            }
+            else
+            {
+                <MudTimePicker PickerVariant="PickerVariant.Dialog"
+                               Label="Horário do Registro"
+                               Adornment="Adornment.Start"
+                               TimeFormat="HH:mm:ss"
+                               Class="py-2"
+                               @bind-Time="horarioEdicao" />
+            }
+            <MudStack Row>
+                <MudButton Variant="Variant.Filled"
+                           OnClick="CycleIcons"
+                           DropShadow="false"
+                           StartIcon="@icons[index]"
+                           Size="Size.Small">
+                    <MudText Typo="Typo.body2"
+                             Style="width:220px">@registroEdicao.Tipo</MudText>
+
+                </MudButton>
+                <MudNumericField @bind-Value="registroEdicao.Turno"
+                                 Label="Turno"
+                                 Variant="Variant.Filled"
+                                 Min="1" Max="999" />
+                <MudToggleIconButton @bind-Toggled="marcadoParaExclusao"
+                                     Class="py-0"
+                                     Size="Size.Large"
+                                     Icon="@Icons.Material.Outlined.Delete"
+                                     Color="@Color.Dark"
+                                     ToggledSize="Size.Large"
+                                     ToggledIcon="@Icons.Material.Filled.Delete"
+                                     ToggledColor="@Color.Error" />
+            </MudStack>
+            <MudTextField @bind-Value="registroEdicao.Explicacao"
+                          Label="Explique a alteração"
+                          Placeholder="Explicação é obrigatória"
+                          Typo="Typo.caption"
+                          OnBlur="ValidaExplicacao"
+                          Error="semExplicacao"
+                          Class="py-2"
+                          Variant="Variant.Filled" />
+            <MudDivider />
+            <MudStack Row>
+                @if (marcadoParaExclusao)
+                {
+                    <MudButton Variant="Variant.Filled"
+                               OnClick="SalvaEdicao"
+                               Disabled="semExplicacao"
+                               StartIcon="@Icons.Material.Filled.Delete"
+                               Color="Color.Error"
+                               Class="mt-1"
+                               Style="height:20px; width:85px"
+                               Size="Size.Small">Excluir</MudButton>
+                }
+                else
+                {
+                    <MudButton Variant="Variant.Filled"
+                               OnClick="SalvaEdicao"
+                               Disabled="semExplicacao"
+                               StartIcon="@Icons.Material.Filled.Save"
+                               Color="Color.Success"
+                               Class="mt-1"
+                               Style="height:20px; width:85px"
+                               Size="Size.Small">Salvar</MudButton>
+                }
+
+                <MudSpacer />
+                <MudButton Variant="Variant.Filled"
+                           Onclick="CancelaEdicao"
+                           StartIcon="@Icons.Material.Filled.Cancel"
+                           Color="Color.Warning"
+                           Class="mt-1"
+                           Style="height:20px; width:105px"
+                           Size="Size.Small">Cancelar</MudButton>
+            </MudStack>
+        </MudPaper>
+    </MudPopover>
+
+    <MudPaper Class="ma-1 mud-theme-dark">
+
+        <MudButton OnClick="@(() => {mostrarDetalhesLegais = !mostrarDetalhesLegais;})"
+                   Color="Color.Secondary"
+                   FullWidth="true"
+                   Variant="Variant.Filled">
+            Informações legais
+        </MudButton>
+        <MudCollapse Expanded="mostrarDetalhesLegais">
+            <MudPaper Typo="Typo.body2" Elevation="0" Class="pa-1 mud-theme-dark pointer-events-none" Style="font-size:12px">
+                <p style="padding-bottom:2px"><u>Por que o registro de ponto do devnômetro não tem valor legal?</u></p>
+                <li>O software não passou pelo processo de homologação necessário para habilitá-lo.</li>
+                <li>Não é requerido senha, biometria ou qualquer outra forma de identificação para regritar uma batida de ponto.</li>
+                <li>É permitido alterar livremente uma batida de ponto (mesmo que isso marque ela como editada).</li>
+                <p style="padding-bottom:2px; padding-top:16px"><u>Para que esse registros servem?</u></p>
+                <li>Controle pessoal do desenvolvedor.</li>
+                <li>Como um controle separado para medir quanto do tempo gasto foi atuado de fato como desenvolvedor.</li>
+                <li>Para desenvolvedores autônomos que não tem ferramentas formais de controle de ponto e não precisam de uma homologada.</li>
+                <li>Da mesma forma, serve para hobbistas (ou mesmo profissionais) em seus projetos pessoais fora de ambiente de trabalho.</li>
+
+
+            </MudPaper>
+        </MudCollapse>
+    </MudPaper>
+
+    <MudPaper Class="ma-1 mud-theme-dark">
+        <MudButton OnClick="@(() => {mostrarDetalhesSobre = !mostrarDetalhesSobre;})"
+                   Color="Color.Secondary"
+                   FullWidth="true"
+                   Variant="Variant.Filled">
+            Informações sobre ponto
+        </MudButton>
+        <MudCollapse Expanded="mostrarDetalhesSobre">
+            <MudPaper Typo="Typo.body2" Elevation="0" Class="pa-1 mud-theme-dark pointer-events-none" Style="font-size:12px">
+                <p style="padding-bottom:2px"><u>Pontos de outros dias / outras exportações</u></p>
+                <p style="padding-bottom:2px">É possível visualizar os pontos de outros dias (e gerar exportações avançadas) acessando menu principal do Devnômetro.</p>
+                <p style="padding-bottom:2px">Há também configuções que podem mudar a experiência de registro de ponto.</p>
+
+                <p style="padding-bottom:2px; padding-top:16px"><u>Exclusão de dados de ponto</u></p>
+                <p>Dados de ponto não facilmente excluídos:</p>
+                <li>Excluir uma batida remove ela de vista, mas não remove ela do registro (é possível acessá-la nas exportações avançadas).</li>
+                <li>Excluir histórico de registro mantém os registro em <u>log</u>, permitindo localizá-los abrindo o arquivo físico onde se encontram.</li>
+            </MudPaper>
+        </MudCollapse>
+    </MudPaper>
 </MudDrawer>

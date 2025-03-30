@@ -1,10 +1,6 @@
 ﻿using Devnometro.Dominio.Enumeradores;
 using MudBlazor;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 
 namespace Devnometro.Dominio;
 
@@ -121,6 +117,13 @@ public class PreferenciasPonto
     public bool PrimeiroPontoAutomatico { get; set; } = PrefereciaPadrao.PontoPrimeiroAutomatico;
     public bool AutoExportarComecoDoMes { get; set; } = PrefereciaPadrao.PontoAutoExportarComecoDoMes;
     public string Caminho { get; set; } = PrefereciaPadrao.CaminhoPonto;
+
+    #region Simulador de AFD
+    public bool AFD_HabilitarSimulacao { get; set; } = false;
+    public bool AFD_ConfirmacaoDeCiencia { get; set; } = false;
+    public DateTime? AFD_DataHoraUltimaConfirmacaoDeCiencia { get; set; }
+    [JsonIgnore] public bool AFD_Habilitado { get => AFD_HabilitarSimulacao && AFD_ConfirmacaoDeCiencia; }
+    #endregion
 }
 
 public class PreferenciasCronometro

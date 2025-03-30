@@ -40,14 +40,14 @@
     <MudTooltip Delay=@TooltipPadrao.delay Duration=@TooltipPadrao.duration Color=@TooltipPadrao.corTolltip Placement="Placement.Bottom"  Class="ml-20">
         <ChildContent>
             <MudTextField @bind-Value="Preferencias.Ponto.Caminho"
-                          AdornmentIcon="@Icons.Material.TwoTone.Folder"
-                          Adornment="Adornment.Start"
-                          Margin="Margin.Dense"
-                          Variant="Variant.Text"
-                          OnAdornmentClick="SelecionarPasta"
-                          ReadOnly="true"
-                          Class="pa-0 mx-3"
-                          Style="width:540px"></MudTextField>
+            AdornmentIcon="@Icons.Material.TwoTone.Folder"
+            Adornment="Adornment.Start"
+            Margin="Margin.Dense"
+            Variant="Variant.Text"
+            OnAdornmentClick="SelecionarPasta"
+            ReadOnly="true"
+            Class="pa-0 mx-3"
+            Style="width:540px"></MudTextField>
         </ChildContent>
         <TooltipContent>
             <MudText Typo="Typo.body2">Quando um exportação de registros de ponto</MudText>
@@ -79,6 +79,53 @@
             <MudText Typo="Typo.overline" Style="display:inline">@PrefereciaPadrao.PontoTempoBatidaRepetida s.</MudText>
         </TooltipContent>
     </MudTooltip>
+</MudPaper>
+
+<MudPaper Class="pa-0 pb-2 ma-3" Elevation="3" MaxWidth="575px">
+    <MudText Typo="Typo.h6" Class="pa-0 mx-3 pointer-events-none" Color="Color.Dark">Simulação de AFD</MudText>
+    <MudDivider />
+    <MudCheckBox @bind-Value="Preferencias.Ponto.AFD_HabilitarSimulacao"
+    Disabled="Preferencias.Ponto.AFD_Habilitado"
+    Class="mt-n1 mb-n3"
+    Label="Habilitar simulação de arquivo AFD" />
+    @if (Preferencias.Ponto.AFD_HabilitarSimulacao)
+    {
+        <MudPaper Class="pt-0 pr-3 pb-3 ma-2 mud-theme-warning" Elevation="2">
+            <MudText Typo="Typo.h6" Class="mx-4 mt-2 mb-0">Termo de aceite</MudText>
+            <MudContainer Class="pa-2 mx-3 mud-theme-dark" Style="max-height:200px; min-height:200px; width:98%; overflow-y:scroll">
+                <p style="padding-bottom:8px;">Ao ativar a funcionalidade de simulação de Arquivo AFD (Arquivo Fonte de Dados), você concorda e declara estar ciente de que:</p>
+                <li><b>Este software não segue os requisitos técnicos e legais estabelecidos pelas Portarias 1.510 e 671 do Ministério do Trabalho e Emprego (ou normas subsequentes).</b></li>
+                <li><b>A simulação gerada não possui validade jurídica</b> e não substitui um sistema de registro de ponto oficial homologado, conforme exigido pela legislação trabalhista brasileira.</li>
+                <li><b>O arquivo gerado é apenas para fins de teste, análise ou simulação de integração com sistemas de terceiros</b>, e não deve ser utilizado como comprovação de jornada de trabalho perante órgãos fiscais, empregadores ou ações judiciais.</li>
+                <li><b>O usuário assume toda a responsabilidade</b> pelo uso indevido desta funcionalidade, isentando os desenvolvedores deste software de qualquer consequência legal decorrente de sua utilização irregular.</li>
+                <p style="padding-top:8px;">Marcando a caixa abaixo, você confirma que leu, compreendeu e aceita estas condições.</p>
+            </MudContainer>
+            <MudCheckBox @bind-Value="termoDeAceiteSelecionado"
+            Class="ma-0"
+            Disabled="Preferencias.Ponto.AFD_Habilitado"
+            Label="Li, compreendo e aceito os termos descritos acima." />
+            @if (termoDeAceiteSelecionado)
+            {
+                <MudStack Row>
+                    @if (Preferencias.Ponto.AFD_DataHoraUltimaConfirmacaoDeCiencia.HasValue)
+                    {
+                        <MudText Class="mx-3 pointer-events-none">Termo aceito em: @Preferencias.Ponto.AFD_DataHoraUltimaConfirmacaoDeCiencia.Value.ToString("dd/MM/yyyy - HH:mm")</MudText>
+                    }
+                    else
+                    {
+                        <MudText Class="mx-3 pointer-events-none">Confirmação é irreversível</MudText>
+                    }
+                    <MudSpacer />
+                    <MudButton Variant="Variant.Filled"
+                               OnClick="ConfirmarCiencia"
+                               Disabled="@Preferencias.Ponto.AFD_Habilitado"
+                               StartIcon="@Icons.Material.Filled.Check"
+                               Color="Color.Success"
+                               Size="Size.Small">Confirmar</MudButton>
+                </MudStack>
+            }
+        </MudPaper>
+    }
 </MudPaper>
 
 <MudDivider Class="my-3" />
